@@ -1,0 +1,2618 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.7">
+  <compounddef id="group__chatroom" kind="group">
+    <compoundname>chatroom</compoundname>
+    <title>Chat room and Messaging</title>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__chatroom_1gaebb7d95526380c5c15d26a940f8f0c95" prot="public" static="no">
+        <name>_LinphoneChatMessageState</name>
+        <enumvalue id="group__chatroom_1ggaebb7d95526380c5c15d26a940f8f0c95ae171a0bd65958442e555c212c1bd0e91" prot="public">
+          <name>LinphoneChatMessageStateIdle</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Initial state </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chatroom_1ggaebb7d95526380c5c15d26a940f8f0c95aefe743267c1917171b6865a1f4595396" prot="public">
+          <name>LinphoneChatMessageStateInProgress</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Delivery in progress </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chatroom_1ggaebb7d95526380c5c15d26a940f8f0c95a3deb067e35a26effceb3ca8da87110bd" prot="public">
+          <name>LinphoneChatMessageStateDelivered</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Message succesffully delivered an acknoleged by remote end point </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chatroom_1ggaebb7d95526380c5c15d26a940f8f0c95ae60cbcd9da2cba25ace9a6ddf2f7cf08" prot="public">
+          <name>LinphoneChatMessageStateNotDelivered</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Message was not delivered </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__chatroom_1ggaebb7d95526380c5c15d26a940f8f0c95aee76f661a8dc0817a4cbb8e6193a9cb5" prot="public">
+          <name>LinphoneChatMessageStateFileTransferError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Message was received(and acknowledged) but cannot get file from server </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>LinphoneChatMessageState is used to notify if messages have been succesfully delivered or not. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1246" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1246" bodyend="1252"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__chatroom_1gada79c4417919389b5247e254279f7833" prot="public" static="no">
+        <type>struct _LinphoneChatMessage</type>
+        <definition>typedef struct _LinphoneChatMessage LinphoneChatMessage</definition>
+        <argsstring></argsstring>
+        <name>LinphoneChatMessage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A chat room message to old content to be sent. <linebreak/>
+ Can be created by <ref refid="group__chatroom_1gae728d496de00d1e7abfab5960a1dee8a" kindref="member">linphone_chat_room_create_message()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1218" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" prot="public" static="no">
+        <type>struct _LinphoneChatRoom</type>
+        <definition>typedef struct _LinphoneChatRoom LinphoneChatRoom</definition>
+        <argsstring></argsstring>
+        <name>LinphoneChatRoom</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>A chat room is the place where text messages are exchanged. <linebreak/>
+ Can be created by <ref refid="group__chatroom_1ga84f6a24baf60bb2ca0dbc16f81838ebf" kindref="member">linphone_core_create_chat_room()</ref>. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1218" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__chatroom_1ga0d32dafdad12f343a09fc38fa48df136" prot="public" static="no">
+        <type>enum <ref refid="group__chatroom_1gaebb7d95526380c5c15d26a940f8f0c95" kindref="member">_LinphoneChatMessageState</ref></type>
+        <definition>typedef enum _LinphoneChatMessageState  LinphoneChatMessageState</definition>
+        <argsstring></argsstring>
+        <name>LinphoneChatMessageState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>LinphoneChatMessageState is used to notify if messages have been succesfully delivered or not. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1252" column="1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__chatroom_1ga9101c652a172270c61e4e387b40663c8" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* LinphoneChatMessageStateChangedCb)(LinphoneChatMessage *msg, LinphoneChatMessageState state, void *ud)</definition>
+        <argsstring>)(LinphoneChatMessage *msg, LinphoneChatMessageState state, void *ud)</argsstring>
+        <name>LinphoneChatMessageStateChangedCb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call back used to notify message delivery status <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LinphoneChatMessageState </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>application user data </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1260" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1260" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="group__chatroom_1ga3052624aa5856d0b9098ef5f4e570e34" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>const char* iscomposing_prefix</definition>
+        <argsstring></argsstring>
+        <name>iscomposing_prefix</name>
+        <initializer>= &quot;/xsi:isComposing&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="652" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="652" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__chatroom_1gae954506c6883f8bcac5676159883248e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_disable_chat</definition>
+        <argsstring>(LinphoneCore *lc, LinphoneReason deny_reason)</argsstring>
+        <name>linphone_core_disable_chat</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref></type>
+          <declname>deny_reason</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Inconditionnaly disable incoming chat messages. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>deny_reason</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the deny reason (#LinphoneReasonNone has no effect). </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="227" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="227" bodyend="229"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga938f8622c590cafd0ea63f15ad29781a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_enable_chat</definition>
+        <argsstring>(LinphoneCore *lc)</argsstring>
+        <name>linphone_core_enable_chat</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable reception of incoming chat messages. By default it is enabled but it can be disabled with <ref refid="group__chatroom_1gae954506c6883f8bcac5676159883248e" kindref="member">linphone_core_disable_chat()</ref>. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the core </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="236" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="236" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf8d95d7d0925be52c6325036afa64de3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool_t</type>
+        <definition>bool_t linphone_core_chat_enabled</definition>
+        <argsstring>(const LinphoneCore *lc)</argsstring>
+        <name>linphone_core_chat_enabled</name>
+        <param>
+          <type>const <ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns whether chat is enabled. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="243" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="243" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga936fa841ef09333fd45e495fc1317235" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MSList *</type>
+        <definition>MSList * linphone_core_get_chat_rooms</definition>
+        <argsstring>(LinphoneCore *lc)</argsstring>
+        <name>linphone_core_get_chat_rooms</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns an list of chat rooms <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> object </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A list of <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> objects. <mslist>LinphoneChatRoom</mslist>  </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="252" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="252" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga3e08dcc744deab494dc3e4c2d0f68849" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool_t</type>
+        <definition>static bool_t linphone_chat_room_matches</definition>
+        <argsstring>(LinphoneChatRoom *cr, const LinphoneAddress *from)</argsstring>
+        <name>linphone_chat_room_matches</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+          <declname>from</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="256" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="256" bodyend="258"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga24b0b64033698949252972008600384c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void _linphone_chat_room_destroy</definition>
+        <argsstring>(LinphoneChatRoom *obj)</argsstring>
+        <name>_linphone_chat_room_destroy</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>obj</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="260" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="390" bodyend="400"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga443deb49fce767158e06e8a431fd7827" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>BELLE_SIP_DECLARE_NO_IMPLEMENTED_INTERFACES</definition>
+        <argsstring>(LinphoneChatRoom)</argsstring>
+        <name>BELLE_SIP_DECLARE_NO_IMPLEMENTED_INTERFACES</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="262" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gafa3e92c0afe7eb03d9a4a443c45dd4ae" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>BELLE_SIP_INSTANCIATE_VPTR</definition>
+        <argsstring>(LinphoneChatRoom, belle_sip_object_t,(belle_sip_object_destroy_t) _linphone_chat_room_destroy, NULL, NULL, FALSE)</argsstring>
+        <name>BELLE_SIP_INSTANCIATE_VPTR</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref></type>
+        </param>
+        <param>
+          <type>belle_sip_object_t</type>
+        </param>
+        <param>
+          <type>(belle_sip_object_destroy_t)</type>
+          <declname>_linphone_chat_room_destroy</declname>
+        </param>
+        <param>
+          <type>NULL</type>
+        </param>
+        <param>
+          <type>NULL</type>
+        </param>
+        <param>
+          <type>FALSE</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="264" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga4543782a72fe223d567c06dbef74038d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>static LinphoneChatRoom* _linphone_core_create_chat_room</definition>
+        <argsstring>(LinphoneCore *lc, LinphoneAddress *addr)</argsstring>
+        <name>_linphone_core_create_chat_room</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="271" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="271" bodyend="278"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga2f0f93cfc0737a10e750f9ec90fd2c59" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>static LinphoneChatRoom* _linphone_core_create_chat_room_from_url</definition>
+        <argsstring>(LinphoneCore *lc, const char *to)</argsstring>
+        <name>_linphone_core_create_chat_room_from_url</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="280" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="280" bodyend="286"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga31b8f62132af652fbf4e0d0c8c732ef6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom* _linphone_core_get_chat_room</definition>
+        <argsstring>(LinphoneCore *lc, const LinphoneAddress *addr)</argsstring>
+        <name>_linphone_core_get_chat_room</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="288" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="288" bodyend="299"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga0cdf7ab9da6fe983990997610f808705" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>static LinphoneChatRoom* _linphone_core_get_or_create_chat_room</definition>
+        <argsstring>(LinphoneCore *lc, const char *to)</argsstring>
+        <name>_linphone_core_get_or_create_chat_room</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="301" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="301" bodyend="315"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga5a9a9ed5adf4c484f0e4e883992a5233" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom * linphone_core_get_or_create_chat_room</definition>
+        <argsstring>(LinphoneCore *lc, const char *to)</argsstring>
+        <name>linphone_core_get_or_create_chat_room</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a new chat room for messaging from a sip uri like sip:<ulink url="mailto:joe@sip.linphone.org">joe@sip.linphone.org</ulink> if not already existing, else return exisiting one <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination address for messages </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> where messaging can take place. </para></simplesect>
+<xrefsect id="deprecated_1_deprecated000009"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__chatroom_1gaea65d5975a726903fdd4670a2d06a9a5" kindref="member">linphone_core_get_chat_room()</ref> or <ref refid="group__chatroom_1ga118750e67c4344de53a9fe73e8648eea" kindref="member">linphone_core_get_chat_room_from_uri()</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="324" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="324" bodyend="326"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga84f6a24baf60bb2ca0dbc16f81838ebf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom * linphone_core_create_chat_room</definition>
+        <argsstring>(LinphoneCore *lc, const char *to)</argsstring>
+        <name>linphone_core_create_chat_room</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a new chat room for messaging from a sip uri like sip:<ulink url="mailto:joe@sip.linphone.org">joe@sip.linphone.org</ulink> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>destination address for messages </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> where messaging can take place. </para></simplesect>
+<xrefsect id="deprecated_1_deprecated000010"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__chatroom_1gaea65d5975a726903fdd4670a2d06a9a5" kindref="member">linphone_core_get_chat_room()</ref> or <ref refid="group__chatroom_1ga118750e67c4344de53a9fe73e8648eea" kindref="member">linphone_core_get_chat_room_from_uri()</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="335" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="335" bodyend="337"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaea65d5975a726903fdd4670a2d06a9a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom * linphone_core_get_chat_room</definition>
+        <argsstring>(LinphoneCore *lc, const LinphoneAddress *addr)</argsstring>
+        <name>linphone_core_get_chat_room</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a chat room whose peer is the supplied address. If it does not exist yet, it will be created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the linphone core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a linphone address. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> where messaging can take place. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="345" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="345" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga118750e67c4344de53a9fe73e8648eea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom * linphone_core_get_chat_room_from_uri</definition>
+        <argsstring>(LinphoneCore *lc, const char *to)</argsstring>
+        <name>linphone_core_get_chat_room_from_uri</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get a chat room for messaging from a sip uri like sip:<ulink url="mailto:joe@sip.linphone.org">joe@sip.linphone.org</ulink>. If it does not exist yet, it will be created. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The linphone core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The destination address for messages. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> where messaging can take place. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="359" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="359" bodyend="361"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gae96610dfa25b40037b8dd6511738422f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_room_delete_composing_idle_timer</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_delete_composing_idle_timer</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="363" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="363" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf2f75dbe436e3aec8f9ed08bc8cf270c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_room_delete_composing_refresh_timer</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_delete_composing_refresh_timer</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="372" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="372" bodyend="379"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaedd7e529f07f1f7f256fcb6951f4b1e1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_room_delete_remote_composing_refresh_timer</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_delete_remote_composing_refresh_timer</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="381" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="381" bodyend="388"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaa2ae6260190b412b2183d5b70b7c7ea9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_destroy</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_destroy</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroy a LinphoneChatRoom. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<xrefsect id="deprecated_1_deprecated000011"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__chatroom_1gaf4bb2db36c843ebd85a3e705698c962a" kindref="member">linphone_chat_room_unref()</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="407" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="407" bodyend="409"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga69d12c0831c400010e3fe316569d714b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_release</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_release</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="411" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="411" bodyend="414"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaa13c514e48d7a0248433a07b3afba315" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom * linphone_chat_room_ref</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_ref</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Acquire a reference to the chat room. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The chat room. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The same chat room. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="416" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="416" bodyend="419"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf4bb2db36c843ebd85a3e705698c962a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_unref</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_unref</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Release reference to the chat room. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The chat room. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="421" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="421" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga4a1d54f670249b0f6be6514ec7da02d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * linphone_chat_room_get_user_data</definition>
+        <argsstring>(const LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_get_user_data</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve the user pointer associated with the chat room. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The chat room. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>The user pointer associated with the chat room. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="425" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="425" bodyend="427"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga8a3d47c51304c9ae8d9acdd22e0916b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_set_user_data</definition>
+        <argsstring>(LinphoneChatRoom *cr, void *ud)</argsstring>
+        <name>linphone_chat_room_set_user_data</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Assign a user pointer to the chat room. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The chat room. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The user pointer to associate with the chat room. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="429" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="429" bodyend="431"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga5d8da22e7fb917639f4d44d9d1fb8b21" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void _linphone_chat_room_send_message</definition>
+        <argsstring>(LinphoneChatRoom *cr, LinphoneChatMessage *msg)</argsstring>
+        <name>_linphone_chat_room_send_message</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="38" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="434" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga5d70a868f932e0793991c8aca1289591" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_send_message</definition>
+        <argsstring>(LinphoneChatRoom *cr, const char *msg)</argsstring>
+        <name>linphone_chat_room_send_message</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Send a message to peer member of this chat room. <xrefsect id="deprecated_1_deprecated000012"><xreftitle>Deprecated</xreftitle><xrefdescription><para><ref refid="group__chatroom_1ga6ef733efe6b97e46be6196dcdb95ef76" kindref="member">linphone_chat_room_send_message2()</ref> gives more control on the message expedition. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>message to be sent </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="522" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="522" bodyend="524"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga597137e2bc738e3c94fda6bf94ea664d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_message_received</definition>
+        <argsstring>(LinphoneChatRoom *cr, LinphoneCore *lc, LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_room_message_received</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="526" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="526" bodyend="535"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf34965e6daa1767aaddd962b0c620a91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_message_received</definition>
+        <argsstring>(LinphoneCore *lc, SalOp *op, const SalMessage *sal_msg)</argsstring>
+        <name>linphone_core_message_received</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>SalOp *</type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type>const SalMessage *</type>
+          <declname>sal_msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="537" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="537" bodyend="640"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga9953fe12653c020d14d084c335a79163" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int linphone_chat_room_remote_refresh_composing_expired</definition>
+        <argsstring>(void *data, unsigned int revents)</argsstring>
+        <name>linphone_chat_room_remote_refresh_composing_expired</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>revents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="642" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="642" bodyend="650"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga334d67ccd14d6bd21dc6d6eee234d8d1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void process_im_is_composing_notification</definition>
+        <argsstring>(LinphoneChatRoom *cr, xmlparsing_context_t *xml_ctx)</argsstring>
+        <name>process_im_is_composing_notification</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>xmlparsing_context_t *</type>
+          <declname>xml_ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="654" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="654" bodyend="696"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga24e7daa046b41143b2bf5e9908aa0f43" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_room_notify_is_composing</definition>
+        <argsstring>(LinphoneChatRoom *cr, const char *text)</argsstring>
+        <name>linphone_chat_room_notify_is_composing</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>text</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="698" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="698" bodyend="708"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gab9eff7dca00376c2251dbf20510c569d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_is_composing_received</definition>
+        <argsstring>(LinphoneCore *lc, SalOp *op, const SalIsComposing *is_composing)</argsstring>
+        <name>linphone_core_is_composing_received</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>SalOp *</type>
+          <declname>op</declname>
+        </param>
+        <param>
+          <type>const SalIsComposing *</type>
+          <declname>is_composing</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="710" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="710" bodyend="715"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga31518e8b1774e2f926fe4b62e1082c9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool_t</type>
+        <definition>bool_t linphone_chat_room_is_remote_composing</definition>
+        <argsstring>(const LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_is_remote_composing</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Tells whether the remote is currently composing a message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The "LinphoneChatRoom object corresponding to the conversation. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>TRUE if the remote is currently composing a message, FALSE otherwise. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="717" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="717" bodyend="719"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gae537d461673edcece28ba9726e94d761" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+        <definition>LinphoneCore * linphone_chat_room_get_lc</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_get_lc</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns back pointer to LinphoneCore object. <xrefsect id="deprecated_1_deprecated000013"><xreftitle>Deprecated</xreftitle><xrefdescription><para>use <ref refid="group__chatroom_1ga8f846baed05877542ce048d83c2bccf3" kindref="member">linphone_chat_room_get_core()</ref> </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="725" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="725" bodyend="727"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga8f846baed05877542ce048d83c2bccf3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+        <definition>LinphoneCore * linphone_chat_room_get_core</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_get_core</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns back pointer to LinphoneCore object. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="732" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="732" bodyend="734"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gad87bdc00d505482b7c569c2b0a613749" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+        <definition>const LinphoneAddress * linphone_chat_room_get_peer_address</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_get_peer_address</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>get peer address <ref refid="group__chatroom_1ga84f6a24baf60bb2ca0dbc16f81838ebf" kindref="member">associated to </ref> this <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> peer address </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="741" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="741" bodyend="743"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gae728d496de00d1e7abfab5960a1dee8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+        <definition>LinphoneChatMessage * linphone_chat_room_create_message</definition>
+        <argsstring>(LinphoneChatRoom *cr, const char *message)</argsstring>
+        <name>linphone_chat_room_create_message</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a message attached to a dedicated chat room; <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the chat room. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>text message, NULL if absent. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a new <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="751" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="751" bodyend="760"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf8071a8926ba9f2c6763404e34bfd282" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+        <definition>LinphoneChatMessage * linphone_chat_room_create_message_2</definition>
+        <argsstring>(LinphoneChatRoom *cr, const char *message, const char *external_body_url, LinphoneChatMessageState state, time_t time, bool_t is_read, bool_t is_incoming)</argsstring>
+        <name>linphone_chat_room_create_message_2</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>external_body_url</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1ga0d32dafdad12f343a09fc38fa48df136" kindref="member">LinphoneChatMessageState</ref></type>
+          <declname>state</declname>
+        </param>
+        <param>
+          <type>time_t</type>
+          <declname>time</declname>
+        </param>
+        <param>
+          <type>bool_t</type>
+          <declname>is_read</declname>
+        </param>
+        <param>
+          <type>bool_t</type>
+          <declname>is_incoming</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a message attached to a dedicated chat room; <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the chat room. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>text message, NULL if absent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>external_body_url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the URL given in external body or NULL. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the LinphoneChatMessage.State of the message. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the time_t at which the message has been received/sent. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_read</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TRUE if the message should be flagged as read, FALSE otherwise. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>is_incoming</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>TRUE if the message has been received, FALSE otherwise. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a new <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="773" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="773" bodyend="797"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga6ef733efe6b97e46be6196dcdb95ef76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_send_message2</definition>
+        <argsstring>(LinphoneChatRoom *cr, LinphoneChatMessage *msg, LinphoneChatMessageStateChangedCb status_cb, void *ud)</argsstring>
+        <name>linphone_chat_room_send_message2</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1ga9101c652a172270c61e4e387b40663c8" kindref="member">LinphoneChatMessageStateChangedCb</ref></type>
+          <declname>status_cb</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Send a message to peer member of this chat room. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> message to be sent </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status_cb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LinphoneChatMessageStateChangeCb status callback invoked when message is delivered or could not be delivered. May be NULL </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>ud</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>user data for the status cb. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>The LinphoneChatMessage must not be destroyed until the the callback is called. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="807" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="807" bodyend="812"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga136bca595c50e5bb695be92cca83e502" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>static char* linphone_chat_room_create_is_composing_xml</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_create_is_composing_xml</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="814" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="814" bodyend="867"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gabc793d53436f2354aadddc5b04e962ee" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_room_send_is_composing_notification</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_send_is_composing_notification</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="869" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="869" bodyend="903"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga0c2d798986812998fd93f0e62ed743e3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int linphone_chat_room_stop_composing</definition>
+        <argsstring>(void *data, unsigned int revents)</argsstring>
+        <name>linphone_chat_room_stop_composing</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>revents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="905" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="905" bodyend="913"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga442515647371eed00bc384b182d45456" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>static int linphone_chat_room_refresh_composing</definition>
+        <argsstring>(void *data, unsigned int revents)</argsstring>
+        <name>linphone_chat_room_refresh_composing</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>revents</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="915" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="915" bodyend="919"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga343beafc56b6bef9a967d5f0a9d6851f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_compose</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_compose</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Notifies the destination of the chat message being composed that the user is typing a new message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object corresponding to the conversation for which a new message is being typed. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="921" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="921" bodyend="937"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga661fb082f0920b0eea7acde8f63f76a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * linphone_chat_message_state_to_string</definition>
+        <argsstring>(const LinphoneChatMessageState state)</argsstring>
+        <name>linphone_chat_message_state_to_string</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1ga0d32dafdad12f343a09fc38fa48df136" kindref="member">LinphoneChatMessageState</ref></type>
+          <declname>state</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns a <ref refid="group__chatroom_1ga0d32dafdad12f343a09fc38fa48df136" kindref="member">LinphoneChatMessageState</ref> as a string. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="942" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="942" bodyend="952"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gab79130d37ef661e16973642482e4ab67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+        <definition>LinphoneChatRoom * linphone_chat_message_get_chat_room</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_get_chat_room</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the chatroom this message belongs to. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="957" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="957" bodyend="959"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga67567c770b15d6cc7225f8e96cec8873" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+        <definition>const LinphoneAddress * linphone_chat_message_get_peer_address</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_get_peer_address</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the peer (remote) address for the message. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="964" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="964" bodyend="966"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga242deba97dc6453405f961fef39246b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_set_user_data</definition>
+        <argsstring>(LinphoneChatMessage *message, void *ud)</argsstring>
+        <name>linphone_chat_message_set_user_data</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ud</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User pointer set function </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="971" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="971" bodyend="973"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gacc5964d13307d79f1df709d9b7022365" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * linphone_chat_message_get_user_data</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_user_data</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>User pointer get function </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="978" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="978" bodyend="980"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaefb598bade47a76454ed7698f06044c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * linphone_chat_message_get_external_body_url</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_external_body_url</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Linphone message can carry external body as defined by rfc2017 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>external body url or NULL if not present. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="987" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="987" bodyend="989"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaffab519662201c3477cedfead3ae65dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_set_external_body_url</definition>
+        <argsstring>(LinphoneChatMessage *message, const char *url)</argsstring>
+        <name>linphone_chat_message_set_external_body_url</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>url</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Linphone message can carry external body as defined by rfc2017</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a LinphoneChatMessage </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>url</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>ex: access-type=URL; URL=&quot;http://www.foo.com/file&quot; </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="997" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="997" bodyend="1002"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gacade6e51e0be1cb2e3546501c268e8e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * linphone_chat_message_get_appdata</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_appdata</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Linphone message has an app-specific field that can store a text. The application might want to use it for keeping data over restarts, like thumbnail image path. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the application-specific data or NULL if none has been stored. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1011" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1011" bodyend="1013"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga74cabd3783fee69778767deaaa8e3b4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_set_appdata</definition>
+        <argsstring>(LinphoneChatMessage *message, const char *data)</argsstring>
+        <name>linphone_chat_message_set_appdata</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Linphone message has an app-specific field that can store a text. The application might want to use it for keeping data over restarts, like thumbnail image path.</para><para>Invoking this function will attempt to update the message storage to reflect the changeif it is enabled.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the data to store into the message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1025" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1025" bodyend="1031"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga20bac13f10b827de6442ec05ad1e7bb4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__misc_1gaec435ed53168e70535e64b69a906304b" kindref="member">LinphoneContent</ref> *</type>
+        <definition>const LinphoneContent * linphone_chat_message_get_file_transfer_information</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_file_transfer_information</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the file_transfer_information (used by call backs to recover informations during a rcs file transfer)</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a pointer to the LinphoneContent structure or NULL if not present. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1040" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1040" bodyend="1042"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gad85f48f84eac1b8d392bb762b565d9c2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void on_recv_body</definition>
+        <argsstring>(belle_sip_user_body_handler_t *bh, belle_sip_message_t *msg, void *data, size_t offset, const uint8_t *buffer, size_t size)</argsstring>
+        <name>on_recv_body</name>
+        <param>
+          <type>belle_sip_user_body_handler_t *</type>
+          <declname>bh</declname>
+        </param>
+        <param>
+          <type>belle_sip_message_t *</type>
+          <declname>msg</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>offset</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>buffer</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1044" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1044" bodyend="1056"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga4d457eaedc6b0ef570e6668ae28d417f" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1gaec435ed53168e70535e64b69a906304b" kindref="member">LinphoneContent</ref> *</type>
+        <definition>static LinphoneContent* linphone_chat_create_file_transfer_information_from_headers</definition>
+        <argsstring>(const belle_sip_message_t *message)</argsstring>
+        <name>linphone_chat_create_file_transfer_information_from_headers</name>
+        <param>
+          <type>const belle_sip_message_t *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1059" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1059" bodyend="1083"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga32029215210f6d98d1f3376a35862957" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_process_response_headers_from_get_file</definition>
+        <argsstring>(void *data, const belle_http_response_event_t *event)</argsstring>
+        <name>linphone_chat_process_response_headers_from_get_file</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const belle_http_response_event_t *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1085" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1085" bodyend="1107"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga5047feea105af5a45a62bad774487558" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void linphone_chat_process_response_from_get_file</definition>
+        <argsstring>(void *data, const belle_http_response_event_t *event)</argsstring>
+        <name>linphone_chat_process_response_from_get_file</name>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <param>
+          <type>const belle_http_response_event_t *</type>
+          <declname>event</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1109" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1109" bodyend="1124"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga4723efc251e72bf3453b950e81b83a30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_start_file_download</definition>
+        <argsstring>(LinphoneChatMessage *message, LinphoneChatMessageStateChangedCb status_cb)</argsstring>
+        <name>linphone_chat_message_start_file_download</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1ga9101c652a172270c61e4e387b40663c8" kindref="member">LinphoneChatMessageStateChangedCb</ref></type>
+          <declname>status_cb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Start the download of the file from remote server</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>status_cb</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>LinphoneChatMessageStateChangeCb status callback invoked when file is downloaded or could not be downloaded </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1132" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1132" bodyend="1159"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaad583445b95c4208e4a1648e8b677ea8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_cancel_file_transfer</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_room_cancel_file_transfer</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Cancel an ongoing file transfer attached to this message.(upload or download) <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1165" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1165" bodyend="1173"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf77d70f509da66755bc7bcc4c3efc211" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_set_from_address</definition>
+        <argsstring>(LinphoneChatMessage *message, const LinphoneAddress *from)</argsstring>
+        <name>linphone_chat_message_set_from_address</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+          <declname>from</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set origin of the message <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> obj </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">from</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> origin of this message (copied) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1181" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1181" bodyend="1184"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gabd61f5f3693869b6fa5ad4f731f6e5e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+        <definition>const LinphoneAddress * linphone_chat_message_get_from_address</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_from_address</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get origin of the message <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> obj </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1191" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1191" bodyend="1193"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga3ea6af17c8f82f1d6c74379daa11c23e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_set_to_address</definition>
+        <argsstring>(LinphoneChatMessage *message, const LinphoneAddress *to)</argsstring>
+        <name>linphone_chat_message_set_to_address</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+          <declname>to</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set destination of the message <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> obj </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">to</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> destination of this message (copied) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1200" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1200" bodyend="1203"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaa42a648a0126f4f5192c67eea37b5282" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+        <definition>const LinphoneAddress * linphone_chat_message_get_to_address</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_to_address</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get destination of the message <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> obj </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1210" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1210" bodyend="1216"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gad338768636f947017d1c18edc52b9a92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> *</type>
+        <definition>LinphoneAddress * linphone_chat_message_get_local_address</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_local_address</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the origin address of a message if it was a outgoing message, or the destination address if it was an incoming message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> obj </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1223" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1223" bodyend="1225"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga4e1e898a61341ca4136ab66b2164a380" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>time_t</type>
+        <definition>time_t linphone_chat_message_get_time</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_time</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the time the message was sent. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1230" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1230" bodyend="1232"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga3a1a1c0902cefcb0381f7be04966644f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1ga0d32dafdad12f343a09fc38fa48df136" kindref="member">LinphoneChatMessageState</ref></type>
+        <definition>LinphoneChatMessageState linphone_chat_message_get_state</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_state</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the state of the message <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> obj </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="group__chatroom_1ga0d32dafdad12f343a09fc38fa48df136" kindref="member">LinphoneChatMessageState</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1239" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1239" bodyend="1241"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga3e04036b7866741817b983b5d0c4a81a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * linphone_chat_message_get_text</definition>
+        <argsstring>(const LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_text</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get text part of this message <simplesect kind="return"><para>text or NULL if no text. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1247" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1247" bodyend="1249"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga7f64fe2eb0c031205e92e7e0e33fa811" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_add_custom_header</definition>
+        <argsstring>(LinphoneChatMessage *message, const char *header_name, const char *header_value)</argsstring>
+        <name>linphone_chat_message_add_custom_header</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>header_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>header_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Add custom headers to the message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>name of the header_name </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header_value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>header value </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1257" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1257" bodyend="1259"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga778382ba8e2f351d3631cc4357a82dea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char * linphone_chat_message_get_custom_header</definition>
+        <argsstring>(LinphoneChatMessage *message, const char *header_name)</argsstring>
+        <name>linphone_chat_message_get_custom_header</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>header_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieve a custom header value given its name. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the message </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>header_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>header name searched </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1266" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1266" bodyend="1268"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga5981d1a8152bab00920210495686b61f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool_t</type>
+        <definition>bool_t linphone_chat_message_is_read</definition>
+        <argsstring>(LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_is_read</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns TRUE if the message has been read, otherwise returns FALSE. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1274" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1274" bodyend="1276"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga850ae9e1523cbddb1d668dd984909d2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool_t</type>
+        <definition>bool_t linphone_chat_message_is_outgoing</definition>
+        <argsstring>(LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_is_outgoing</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns TRUE if the message has been sent, returns FALSE if the message has been received. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1282" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1282" bodyend="1284"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gac54b358980f5df0184954202e2395b93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int linphone_chat_message_get_storage_id</definition>
+        <argsstring>(LinphoneChatMessage *message)</argsstring>
+        <name>linphone_chat_message_get_storage_id</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the id used to identify this message in the storage database <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the id </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1291" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1291" bodyend="1293"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gab2fc7998fae75be76e9be29a31c3584e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+        <definition>LinphoneChatMessage * linphone_chat_message_clone</definition>
+        <argsstring>(const LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_clone</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Duplicate a LinphoneChatMessage </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1298" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1298" bodyend="1323"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga5de9eb78775fee4bd6250e3005912aef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_destroy</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_destroy</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroys a LinphoneChatMessage. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1328" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1328" bodyend="1330"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga103a0cf5fa3862f7936ca90958176f9d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void _linphone_chat_message_destroy</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>_linphone_chat_message_destroy</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Destroys a LinphoneChatMessage. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="205" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1336" bodyend="1349"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga39b2e68204593629ee027f7e3b12f297" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+        <definition>LinphoneChatMessage * linphone_chat_message_ref</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_ref</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Acquire a reference to the chat message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the chat message </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the same chat message </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1357" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1357" bodyend="1360"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf5bd43b17bde713d4851d36f672e893a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_message_unref</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_unref</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Release reference to the chat message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the chat message. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1366" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1366" bodyend="1368"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaa00ef99c4b40c776b0122627ab096549" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const <ref refid="group__misc_1ga8f3b35ce44e1284465ac2859ffbb9db7" kindref="member">LinphoneErrorInfo</ref> *</type>
+        <definition>const LinphoneErrorInfo * linphone_chat_message_get_error_info</definition>
+        <argsstring>(const LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_get_error_info</name>
+        <param>
+          <type>const <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get full details about delivery error of a chat message. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>msg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a LinphoneChatMessage </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a LinphoneErrorInfo describing the details. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1375" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1375" bodyend="1377"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga4807d15298e13bac33fbf457daf487c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref></type>
+        <definition>LinphoneReason linphone_chat_message_get_reason</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_get_reason</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1379" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1379" bodyend="1381"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga3f68bf218297a65c2135d2ae1556af54" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+        <definition>LinphoneChatMessage * linphone_chat_room_create_file_transfer_message</definition>
+        <argsstring>(LinphoneChatRoom *cr, LinphoneContent *initial_content)</argsstring>
+        <name>linphone_chat_room_create_file_transfer_message</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__misc_1gaec435ed53168e70535e64b69a906304b" kindref="member">LinphoneContent</ref> *</type>
+          <declname>initial_content</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a message attached to a dedicated chat room with a particular content. Use <ref refid="group__chatroom_1ga6ef733efe6b97e46be6196dcdb95ef76" kindref="member">linphone_chat_room_send_message2</ref> to initiate the transfer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the chat room. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>a</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__misc_1gaec435ed53168e70535e64b69a906304b" kindref="member">LinphoneContent</ref> initial content. <ref refid="struct__LinphoneCoreVTable_1aa98b064179b49d09969c6f0fb4dc4230" kindref="member">LinphoneCoreVTable.file_transfer_send</ref> is invoked later to notify file transfer progress and collect next chunk of the message if <ref refid="struct__LinphoneContent_1a086b012e35d02be9c68c8f0fd4661f39" kindref="member">LinphoneContent.data</ref> is NULL. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a new <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref></para></simplesect>
+Create a message attached to a dedicated chat room with a particular content. Use #linphone_chat_room_file_transfer_send to initiate the transfer <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the chat room. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">initial_content</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__misc_1gaec435ed53168e70535e64b69a906304b" kindref="member">LinphoneContent</ref> initial content. <ref refid="struct__LinphoneCoreVTable_1aa98b064179b49d09969c6f0fb4dc4230" kindref="member">LinphoneCoreVTable.file_transfer_send</ref> is invoked later to notify file transfer progress and collect next chunk of the message if #LinphoneContentSourceType.src_type is set to LINPHONE_CONTENT_SOURCE_CHUNKED_BUFFER. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a new <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" line="1392" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/chat.c" bodystart="1392" bodyend="1406"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga971a0a881b5c9990522ca12e7d2d785b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_set_chat_database_path</definition>
+        <argsstring>(LinphoneCore *lc, const char *path)</argsstring>
+        <name>linphone_core_set_chat_database_path</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the database filename where chat messages will be stored. If the file does not exist, it will be created.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the linphone core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>filesystem path </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1262" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="6356" bodyend="6365"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaf20efd790cb1b2714b46ef5b57408003" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_update_url</definition>
+        <argsstring>(LinphoneChatRoom *cr, LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_room_update_url</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1312" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="535" bodyend="536"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gae858ec1484630c1a04e736a4a317d86a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MSList *</type>
+        <definition>MSList* linphone_chat_room_get_history</definition>
+        <argsstring>(LinphoneChatRoom *cr, int nb_message)</argsstring>
+        <name>linphone_chat_room_get_history</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>nb_message</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1313" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="512" bodyend="514"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga66b0d16bd38d5145f6df8b5262b5bb5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_mark_as_read</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_mark_as_read</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1314" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="509" bodyend="510"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1ga6d872199d2acfb5824fedb73c04b4289" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_delete_message</definition>
+        <argsstring>(LinphoneChatRoom *cr, LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_room_delete_message</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1315" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="520" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gade516340317128699a0210ff01ff7b35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_chat_room_delete_history</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_delete_history</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1316" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="523" bodyend="524"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaad3cb6dd449809aae76fdd00a18c157e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linphone_chat_room_get_history_size</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_get_history_size</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Gets the number of messages in a chat room. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object corresponding to the conversation for which size has to be computed </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the number of messages. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1322" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="542" bodyend="544"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaeab4a3b96b29dd6b628c8d1eb2cf37f1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>MSList *</type>
+        <definition>MSList* linphone_chat_room_get_history_range</definition>
+        <argsstring>(LinphoneChatRoom *cr, int begin, int end)</argsstring>
+        <name>linphone_chat_room_get_history_range</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>begin</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>end</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Gets the partial list of messages in the given range, sorted from oldest to most recent. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">cr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object corresponding to the conversation for which messages should be retrieved </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">begin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The first message of the range to be retrieved. History most recent message has index 0. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">end</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The last message of the range to be retrieved. History oldest message has index of history size - 1 (use <ref refid="group__chatroom_1gaad3cb6dd449809aae76fdd00a18c157e" kindref="member">linphone_chat_room_get_history_size</ref> to retrieve history size) </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A list of <ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> objects. <mslist>LinphoneChatMessage</mslist>  </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1331" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="516" bodyend="518"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gaab5ffe062725ba783ad6152203928d6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linphone_chat_room_get_unread_messages_count</definition>
+        <argsstring>(LinphoneChatRoom *cr)</argsstring>
+        <name>linphone_chat_room_get_unread_messages_count</name>
+        <param>
+          <type><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> *</type>
+          <declname>cr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1346" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="538" bodyend="540"/>
+      </memberdef>
+      <memberdef kind="function" id="group__chatroom_1gad62fb330fbac186fc2bf5c138f981c71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int linphone_chat_message_store</definition>
+        <argsstring>(LinphoneChatMessage *msg)</argsstring>
+        <name>linphone_chat_message_store</name>
+        <param>
+          <type><ref refid="group__chatroom_1gada79c4417919389b5247e254279f7833" kindref="member">LinphoneChatMessage</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1350" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/message_storage.c" bodystart="499" bodyend="501"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="group__chatroom_1gaffad74949fc83993c95f04cd61b40155" prot="public" static="no">
+        <name>linphone_chat_message_set_from</name>
+        <param><defname>msg</defname></param>
+        <param><defname>addr</defname></param>
+        <initializer><ref refid="group__chatroom_1gaf77d70f509da66755bc7bcc4c3efc211" kindref="member">linphone_chat_message_set_from_address</ref>(msg, addr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000020"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__chatroom_1gaf77d70f509da66755bc7bcc4c3efc211" kindref="member">linphone_chat_message_set_from_address()</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1359" column="9" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1359" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__chatroom_1ga6201809af11d783c6619a681829fe546" prot="public" static="no">
+        <name>linphone_chat_message_get_from</name>
+        <param><defname>msg</defname></param>
+        <initializer><ref refid="group__chatroom_1gabd61f5f3693869b6fa5ad4f731f6e5e1" kindref="member">linphone_chat_message_get_from_address</ref>(msg)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000021"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__chatroom_1gabd61f5f3693869b6fa5ad4f731f6e5e1" kindref="member">linphone_chat_message_get_from_address()</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1362" column="9" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1362" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__chatroom_1gae66327c357f8b9487823e1a8e17b8b9a" prot="public" static="no">
+        <name>linphone_chat_message_set_to</name>
+        <param><defname>msg</defname></param>
+        <param><defname>addr</defname></param>
+        <initializer><ref refid="group__chatroom_1ga3ea6af17c8f82f1d6c74379daa11c23e" kindref="member">linphone_chat_message_set_to_address</ref>(msg, addr)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1364" column="9" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__chatroom_1ga140c91cbca50e5df05525434bb76f7b1" prot="public" static="no">
+        <name>linphone_chat_message_get_to</name>
+        <param><defname>msg</defname></param>
+        <initializer><ref refid="group__chatroom_1gaa42a648a0126f4f5192c67eea37b5282" kindref="member">linphone_chat_message_get_to_address</ref>(msg)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><xrefsect id="deprecated_1_deprecated000022"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__chatroom_1gaa42a648a0126f4f5192c67eea37b5282" kindref="member">linphone_chat_message_get_to_address()</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1367" column="9" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="1367" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><bold> Exchanging text messages</bold> <linebreak/>
+ Messages are sent using <ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref> object. First step is to create a <ref refid="group__chatroom_1ga84f6a24baf60bb2ca0dbc16f81838ebf" kindref="member">chat room </ref> from a peer sip uri. <programlisting><codeline><highlight class="normal"><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref>*<sp/>chat_room<sp/>=<sp/><ref refid="group__chatroom_1ga84f6a24baf60bb2ca0dbc16f81838ebf" kindref="member">linphone_core_create_chat_room</ref>(lc,</highlight><highlight class="stringliteral">&quot;sip:joe@sip.linphone.org&quot;</highlight><highlight class="normal">);</highlight></codeline>
+</programlisting></para><para><linebreak/>
+Once created, messages are sent using function <ref refid="group__chatroom_1ga5d70a868f932e0793991c8aca1289591" kindref="member">linphone_chat_room_send_message()</ref> . <programlisting><codeline><highlight class="normal"><ref refid="group__chatroom_1ga5d70a868f932e0793991c8aca1289591" kindref="member">linphone_chat_room_send_message</ref>(chat_room,</highlight><highlight class="stringliteral">&quot;Hello<sp/>world&quot;</highlight><highlight class="normal">);<sp/></highlight><highlight class="comment">/*sending<sp/>message*/</highlight></codeline>
+</programlisting> <linebreak/>
+Incoming message are received from call back LinphoneCoreVTable.text_received <programlisting><codeline><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>text_received(<ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref><sp/>*lc,<sp/><ref refid="group__chatroom_1ga37902f3fc715b7f6451c241d0efd0299" kindref="member">LinphoneChatRoom</ref><sp/>*room,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="group__linphone__address_1ga5af5a516ac253e3cda4f51b599a5385b" kindref="member">LinphoneAddress</ref><sp/>*from,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*message)<sp/>{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;<sp/>Message<sp/>[%s]<sp/>received<sp/>from<sp/>[%s]<sp/>\n&quot;</highlight><highlight class="normal">,message,<ref refid="group__linphone__address_1ga24c1a16f49f8b72f2bab65cc5d8a51af" kindref="member">linphone_address_as_string</ref><sp/>(from));</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting> <linebreak/>
+ A complete tutorial can be found at : <ref refid="group__chatroom__tuto" kindref="compound">Chat room tutorial</ref> </para>    </detaileddescription>
+  </compounddef>
+</doxygen>

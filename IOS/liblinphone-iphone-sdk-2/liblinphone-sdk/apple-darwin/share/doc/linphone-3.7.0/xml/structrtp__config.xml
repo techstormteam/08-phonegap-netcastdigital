@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.7">
+  <compounddef id="structrtp__config" kind="struct" prot="public">
+    <compoundname>rtp_config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structrtp__config_1ae87bd7f817fd9f3721bd3346a94acff9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::audio_rtp_min_port</definition>
+        <argsstring></argsstring>
+        <name>audio_rtp_min_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="545" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="545" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1a02633499450f76b2287dd21bda45394e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::audio_rtp_max_port</definition>
+        <argsstring></argsstring>
+        <name>audio_rtp_max_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="546" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="546" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1ab819048f096545678cb52cce24333282" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::video_rtp_min_port</definition>
+        <argsstring></argsstring>
+        <name>video_rtp_min_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="547" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="547" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1ac7b80b8e0994a1adf4f3971aa71d9978" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::video_rtp_max_port</definition>
+        <argsstring></argsstring>
+        <name>video_rtp_max_port</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="548" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="548" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1aaffa3aac40de41d9985615048d4d8d15" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::audio_jitt_comp</definition>
+        <argsstring></argsstring>
+        <name>audio_jitt_comp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="549" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="549" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1aaed2d88aa0420fd3ca5da8d3f1c7a134" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::video_jitt_comp</definition>
+        <argsstring></argsstring>
+        <name>video_jitt_comp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="550" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="550" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1a985eac89bfa91f525d5564ee24746ce5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::nortp_timeout</definition>
+        <argsstring></argsstring>
+        <name>nortp_timeout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="551" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="551" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1abceca44c4861ed6575638e55e1a57f30" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int rtp_config::disable_upnp</definition>
+        <argsstring></argsstring>
+        <name>disable_upnp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="552" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="552" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1a68b651aed4049fc08d55abf1f6421f08" prot="public" static="no" mutable="no">
+        <type>MSCryptoSuite *</type>
+        <definition>MSCryptoSuite* rtp_config::srtp_suites</definition>
+        <argsstring></argsstring>
+        <name>srtp_suites</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="553" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="553" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1acf31bdb795518916e94bc539909d73da" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t rtp_config::rtp_no_xmit_on_audio_mute</definition>
+        <argsstring></argsstring>
+        <name>rtp_no_xmit_on_audio_mute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="554" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="554" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1a3b34a6a0952bb2be0cd3d2579d7df22e" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t rtp_config::audio_adaptive_jitt_comp_enabled</definition>
+        <argsstring></argsstring>
+        <name>audio_adaptive_jitt_comp_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="556" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="556" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1a5269a2f372408557f00221d82f0045b8" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t rtp_config::video_adaptive_jitt_comp_enabled</definition>
+        <argsstring></argsstring>
+        <name>video_adaptive_jitt_comp_enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="557" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="557" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structrtp__config_1a8382cde842f2d62693d049e5cccab4c8" prot="public" static="no" mutable="no">
+        <type>bool_t</type>
+        <definition>bool_t rtp_config::pad</definition>
+        <argsstring></argsstring>
+        <name>pad</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="558" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="558" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" line="544" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/private.h" bodystart="543" bodyend="559"/>
+    <listofallmembers>
+      <member refid="structrtp__config_1a3b34a6a0952bb2be0cd3d2579d7df22e" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>audio_adaptive_jitt_comp_enabled</name></member>
+      <member refid="structrtp__config_1aaffa3aac40de41d9985615048d4d8d15" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>audio_jitt_comp</name></member>
+      <member refid="structrtp__config_1a02633499450f76b2287dd21bda45394e" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>audio_rtp_max_port</name></member>
+      <member refid="structrtp__config_1ae87bd7f817fd9f3721bd3346a94acff9" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>audio_rtp_min_port</name></member>
+      <member refid="structrtp__config_1abceca44c4861ed6575638e55e1a57f30" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>disable_upnp</name></member>
+      <member refid="structrtp__config_1a985eac89bfa91f525d5564ee24746ce5" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>nortp_timeout</name></member>
+      <member refid="structrtp__config_1a8382cde842f2d62693d049e5cccab4c8" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>pad</name></member>
+      <member refid="structrtp__config_1acf31bdb795518916e94bc539909d73da" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>rtp_no_xmit_on_audio_mute</name></member>
+      <member refid="structrtp__config_1a68b651aed4049fc08d55abf1f6421f08" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>srtp_suites</name></member>
+      <member refid="structrtp__config_1a5269a2f372408557f00221d82f0045b8" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>video_adaptive_jitt_comp_enabled</name></member>
+      <member refid="structrtp__config_1aaed2d88aa0420fd3ca5da8d3f1c7a134" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>video_jitt_comp</name></member>
+      <member refid="structrtp__config_1ac7b80b8e0994a1adf4f3971aa71d9978" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>video_rtp_max_port</name></member>
+      <member refid="structrtp__config_1ab819048f096545678cb52cce24333282" prot="public" virt="non-virtual"><scope>rtp_config</scope><name>video_rtp_min_port</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
