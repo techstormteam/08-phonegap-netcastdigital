@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Audio assistant
-Comment=Linphone audio assistant
-Comment[fr]=Assistant audio de Linphone.
-Type=Application
-Exec=linphone --run-audio-assistant
-Icon=/usr/local/share/pixmaps/linphone/linphone.png
-Terminal=false
-Categories=Network;Telephony;
