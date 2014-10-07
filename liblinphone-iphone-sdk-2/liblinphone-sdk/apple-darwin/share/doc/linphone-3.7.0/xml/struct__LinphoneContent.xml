@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.7">
+  <compounddef id="struct__LinphoneContent" kind="struct" prot="public">
+    <compoundname>_LinphoneContent</compoundname>
+    <includes local="no">linphonecore.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__LinphoneContent_1a8a86c24d70252b4c790085f8d5b94fdc" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* _LinphoneContent::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>mime type for the data, for example &quot;application&quot; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="133" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__LinphoneContent_1a26cbb8fe30763eea41a5b84028dd1f9b" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* _LinphoneContent::subtype</definition>
+        <argsstring></argsstring>
+        <name>subtype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>mime subtype for the data, for example &quot;html&quot; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="134" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__LinphoneContent_1a086b012e35d02be9c68c8f0fd4661f39" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* _LinphoneContent::data</definition>
+        <argsstring></argsstring>
+        <name>data</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the actual data buffer, usually a string. Null when provided by callbacks <ref refid="group__initializing_1ga93702d1596d1819709102783b749e63a" kindref="member">LinphoneCoreFileTransferSendCb</ref> or <ref refid="group__initializing_1ga4a5e46c82c1328b92f32dcf8b538980f" kindref="member">LinphoneCoreFileTransferRecvCb</ref> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="135" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__LinphoneContent_1a6ea21723404888691dbe0aaa547ec4cb" prot="public" static="no" mutable="no">
+        <type>size_t</type>
+        <definition>size_t _LinphoneContent::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>the size of the data buffer, excluding null character despite null character is always set for convenience. When provided by callback <ref refid="group__initializing_1ga93702d1596d1819709102783b749e63a" kindref="member">LinphoneCoreFileTransferSendCb</ref> or <ref refid="group__initializing_1ga4a5e46c82c1328b92f32dcf8b538980f" kindref="member">LinphoneCoreFileTransferRecvCb</ref>, it states the total number of bytes of the transfered file </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="136" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__LinphoneContent_1af4089d2498d3d310ac1d925e9a1d4c90" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* _LinphoneContent::encoding</definition>
+        <argsstring></argsstring>
+        <name>encoding</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The encoding of the data buffer, for example &quot;gzip&quot; </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="138" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__LinphoneContent_1a1ea01894619a2f193dbe2be127b40cf5" prot="public" static="no" mutable="no">
+        <type>char *</type>
+        <definition>char* _LinphoneContent::name</definition>
+        <argsstring></argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>used by RCS File transfer messages to store the original filename of the file to be downloaded from server </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="139" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The LinphoneContent struct holds data that can be embedded in a signaling message. </para>    </detaileddescription>
+    <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="132" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="132" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct__LinphoneContent_1a086b012e35d02be9c68c8f0fd4661f39" prot="public" virt="non-virtual"><scope>_LinphoneContent</scope><name>data</name></member>
+      <member refid="struct__LinphoneContent_1af4089d2498d3d310ac1d925e9a1d4c90" prot="public" virt="non-virtual"><scope>_LinphoneContent</scope><name>encoding</name></member>
+      <member refid="struct__LinphoneContent_1a1ea01894619a2f193dbe2be127b40cf5" prot="public" virt="non-virtual"><scope>_LinphoneContent</scope><name>name</name></member>
+      <member refid="struct__LinphoneContent_1a6ea21723404888691dbe0aaa547ec4cb" prot="public" virt="non-virtual"><scope>_LinphoneContent</scope><name>size</name></member>
+      <member refid="struct__LinphoneContent_1a26cbb8fe30763eea41a5b84028dd1f9b" prot="public" virt="non-virtual"><scope>_LinphoneContent</scope><name>subtype</name></member>
+      <member refid="struct__LinphoneContent_1a8a86c24d70252b4c790085f8d5b94fdc" prot="public" virt="non-virtual"><scope>_LinphoneContent</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

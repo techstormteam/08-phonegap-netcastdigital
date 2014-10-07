@@ -1,0 +1,1546 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.7">
+  <compounddef id="group__misc" kind="group">
+    <compoundname>misc</compoundname>
+    <title>Miscenalleous: logs, version strings, config storage</title>
+    <innerclass refid="struct__LinphoneContent" prot="public">_LinphoneContent</innerclass>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="group__misc_1gaf7346e9b3a064155f3d5d3811d684fb2" prot="public" static="no">
+        <name>_LinphoneReason</name>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2af390378a48e0b30faeac92813c6a50ef" prot="public">
+          <name>LinphoneReasonNone</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2ac71a4d9109f8eb8a9f5961109d505331" prot="public">
+          <name>LinphoneReasonNoResponse</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>No response received from remote </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a481fba28c828e2062c23bd1011d1a5e6" prot="public">
+          <name>LinphoneReasonForbidden</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Authentication failed due to bad credentials or resource forbidden </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a442fce67ace6491eee2f4a94177f34c6" prot="public">
+          <name>LinphoneReasonDeclined</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The call has been declined </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2adf8c424e8f8e89efaf51e187c04ae7d5" prot="public">
+          <name>LinphoneReasonNotFound</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Destination of the call was not found. </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a528a41c31768cff46c03b6a5e2fcb073" prot="public">
+          <name>LinphoneReasonNotAnswered</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>The call was not answered in time (request timeout) </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a8ef78446b3e27f4acd2f69356f7836fa" prot="public">
+          <name>LinphoneReasonBusy</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Phone line was busy </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2ad603c3a9cb747e35349eb4fa0760d877" prot="public">
+          <name>LinphoneReasonUnsupportedContent</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Unsupported content </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a6018a6fcf4fbf14fc8528e41df772b01" prot="public">
+          <name>LinphoneReasonIOError</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Transport error: connection failures, disconnections etc... </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a1a9456d0092d6472a0d9d9a9f3903d7d" prot="public">
+          <name>LinphoneReasonDoNotDisturb</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Do not disturb reason </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2ab7457897bc2f2c0125f7d3580a236689" prot="public">
+          <name>LinphoneReasonUnauthorized</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Operation is unauthorized because missing credential </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2aa48a9c03a443b3f89727823890860f0a" prot="public">
+          <name>LinphoneReasonNotAcceptable</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Operation like call update rejected by peer </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a4f5a4d3401cfdca4fe674574423c43d4" prot="public">
+          <name>LinphoneReasonNoMatch</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Operation could not be executed by server or remote client because it didn&apos;t have any context for it </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2af363d824057c7dc81b9b9547ed2db3ed" prot="public">
+          <name>LinphoneReasonMovedPermanently</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Resource moved permanently </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2aeec5f49f4d8469e70718ee04cc39b787" prot="public">
+          <name>LinphoneReasonGone</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Resource no longer exists </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a75ded372e5686dc2f6ee9269740ea9f7" prot="public">
+          <name>LinphoneReasonTemporarilyUnavailable</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Temporarily unavailable </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a4485dfc349ec155e3b6d25759b9e3b69" prot="public">
+          <name>LinphoneReasonAddressIncomplete</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Address incomplete </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2af4ec78f5d1c2b63cfc2122cd950ea6ac" prot="public">
+          <name>LinphoneReasonNotImplemented</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Not implemented </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a005ef425565c3b5099f783ed40b298b8" prot="public">
+          <name>LinphoneReasonBadGateway</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Bad gateway </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a9f2b51f340cd01ea8014267552860c89" prot="public">
+          <name>LinphoneReasonServerTimeout</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Server timeout </para>          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="group__misc_1ggaf7346e9b3a064155f3d5d3811d684fb2a3fa52bc410a926ff5f5aa519cdd90e94" prot="public">
+          <name>LinphoneReasonUnknown</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Unknown reason </para>          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enum describing various failure reasons or contextual information for some events. <simplesect kind="see"><para><ref refid="group__call__control_1ga312c73999c94f7e59f307423d40d16b2" kindref="member">linphone_call_get_reason()</ref> </para></simplesect>
+<simplesect kind="see"><para><ref refid="group__proxies_1ga245ddcd6772adad4ac8ecc64a10494ce" kindref="member">linphone_proxy_config_get_error()</ref> </para></simplesect>
+<simplesect kind="see"><para><ref refid="group__misc_1ga3297420b41659c4bd1ffb64a1e6b7d64" kindref="member">linphone_error_info_get_reason()</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="166" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="166" bodyend="188"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="group__misc_1gaec435ed53168e70535e64b69a906304b" prot="public" static="no">
+        <type>struct <ref refid="struct__LinphoneContent" kindref="compound">_LinphoneContent</ref></type>
+        <definition>typedef struct _LinphoneContent LinphoneContent</definition>
+        <argsstring></argsstring>
+        <name>LinphoneContent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Alias to the LinphoneContent struct. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="6082" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" prot="public" static="no">
+        <type>enum <ref refid="group__misc_1gaf7346e9b3a064155f3d5d3811d684fb2" kindref="member">_LinphoneReason</ref></type>
+        <definition>typedef enum _LinphoneReason LinphoneReason</definition>
+        <argsstring></argsstring>
+        <name>LinphoneReason</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enum describing failure reasons. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="6082" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__misc_1ga8f3b35ce44e1284465ac2859ffbb9db7" prot="public" static="no">
+        <type>struct _LinphoneErrorInfo</type>
+        <definition>typedef struct _LinphoneErrorInfo LinphoneErrorInfo</definition>
+        <argsstring></argsstring>
+        <name>LinphoneErrorInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Object representing full details about a signaling error or status. All LinphoneErrorInfo object returned by the liblinphone API are readonly and transcients. For safety they must be used immediately after obtaining them. Any other function call to the liblinphone may change their content or invalidate the pointer. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="205" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" bodystart="213" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="group__misc_1ga047b6550aab7dd244268e695fab98fd6" prot="public" static="no">
+        <type>struct _LpConfig</type>
+        <definition>typedef struct _LpConfig LpConfig</definition>
+        <argsstring></argsstring>
+        <name>LpConfig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The LpConfig object is used to manipulate a configuration file.</para><para>The format of the configuration file is a .ini like format:<itemizedlist>
+<listitem><para>sections are defined in []</para></listitem><listitem><para>each section contains a sequence of key=value pairs.</para></listitem></itemizedlist>
+</para><para>Example: <programlisting><codeline><highlight class="normal">[sound]</highlight></codeline>
+<codeline><highlight class="normal">echocanceler=1</highlight></codeline>
+<codeline><highlight class="normal">playback_dev=ALSA:<sp/>Default<sp/>device</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal">[video]</highlight></codeline>
+<codeline><highlight class="normal">enabled=1</highlight></codeline>
+</programlisting> </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="72" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="group__misc_1gad70dc5268366c829238b458547fe5277" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_enable_logs</definition>
+        <argsstring>(FILE *file)</argsstring>
+        <name>linphone_core_enable_logs</name>
+        <param>
+          <type>FILE *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable logs in supplied FILE*.</para><para><xrefsect id="deprecated_1_deprecated000014"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__misc_1ga9de0532e1e1370f0375173bd1a3c8cc8" kindref="member">linphone_core_set_log_file</ref> and <ref refid="group__misc_1ga685b79d92af0184dbeac46df14bf4705" kindref="member">linphone_core_set_log_level</ref> instead.</para></xrefdescription></xrefsect></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a C FILE* where to fprintf logs. If null stdout is used. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="156" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="156" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gad7314fd936348037a14ba56cd2e9093e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_enable_logs_with_cb</definition>
+        <argsstring>(OrtpLogFunc logfunc)</argsstring>
+        <name>linphone_core_enable_logs_with_cb</name>
+        <param>
+          <type>OrtpLogFunc</type>
+          <declname>logfunc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable logs through the user&apos;s supplied log callback.</para><para><xrefsect id="deprecated_1_deprecated000015"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__misc_1ga1916e55f85eb1e3db57629d67a0de0cd" kindref="member">linphone_core_set_log_handler</ref> and <ref refid="group__misc_1ga685b79d92af0184dbeac46df14bf4705" kindref="member">linphone_core_set_log_level</ref> instead.</para></xrefdescription></xrefsect></para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logfunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The address of a OrtpLogFunc callback whose protoype is typedef void (*OrtpLogFunc)(OrtpLogLevel lev, const char *fmt, va_list args); </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="173" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="173" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga2d59af8c097f636ee80dccec5cc87e30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_disable_logs</definition>
+        <argsstring>(void)</argsstring>
+        <name>linphone_core_disable_logs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Entirely disable logging.</para><para><xrefsect id="deprecated_1_deprecated000016"><xreftitle>Deprecated</xreftitle><xrefdescription><para>Use <ref refid="group__misc_1ga685b79d92af0184dbeac46df14bf4705" kindref="member">linphone_core_set_log_level</ref> instead. </para></xrefdescription></xrefsect></para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="185" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="185" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga553b61ad32d7455ce69102025d383f90" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* linphone_core_get_version</definition>
+        <argsstring>(void)</argsstring>
+        <name>linphone_core_get_version</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns liblinphone&apos;s version as a string. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="910" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="910" bodyend="912"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gae5adf09d448504db1338b9cb8505adc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_set_user_agent</definition>
+        <argsstring>(LinphoneCore *lc, const char *name, const char *ver)</argsstring>
+        <name>linphone_core_set_user_agent</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>ver</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets the user agent string used in SIP messages. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="1611" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="1611" bodyend="1618"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga7e53ab3252294690ae91cd3b0bd53583" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linphone_core_play_local</definition>
+        <argsstring>(LinphoneCore *lc, const char *audiofile)</argsstring>
+        <name>linphone_core_play_local</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>audiofile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Plays an audio file to the local user. This function works at any time, during calls, or when no calls are running. It doesn&apos;t request the underlying audio system to support multiple playback streams. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the linphone core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>audiofile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>path to audio file in wav PCM 16 bit format. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="5260" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="5260" bodyend="5270"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga0634038b0304863380c65d6743448cab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+        <definition>LpConfig* linphone_core_get_config</definition>
+        <argsstring>(LinphoneCore *lc)</argsstring>
+        <name>linphone_core_get_config</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the LpConfig object used to manage the storage (config) file.</para><para>The application can use the LpConfig object to insert its own private sections and pairs of key=value in the configuration file. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" line="5643" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="5643" bodyend="5645"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga55b055097d13c171e08ead648869cdc1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* linphone_reason_to_string</definition>
+        <argsstring>(LinphoneReason err)</argsstring>
+        <name>linphone_reason_to_string</name>
+        <param>
+          <type><ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref></type>
+          <declname>err</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Converts a LinphoneReason enum to a string. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="205" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="5966" bodyend="6012"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga2b34635519119512c9c99fd4813c02a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>LinphoneDictionary *</type>
+        <definition>LinphoneDictionary* lp_config_section_to_dict</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section)</argsstring>
+        <name>lp_config_section_to_dict</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Converts a config section into a dictionary. <simplesect kind="return"><para>a #LinphoneDictionary with all the keys from a section, or NULL if the section doesn&apos;t exist </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="240" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/dict.c" bodystart="121" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga7d5d0600002c3cca6423d08b8a5baaa0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_load_dict_to_section</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const LinphoneDictionary *dict)</argsstring>
+        <name>lp_config_load_dict_to_section</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const LinphoneDictionary *</type>
+          <declname>dict</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Loads a dictionary into a section of the lpconfig. If the section doesn&apos;t exist it is created. Overwrites existing keys, creates non-existing keys. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="247" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/dict.c" bodystart="149" bodyend="153"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga1916e55f85eb1e3db57629d67a0de0cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_set_log_handler</definition>
+        <argsstring>(OrtpLogFunc logfunc)</argsstring>
+        <name>linphone_core_set_log_handler</name>
+        <param>
+          <type>OrtpLogFunc</type>
+          <declname>logfunc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Define a log handler.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>logfunc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The function pointer of the log handler. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1689" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="129" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga9de0532e1e1370f0375173bd1a3c8cc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_set_log_file</definition>
+        <argsstring>(FILE *file)</argsstring>
+        <name>linphone_core_set_log_file</name>
+        <param>
+          <type>FILE *</type>
+          <declname>file</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Define a log file.</para><para>If the file pointer passed as an argument is NULL, stdout is used instead.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A pointer to the FILE structure of the file to write to. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1699" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="133" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga685b79d92af0184dbeac46df14bf4705" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_set_log_level</definition>
+        <argsstring>(OrtpLogLevel loglevel)</argsstring>
+        <name>linphone_core_set_log_level</name>
+        <param>
+          <type>OrtpLogLevel</type>
+          <declname>loglevel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Define the log level.</para><para>The loglevel parameter is a bitmask parameter. Therefore to enable only warning and error messages, use ORTP_WARNING | ORTP_ERROR. To disable logs, simply set loglevel to 0.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>loglevel</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>A bitmask of the log levels to set. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1710" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="138" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gaa24a21d623e53f822966384f1906c9e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_serialize_logs</definition>
+        <argsstring>(void)</argsstring>
+        <name>linphone_core_serialize_logs</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Enable logs serialization (output logs from either the thread that creates the linphone core or the thread that calls <ref refid="group__initializing_1ga7bdac8ac386483fc4e0876e4c5d13755" kindref="member">linphone_core_iterate()</ref>). Must be called before creating the linphone core. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="1720" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="190" bodyend="192"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga24c527aea3d90b8b083d954d15f2b0b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+        <definition>LpConfig* linphone_core_create_lp_config</definition>
+        <argsstring>(LinphoneCore *lc, const char *filename)</argsstring>
+        <name>linphone_core_create_lp_config</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Create a LpConfig object from a user config file. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> object </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The filename of the config file to read to fill the instantiated LpConfig </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.h" line="2606" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore.c" bodystart="5647" bodyend="5649"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gadf2204eb2ab519f7b40be868387b9e3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linphone_dial_plan_lookup_ccc_from_iso</definition>
+        <argsstring>(const char *iso)</argsstring>
+        <name>linphone_dial_plan_lookup_ccc_from_iso</name>
+        <param>
+          <type>const char *</type>
+          <declname>iso</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function to get call country code from ISO 3166-1 alpha-2 code, ex: FR returns 33 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>iso</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>country code alpha2 </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>call country code or -1 if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore_utils.h" line="99" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/proxy.c" bodystart="846" bodyend="854"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga38c2e82076bbde91124ae8867320a43c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linphone_dial_plan_lookup_ccc_from_e164</definition>
+        <argsstring>(const char *e164)</argsstring>
+        <name>linphone_dial_plan_lookup_ccc_from_e164</name>
+        <param>
+          <type>const char *</type>
+          <declname>e164</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Function to get call country code from an e164 number, ex: +33952650121 will return 33 <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>e164</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>phone number </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>call country code or -1 if not found </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/linphonecore_utils.h" line="106" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/proxy.c" bodystart="820" bodyend="845"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga964e134940173e3c3bf1a9f90bcad06b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+        <definition>LpConfig* lp_config_new</definition>
+        <argsstring>(const char *filename)</argsstring>
+        <name>lp_config_new</name>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Instantiates a LpConfig object from a user config file. The caller of this constructor owns a reference. <ref refid="group__misc_1gaace020f7929c787f235c9f99f2871205" kindref="member">lp_config_unref()</ref> must be called when this object is no longer needed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the filename of the config file to read to fill the instantiated LpConfig </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="group__misc_1gaeca035860d7412231792c1aa91f75d27" kindref="member">lp_config_new_with_factory</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="65" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="312" bodyend="314"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga88930d78b2666b7ca9d3ada05bcb61e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+        <definition>LpConfig* lp_config_new_from_buffer</definition>
+        <argsstring>(const char *buffer)</argsstring>
+        <name>lp_config_new_from_buffer</name>
+        <param>
+          <type>const char *</type>
+          <declname>buffer</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Instantiates a LpConfig object from a user provided buffer. The caller of this constructor owns a reference. <ref refid="group__misc_1gaace020f7929c787f235c9f99f2871205" kindref="member">lp_config_unref()</ref> must be called when this object is no longer needed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buffer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the buffer from which the lpconfig will be retrieved. We expect the buffer to be null-terminated. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="group__misc_1gaeca035860d7412231792c1aa91f75d27" kindref="member">lp_config_new_with_factory</ref> </para></simplesect>
+<simplesect kind="see"><para><ref refid="group__misc_1ga964e134940173e3c3bf1a9f90bcad06b" kindref="member">lp_config_new</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="75" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="316" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gaeca035860d7412231792c1aa91f75d27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+        <definition>LpConfig* lp_config_new_with_factory</definition>
+        <argsstring>(const char *config_filename, const char *factory_config_filename)</argsstring>
+        <name>lp_config_new_with_factory</name>
+        <param>
+          <type>const char *</type>
+          <declname>config_filename</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>factory_config_filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Instantiates a LpConfig object from a user config file and a factory config file. The caller of this constructor owns a reference. <ref refid="group__misc_1gaace020f7929c787f235c9f99f2871205" kindref="member">lp_config_unref()</ref> must be called when this object is no longer needed.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>config_filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the filename of the user config file to read to fill the instantiated LpConfig </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>factory_config_filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the filename of the factory config file to read to fill the instantiated LpConfig </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="see"><para><ref refid="group__misc_1ga964e134940173e3c3bf1a9f90bcad06b" kindref="member">lp_config_new</ref></para></simplesect>
+The user config file is read first to fill the LpConfig and then the factory config file is read. Therefore the configuration parameters defined in the user config file will be overwritten by the parameters defined in the factory config file. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="89" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="336" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga0c2c509a731d7da74a6671b4147a251d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lp_config_read_file</definition>
+        <argsstring>(LpConfig *lpconfig, const char *filename)</argsstring>
+        <name>lp_config_read_file</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reads a user config file and fill the LpConfig with the read config values.</para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lpconfig</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The LpConfig object to fill with the content of the file </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>filename</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The filename of the config file to read to fill the LpConfig </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="97" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="368" bodyend="378"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga9657ebf1d68b43184a796c9bdc68c29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* lp_config_get_string</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, const char *default_string)</argsstring>
+        <name>lp_config_get_string</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>default_string</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a configuration item as a string, given its section, key, and default value.</para><para>The default value string is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="105" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="425" bodyend="434"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gacce3e95a4b8327d6a8a5f162cbccb5fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool_t</type>
+        <definition>bool_t lp_config_get_range</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, int *min, int *max, int default_min, int default_max)</argsstring>
+        <name>lp_config_get_range</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>min</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>max</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>default_min</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>default_max</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a configuration item as a range, given its section, key, and default min and max values.</para><para><simplesect kind="return"><para>TRUE if the value is successfully parsed as a range, FALSE otherwise. If FALSE is returned, min and max are filled respectively with default_min and default_max values. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="114" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="436" bodyend="453"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga36d08c0cbc78d88fd4f043e61e9b9637" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lp_config_get_int</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, int default_value)</argsstring>
+        <name>lp_config_get_int</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a configuration item as an integer, given its section, key, and default value.</para><para>The default integer value is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="122" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="456" bodyend="468"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga541795495eae7e7b7cde85beb096e20c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t lp_config_get_int64</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, int64_t default_value)</argsstring>
+        <name>lp_config_get_int64</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a configuration item as a 64 bit integer, given its section, key, and default value.</para><para>The default integer value is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="130" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="470" bodyend="480"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gad548422b00d41c9726062869d04cd6e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float lp_config_get_float</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, float default_value)</argsstring>
+        <name>lp_config_get_float</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a configuration item as a float, given its section, key, and default value.</para><para>The default float value is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="138" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="482" bodyend="488"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga2b9f058c7b12d124be96149100d9b079" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_set_string</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const char *key, const char *value)</argsstring>
+        <name>lp_config_set_string</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets a string config item </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="145" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="490" bodyend="509"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga21e9df0d054a1e38f85088f3ac8c7f56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_set_range</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const char *key, int min_value, int max_value)</argsstring>
+        <name>lp_config_set_range</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>min_value</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>max_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets a range config item </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="152" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="511" bodyend="515"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gab7608c4c6b40a734eb00a4b398e47ba5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_set_int</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const char *key, int value)</argsstring>
+        <name>lp_config_set_int</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets an integer config item </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="159" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="517" bodyend="521"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gac5e9e26edea055a3c5b63cc60c45a695" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_set_int_hex</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const char *key, int value)</argsstring>
+        <name>lp_config_set_int_hex</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets an integer config item, but store it as hexadecimal </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="166" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="523" bodyend="527"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga3ce825cbf6fa62ecf0714540459f64b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_set_int64</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const char *key, int64_t value)</argsstring>
+        <name>lp_config_set_int64</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets a 64 bits integer config item </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="173" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="529" bodyend="533"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gaeaa0ff38f2af3cefdf4c401b86ec9197" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_set_float</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section, const char *key, float value)</argsstring>
+        <name>lp_config_set_float</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sets a float config item </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="180" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="536" bodyend="540"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga39f6f202e10581591ac6e68a636236bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lp_config_sync</definition>
+        <argsstring>(LpConfig *lpconfig)</argsstring>
+        <name>lp_config_sync</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Writes the config file to disk. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="187" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="568" bodyend="586"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga15bf033627637f54ebc03380d5dfb2d1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lp_config_has_section</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section)</argsstring>
+        <name>lp_config_has_section</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns 1 if a given section is present in the configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="194" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="588" bodyend="591"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga8ea8060c147dd9584644c52d4cd59a17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_clean_section</definition>
+        <argsstring>(LpConfig *lpconfig, const char *section)</argsstring>
+        <name>lp_config_clean_section</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Removes every pair of key,value in a section and remove the section. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="201" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="615" bodyend="621"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga3b8ef5436c281cfe1f79dd3421d0e9af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_for_each_section</definition>
+        <argsstring>(const LpConfig *lpconfig, void(*callback)(const char *section, void *ctx), void *ctx)</argsstring>
+        <name>lp_config_for_each_section</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>void(*)(const char *section, void *ctx)</type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call a function for each section present in the configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="208" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="593" bodyend="600"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga2595b0b6d2133c44de3664e25f756f2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_for_each_entry</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, void(*callback)(const char *entry, void *ctx), void *ctx)</argsstring>
+        <name>lp_config_for_each_entry</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>void(*)(const char *entry, void *ctx)</type>
+          <declname>callback</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>ctx</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Call a function for each entry present in a section configuration. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="215" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="602" bodyend="613"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga588638bfdd889e404a796e8e076f5577" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int lp_config_get_default_int</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, int default_value)</argsstring>
+        <name>lp_config_get_default_int</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a default configuration item as an integer, given its section, key, and default value.</para><para>The default integer value is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="228" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="629" bodyend="635"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gaeda462063c073ec903f913e0d4f922d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int64_t</type>
+        <definition>int64_t lp_config_get_default_int64</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, int64_t default_value)</argsstring>
+        <name>lp_config_get_default_int64</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>int64_t</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a default configuration item as a 64 bit integer, given its section, key, and default value.</para><para>The default integer value is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="236" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="637" bodyend="643"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga22abd48c51cca616812a8d1339582745" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float lp_config_get_default_float</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, float default_value)</argsstring>
+        <name>lp_config_get_default_float</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a default configuration item as a float, given its section, key, and default value.</para><para>The default float value is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="244" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="645" bodyend="651"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gac0d76159d13111d5793c1877a5afde62" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* lp_config_get_default_string</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, const char *default_value)</argsstring>
+        <name>lp_config_get_default_string</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a default configuration item as a string, given its section, key, and default value.</para><para>The default value string is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="252" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="653" bodyend="659"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga87d6366ad2d7722178ba153254b5d3b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* lp_config_get_section_param_string</definition>
+        <argsstring>(const LpConfig *lpconfig, const char *section, const char *key, const char *default_value)</argsstring>
+        <name>lp_config_get_section_param_string</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>section</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>key</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>default_value</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retrieves a section parameter item as a string, given its section and key.</para><para>The default value string is returned if the config item isn&apos;t found. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="260" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="414" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga1b9cef775c85250a7420bdb121fa11a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+        <definition>LpConfig* lp_config_ref</definition>
+        <argsstring>(LpConfig *lpconfig)</argsstring>
+        <name>lp_config_ref</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>increment reference count </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="267" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="394" bodyend="397"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gaace020f7929c787f235c9f99f2871205" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void lp_config_unref</definition>
+        <argsstring>(LpConfig *lpconfig)</argsstring>
+        <name>lp_config_unref</name>
+        <param>
+          <type><ref refid="group__misc_1ga047b6550aab7dd244268e695fab98fd6" kindref="member">LpConfig</ref> *</type>
+          <declname>lpconfig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Decrement reference count, which will eventually free the object. </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.h" line="273" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/lpconfig.c" bodystart="399" bodyend="403"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1ga3297420b41659c4bd1ffb64a1e6b7d64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref></type>
+        <definition>LinphoneReason linphone_error_info_get_reason</definition>
+        <argsstring>(const LinphoneErrorInfo *ei)</argsstring>
+        <name>linphone_error_info_get_reason</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga8f3b35ce44e1284465ac2859ffbb9db7" kindref="member">LinphoneErrorInfo</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get reason code from the error info. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ei</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the error info. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a <ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref> </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" line="1278" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" bodystart="1278" bodyend="1281"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gad9b4b4688a97c4de2ce1c9b77748ff16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* linphone_error_info_get_phrase</definition>
+        <argsstring>(const LinphoneErrorInfo *ei)</argsstring>
+        <name>linphone_error_info_get_phrase</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga8f3b35ce44e1284465ac2859ffbb9db7" kindref="member">LinphoneErrorInfo</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get textual phrase from the error info. This is the text that is provided by the peer in the protocol (SIP). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ei</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the error info. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the error phrase </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" line="1290" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" bodystart="1290" bodyend="1293"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gae1f6626b2d2e029f9d0761686e299f5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* linphone_error_info_get_details</definition>
+        <argsstring>(const LinphoneErrorInfo *ei)</argsstring>
+        <name>linphone_error_info_get_details</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga8f3b35ce44e1284465ac2859ffbb9db7" kindref="member">LinphoneErrorInfo</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Provides additional information regarding the failure. With SIP protocol, the &quot;Reason&quot; and &quot;Warning&quot; headers are returned. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ei</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the error info. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>more details about the failure. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" line="1302" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" bodystart="1302" bodyend="1305"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gac4ea3eb351188c7219852246a96127a7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int linphone_error_info_get_protocol_code</definition>
+        <argsstring>(const LinphoneErrorInfo *ei)</argsstring>
+        <name>linphone_error_info_get_protocol_code</name>
+        <param>
+          <type>const <ref refid="group__misc_1ga8f3b35ce44e1284465ac2859ffbb9db7" kindref="member">LinphoneErrorInfo</ref> *</type>
+          <declname>ei</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get the status code from the low level protocol (ex a SIP status code). <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ei</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the error info. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>the status code. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" line="1313" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" bodystart="1313" bodyend="1316"/>
+      </memberdef>
+      <memberdef kind="function" id="group__misc_1gaf4dc8b43dba38051b349985262c4a3ce" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void linphone_core_set_call_error_tone</definition>
+        <argsstring>(LinphoneCore *lc, LinphoneReason reason, const char *audiofile)</argsstring>
+        <name>linphone_core_set_call_error_tone</name>
+        <param>
+          <type><ref refid="group__initializing_1gaa5cf635b82dd338e7ee2dd3599d05f0a" kindref="member">LinphoneCore</ref> *</type>
+          <declname>lc</declname>
+        </param>
+        <param>
+          <type><ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref></type>
+          <declname>reason</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>audiofile</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Assign an audio file to be played locally upon call failure, for a given reason. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the core </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>reason</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>the <ref refid="group__misc_1gabe82a1a1ffc3d6b4e0b51a03028513b7" kindref="member">LinphoneReason</ref> representing the failure error code. </para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>audiofile</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a wav file to be played when such call failure happens. </para></parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" line="1470" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/misc.c" bodystart="1470" bodyend="1472"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.7">
+  <compounddef id="structon__action__suggested__struct" kind="struct" prot="public">
+    <compoundname>on_action_suggested_struct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structon__action__suggested__struct_1a4d235a5e5418f283dcfbe1f16fd2b9b7" prot="public" static="no" mutable="no">
+        <type><ref refid="group__call__control_1gac0a4861d7c4702c64f7106f2b893c69e" kindref="member">LinphoneCall</ref> *</type>
+        <definition>LinphoneCall* on_action_suggested_struct::call</definition>
+        <argsstring></argsstring>
+        <name>call</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/quality_reporting.c" line="409" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/quality_reporting.c" bodystart="409" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structon__action__suggested__struct_1a3afd61d4124e8d4187b24f446cf98289" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int on_action_suggested_struct::stats_type</definition>
+        <argsstring></argsstring>
+        <name>stats_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/quality_reporting.c" line="410" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/quality_reporting.c" bodystart="410" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/quality_reporting.c" line="408" column="1" bodyfile="/Users/buildbot/buildslave/linphone-ios/build/submodules/linphone/coreapi/quality_reporting.c" bodystart="408" bodyend="411"/>
+    <listofallmembers>
+      <member refid="structon__action__suggested__struct_1a4d235a5e5418f283dcfbe1f16fd2b9b7" prot="public" virt="non-virtual"><scope>on_action_suggested_struct</scope><name>call</name></member>
+      <member refid="structon__action__suggested__struct_1a3afd61d4124e8d4187b24f446cf98289" prot="public" virt="non-virtual"><scope>on_action_suggested_struct</scope><name>stats_type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
