@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Connect</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="manage-connects.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Add Connect</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <div data-role="fieldcontain">
+                    <label for="destination_number">Destination Number:</label>
+                    <input id="destination_number" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="destination_name">Destination Name:</label>
+                    <input id="destination_name" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Connect Destination To Local Number</button>
+                </div>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            $('#destination_number').keyup(function() {
+                var ref = $.trim($('#destination_number').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#destination_number').val(ref);
+            });
+            
+            balance_display_in_button(); 
+            
+            function check_form() {
+                $('#message').html('');
+
+                var user = global.getUser();
+                var user_id = user.getId();
+                var destination_number = $.trim($('#destination_number').val());
+                var destination_name = $.trim($('#destination_name').val());
+                if (destination_number === '') {
+                    $('#message').html('<span style="color:red;">Destination number is required field</span>');
+                } else if (destination_name === '') {
+                    $('#message').html('<span style="color:red;">Destination name is required field</span>');
+                } else {
+                    global.api('connect_add', {user_id: user_id, destination_number: destination_number, destination_name: destination_name},
+                    connect_add_response);
+                }
+            }
+            
+            function connect_add_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Schedule</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="follow-me.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Create Schedule</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <div data-role="fieldcontain">
+                    <label for="diversion_rule">Diversion Rule:</label>
+                    <select id="diversion_rule"></select>                   
+                </div>              
+                <div data-role="fieldcontain">
+                    <label for="divert_from">Divert From:</label>
+                    <select id="divert_from"></select>
+                </div>               
+                <div data-role="fieldcontain">
+                    <label for="day_of_week">Day of Diversion:</label>
+                    <select id="day_of_week">
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="start_time">Start Time of Day:</label>
+                    <select id="start_time">
+                        <option value="12:00 AM">12:00 AM</option>
+                        <option value="12:30 AM">12:30 AM</option>
+                        <option value="01:00 AM">01:00 AM</option>
+                        <option value="01:30 AM">01:30 AM</option>
+                        <option value="02:00 AM">02:00 AM</option>
+                        <option value="02:30 AM">02:30 AM</option>
+                        <option value="03:00 AM">03:00 AM</option>
+                        <option value="03:30 AM">03:30 AM</option>
+                        <option value="04:00 AM">04:00 AM</option>
+                        <option value="04:30 AM">04:30 AM</option>
+                        <option value="05:00 AM">05:00 AM</option>
+                        <option value="05:30 AM">05:30 AM</option>
+                        <option value="06:00 AM">06:00 AM</option>
+                        <option value="06:30 AM">06:30 AM</option>
+                        <option value="07:00 AM">07:00 AM</option>
+                        <option value="07:30 AM">07:30 AM</option>
+                        <option value="08:00 AM">08:00 AM</option>
+                        <option value="08:30 AM">08:30 AM</option>
+                        <option value="09:00 AM">09:00 AM</option>
+                        <option value="09:30 AM">09:30 AM</option>
+                        <option value="10:00 AM">10:00 AM</option>
+                        <option value="10:30 AM">10:30 AM</option>
+                        <option value="11:00 AM">11:00 AM</option>
+                        <option value="11:30 AM">11:30 AM</option>
+                        <option value="12:00 PM">12:00 PM</option>
+                        <option value="12:30 PM">12:30 PM</option>
+                        <option value="01:00 PM">01:00 PM</option>
+                        <option value="01:30 PM">01:30 PM</option>
+                        <option value="02:00 PM">02:00 PM</option>
+                        <option value="02:30 PM">02:30 PM</option>
+                        <option value="03:00 PM">03:00 PM</option>
+                        <option value="03:30 PM">03:30 PM</option>
+                        <option value="04:00 PM">04:00 PM</option>
+                        <option value="04:30 PM">04:30 PM</option>
+                        <option value="05:00 PM">05:00 PM</option>
+                        <option value="05:30 PM">05:30 PM</option>
+                        <option value="06:00 PM">06:00 PM</option>
+                        <option value="06:30 PM">06:30 PM</option>
+                        <option value="07:00 PM">07:00 PM</option>
+                        <option value="07:30 PM">07:30 PM</option>
+                        <option value="08:00 PM">08:00 PM</option>
+                        <option value="08:30 PM">08:30 PM</option>
+                        <option value="09:00 PM">09:00 PM</option>
+                        <option value="09:30 PM">09:30 PM</option>
+                        <option value="10:00 PM">10:00 PM</option>
+                        <option value="10:30 PM">10:30 PM</option>
+                        <option value="11:00 PM">11:00 PM</option>
+                        <option value="11:30 PM">11:30 PM</option>
+
+                    </select>
+
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Create Schedule</button>
+                </div>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+                        app.initialize();
+                        if (global.get('auth') === null) {
+                            window.location = 'login.html';
+                        }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            balance_display_in_button();  
+            global.api('rules_and_schedules', {user_id: user_id}, rules_and_schedules_result);
+            function rules_and_schedules_result(result) {
+                var rules = result.details['rules'];
+                var schedules = result.details['schedules'];
+                var phones = result.details['phones'];
+                var rows_diversion_rule = '';
+                var rows_divert_from = '';
+
+                if ((rules).length < 1) {
+                    var row = '';
+                    row += '<option value="">- No Diversion Rules -</option>';
+                } else {
+                    for (var i = 0; i < rules.length; i++) {
+                        var rule = phones[i];
+                        row += '<option value="' + rule['profileID'] + '">' + rule['name'] + '</option>';
+                    }
+                }
+                rows_diversion_rule += row;
+                $('#diversion_rule').html(rows_diversion_rule);
+
+                if ((phones).length < 1) {
+                    var row = '';
+                    row += '<option value="">- No FollowMe Numbers of Email -</option>';
+                } else {
+                    for (var i = 0; i < phones.length; i++) {
+                        var phone = phones[i];
+                        row += '<option value="' + phone['telno'] + '">' + phone['telno'] + '</option>';
+                    }
+                }
+                rows_divert_from += row;
+                $('#divert_from').html(rows_divert_from);
+            }
+
+            function check_form() {
+                $('#message').html('');
+
+                var user = global.getUser();
+                var user_id = user.getId();
+                var diversion_rule = $.trim($('#diversion_rule').val());
+                var divert_from = $.trim($('#divert_from').val());
+                var day_of_week = $.trim($('#day_of_week').val());
+                var start_time = $.trim($('#start_time').val());
+
+                global.api('schedule_create', {user_id: user_id, diversion_rule: diversion_rule, divert_from: divert_from,
+                    day_of_week: day_of_week, start_time: start_time},
+                schedule_create_response);
+            }
+            function schedule_create_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

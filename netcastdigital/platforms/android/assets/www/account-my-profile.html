@@ -1,0 +1,215 @@
+<html>
+    <head>
+        <title>Profile details </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="account.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Profile details </h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <p style="font-size:10px; font-family:Segoe UL Thin;">
+                    You can check and update your details here. Please enter a validation code for updates to your email,
+                    phone or app host telephone number. For these fields, we will send you a validation code to the newly
+                    supplied telephone number/email address
+                </p>  
+
+                <div data-role="fieldcontain">
+                    <label for="first_name">First name:</label>
+                    <input id="first_name" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="last_name">Last name:</label>
+                    <input id="last_name" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="address">Address:</label>
+                    <input id="address" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="city">City:</label>
+                    <input id="city" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="state">State:</label>
+                    <input id="state" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="country">Country:</label>
+                    <input id="country" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="zip_code">Zip code:</label>
+                    <input id="zip_code" value=""  />
+                </div>
+                <div id="caller_id_view" data-role="fieldcontain">
+                    <label for="caller_id">CallerID:</label>
+                    <select id="caller_id">
+                        <option value="AUTO">AUTO</option>
+                        <option value="UK">UK</option>
+                        <option value="USA">USA</option>
+                        <option value="NGA">NGA</option>
+                        <option value="UK-FORCE">UK-FORCE</option>
+                        <option value="USA-FORCE">USA-FORCE</option>
+                        <option value="NGA-FORCE">NGA-FORCE</option>
+                    </select>
+                </div>
+                <div id="call_notification_view" data-role="fieldcontain">
+                    <label for="call_notification">Caller Notification:</label>
+                    <select id="call_notification">
+                        <option value="ON">ON</option>
+                        <option value="OFF">OFF</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="email">Email:</label>
+                    <input id="email" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="email_validation_code">Email Validation Code:</label>
+                    <button id="submit" onclick="get_code($('#email').val());" data-theme="b">Get Validation Code</button>
+                    <input id="email_validation_code" value=""/>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="phone">Phone:</label>
+                    <input id="phone" value=""  />
+                </div>
+                <!--div data-role="fieldcontain">
+                    <label for="phone_validation_code">Phone Validation Code:</label>
+                    <button id="submit" onclick="get_code($('#phone').val());" data-theme="b">Get Code</button>
+                    <input id="phone_validation_code" value=""/>
+                </div-->
+                <!--div data-role="fieldcontain">
+                    <label for="app_host_telno">App Host Telno:</label>
+                    <input id="app_host_telno" value=""  />
+                </div-->
+                <!--div data-role="fieldcontain">
+                    <label for="host_validation_code">Host Validation Code:</label>
+                    <button id="submit" onclick="get_code($('#app_host_telno').val());" data-theme="b">Get Code</button>
+                    <input id="host_validation_code" value=""/>
+                </div-->
+
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Submit</button>
+                </div>
+            </div>
+            <!-- END: Content -->
+            <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+            </script>
+            <script>
+                var user = global.getUser();
+                var user_id = user.getId();
+                balance_display_in_button();
+                global.api('get_profile', {user_id: user_id}, profile_fill);
+
+                function profile_fill(result) {
+                    var user = result.details['user'];
+                    var call_notification = result.details['call_notification'];
+                    var web_profile_caller_id = result.details['web_profile_caller_id'];
+                    var web_profile_call_notification = result.details['web_profile_call_notification'];
+                    
+                    $('#first_name').val(user['firstname']);
+                    $('#last_name').val(user['lastname']);
+                    $('#address').val(user['address']);
+                    $('#city').val(user['city']);
+                    $('#state').val(user['state']);
+                    $('#country').val(user['country']);
+                    $('#caller_id').val(user['callerid_autoswitch']);
+                    $('#caller_id').select('refresh');
+                    $('#call_notification').val(call_notification);
+                    $('#call_notification').select('refresh');
+                    
+                    $('#zip_code').val(user['zipcode']);
+                    $('#email').val(user['email']);
+                    $('#phone').val(user['phone']);
+                    $('#app_host_telno').val(user['dextersim_app_host']);
+                    
+                    if(web_profile_caller_id !== '1'){
+                        $('#caller_id_view').hide();
+                    }
+                    if(web_profile_call_notification !== '1'){
+                        $('#call_notification_view').hide();
+                    }
+                }
+
+                function get_code(value) {
+                    global.api('get_code', {user_id: user_id, value: value}, get_code_response);
+                }
+                function get_code_response(response) {
+                    if (response.result === 'success') {
+                        alert(response.details);
+                        window.location.href = 'index.html';
+                    } else {
+                        $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    }
+                }
+
+                function check_form() {
+                    $('#message').html('');
+                    var first_name = $('#first_name').val();
+                    var last_name = $.trim($('#last_name').val());
+                    var address = $.trim($('#address').val());
+                    var city = $.trim($('#city').val());
+                    var state = $.trim($('#state').val());
+                    var country = $.trim($('#country').val());
+                    var zip_code = $.trim($('#zip_code').val());
+                    var email = $.trim($('#email').val());
+                    var email_validation_code = $.trim($('#email_validation_code').val());
+                    var phone = $.trim($('#phone').val());
+                    var phone_validation_code = $.trim($('#phone_validation_code').val());
+                    var app_host_telno = $.trim($('#app_host_telno').val());
+                    var host_validation_code = $.trim($('#host_validation_code').val());
+                    var caller_id = $.trim($('#caller_id').val());
+                    var call_notification = $.trim($('#call_notification').val());
+                    
+                    if (phone === '') {
+                        var msg = "<span style='color:red;'>Please enter phone...</span>";
+                        $('#message').html(msg).show();
+                        return;
+                    }
+
+                    global.api('change_profile', {user_id: user_id, first_name: first_name, last_name: last_name, address: address,
+                        city: city, state: state, country: country, zip_code: zip_code, email: email,
+                        email_validation_code: email_validation_code, phone: phone, phone_validation_code: phone_validation_code,
+                        app_host_telno: app_host_telno, host_validation_code: host_validation_code, caller_id: caller_id,
+                        call_notification: call_notification}, change_profile_response);
+                }
+
+                function change_profile_response(response) {
+                    if (response.result === 'success') {
+                        alert(response.details);
+                        window.location.href = 'calling-circles.html';
+                    } else {
+                        $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    }
+                }
+
+            </script>
+        </div>
+    </body>
+</html>

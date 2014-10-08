@@ -1,0 +1,93 @@
+<head>
+    <title>Credit Transfer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <script src="js/jquery/jquery.js"></script>
+    <script src="js/jquery-mobile/jquery.mobile.js"></script>
+    <script type="text/javascript" src="js/class.user.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+    <div data-role="page" data-add-back-btn="true">
+        <!-- START: Title -->
+        <div data-role="header">
+            <a href="payment-create.html" rel="external" data-icon="back" class="button_back">Back</a>
+            <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+            <h1 id="title">Credit Transfer</h1>
+        </div>
+        <!-- END: Title -->
+
+        <!-- START: Content -->
+        <div data-role="content">
+            <!-- START: Message Board -->
+            <div id="message"></div>
+            <!-- END: Message Board -->
+            <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                Make Payment
+            </button>
+            <div id="telno_row"  data-role="fieldcontain">
+                <label for="telno">Telno:</label>
+                <input id="telno" value=""  />
+            </div>
+            <div id="value_row"  data-role="fieldcontain">
+                <label for="value">Value<span id="currency_symbol"></span>:</label>
+                <input id="value" value=""  />
+            </div>
+            <div id="notes_row"  data-role="fieldcontain">
+                <label for="notes">Notes:</label>
+                <textarea id="notes"></textarea>
+            </div>
+            <div data-role="fieldcontain">
+                <button id="submit" onclick="check_form();" data-theme="b">Submit</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        app.initialize();
+        if (global.get('auth') === null) {
+            window.location = 'login.html';
+        }
+    </script>
+    <script>
+        var user = global.getUser();
+        var user_id = user.getId();
+        var currency = user.getCurrency();
+        balance_display_in_button();
+
+        $('#telno').keyup(function () {
+            var ref = $.trim($('#telno').val());
+
+            ref = ref.replace(/\D/g, '');
+            $('#telno').val(ref);
+        });
+
+
+        global.api('get_currency_symbol', {currency: currency}, get_currency_symbol);
+        function get_currency_symbol(response) {
+            var currency_symbol = response.details;
+
+            $('#currency_symbol').html(' (' + currency_symbol + ')');
+        }
+
+        function check_form() {
+            var telno = $.trim($('#telno').val());
+            var value = $.trim($('#value').val());
+            var notes = $.trim($('#notes').val());
+
+            global.api('user_transfer_credits', {user_id: user_id, telno: telno, value: value, notes: notes}, user_transfer_credits_response);
+        }
+
+        function  user_transfer_credits_response(response) {
+            if (response.result === 'success') {
+                alert(response.details);
+                window.location.href = 'index.html';
+            } else {
+                $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+            }
+        }
+    </script>
+</body>
+</html>

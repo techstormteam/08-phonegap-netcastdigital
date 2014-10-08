@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <title>Add Circles</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="calling-circles.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Add Circles</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                 <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <p style="font-size:10px; font-family:Segoe UL Thin;">
+                    For international CUGs/Calling Circles, simply enter your calling partner's land line telno e.g. 44123456789.
+                    We will provide them with a permanent local foreign landline number, which they can always use to call you
+                    on an unlimited basis 
+                </p>  
+
+                <div data-role="fieldcontain">
+                    <label for="circle_id">Circle/CUG:</label>
+                    <select id="circle_id" onchange="cug_changed(this.value);">
+                        <option value="NEW">*New</option>
+                    </select>
+                </div>
+                <div id="cug_group_row" data-role="fieldcontain">
+                    <label for="group">Group Type:</label>
+                    <select id="group">
+                        <option value="CUG">Closed User Groups</option>
+                        <option value="CIRCLE">Calling Circles</option>
+                    </select>
+                </div>
+                <div id="cug_name_row"  data-role="fieldcontain">
+                    <label for="cug_name">Group Name:</label>
+                    <input id="cug_name" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="phone">Phone:</label>
+                    <input id="phone" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="email">Email:</label>
+                    <input id="email" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Submit</button>
+                </div>
+
+            </div>
+            <!-- END: Content -->
+            <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+            </script>
+            <script>
+                var user = global.getUser();
+                var user_id = user.getId();
+                balance_display_in_button(); 
+                global.api('circles_by_user_id', {user_id: user_id}, circles_fill);
+
+                function circles_fill(result) {
+                    var circles = result.details['calling_circles'];
+                    for (var i = 0; i < circles.length; i++) {
+                        var circle = circles[i];
+                        var circle_id = circle["id"];
+                        var circle_desc = circle["description"];
+                        $('#circle_id').append($("<option></option>")
+                                .attr("value", circle_id)
+                                .text(circle_desc));
+                    }
+                }
+
+                function cug_changed(value) {
+                    if (value === 'NEW') {
+                        $('#cug_group_row').slideDown(1000);
+                        $('#cug_name_row').slideDown(1000);
+                    } else {
+                        $('#cug_group_row').slideUp(1000);
+                        $('#cug_name').val('');
+                        $('#cug_name_row').slideUp(1000);
+                    }
+                }
+
+                function check_form() {
+                    $('#message').html('');
+                    var circle_id = $('#circle_id').val();
+                    var group = $.trim($('#group').val());
+                    var cug_name = $.trim($('#cug_name').val());
+                    var phone = $.trim($('#phone').val());
+                    var email = $.trim($('#email').val());
+
+                    if (phone === '') {
+                        var msg = "<span style='color:red;'>Please enter phone...</span>";
+                        $('#message').html(msg).show();
+                        return;
+                    }
+
+                    global.api('add_circle', {user_id: user_id, circle_id: circle_id, group: group, cug_name: cug_name, phone: phone, email: email}, add_circle);
+                }
+
+                function add_circle(response) {
+                    if (response.result === 'success') {
+                        alert(response.details);
+                        window.location.href = 'calling-circles.html';
+                    } else {
+                        $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    }
+                }
+
+            </script>
+        </div>
+    </body>
+</html>

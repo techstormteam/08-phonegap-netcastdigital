@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Make Payment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" data-icon="back" class="button_back">Back</a>
+                <h1 id="title">Make Payment</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <div>
+                    <style>
+                        /*                        input[type='radio']{
+                                                    transform: scale(1.5);
+                                                }*/
+                    </style>
+
+                    <input type="radio" name="payment" id="paypal" value="paypal">
+                    <label for="paypal">Pay Via Paypal</label>
+
+                    <input type="radio" name="payment" id="inter_switch" value="QuickTeller">
+                    <label for="inter_switch">Pay via InterSwitch - QuickTeller / Verve</label>
+
+                    <input type="radio" name="payment" id="credit_transfer" value="credit_transfer"  onclick="window.location.href = 'credit-transfer.html';">
+                    <label for="credit_transfer">Credit Transfer</label>
+
+                    <!--
+                   <input id="paypal" type="radio" name="payment" value="paypal" style="margin: 5px; margin-left: 0px;">
+                   <span style="margin-left: 45px;"><b>Pay Via Paypal</b></span><br>
+                   <input id="inter_switch" type="radio" name="payment" value="QuickTeller" style="margin: 5px; margin-left: 0px;">
+                   <span style="margin-left: 45px;"><b>Pay via InterSwith - QuickTeller / Verve</b></span>
+
+                   <input id="credit_transfer" type="radio" name="payment" value="credit_transfer" style="margin: 5px; margin-left: 0px;">
+                   <span style="margin-left: 45px;"><b>Credit Transfer</b></span><br>
+                    -->
+
+                    <button id="continue" type="submit" data-theme="b" onclick="show_paymen_view();">
+                        Continue
+                    </button> 
+                    <!--
+                   <button id="credit_transfer" type="submit" onclick="window.location.href = 'credit-transfer.html';" data-theme="b">
+                       Credit Transfer
+                   </button> 
+                    -->
+                </div>
+                <div id="paypal_view" style="display: none;">
+                    <!-- START: PayPal Topup -->
+                    <div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                            <input type="hidden" name="cmd" value="_xclick">
+                            <input type="hidden" name="business" value="ZRX6JLVU7XXM6">
+                            <input type="hidden" name="lc" value="GB">
+                            <input type="hidden" name="item_name" value="[GBP] WebPAYG">
+                            <input id="paypal_custom_topup" type="hidden" name="custom" value="">
+                            <input type="hidden" name="item_number" value="connect-topup">
+                            <input type="hidden" name="button_subtype" value="services">
+                            <input type="hidden" name="no_note" value="0">
+                            <input type="hidden" name="cn" value="Add special instructions to the seller">
+                            <input type="hidden" name="no_shipping" value="2">
+                            <input type="hidden" name="rm" value="1">
+                            <input type="hidden" name="return" value="http://dextersim.com/index.php?main_page=connect_page3">
+                            <input type="hidden" name="cancel_return" value="http://dextersim.com/index.php?main_page=connect_uk_page2">
+                            <input type="hidden" name="currency_code" value="GBP">
+                            <input type="hidden" name="bn" value="PP-BuyNowBF:btn_paynowCC_LG.gif:NonHosted">
+                            <input type="hidden" name="notify_url" value="http://dextersim.com/dex_ipn_main_handler.php">
+                            <input type="hidden" name="on0" value="Topup value">
+                            <center>Click here for Topups</center>
+                            <select name="amount">
+                                <option value="10"> Pay As You Go £10 </option>
+                                <option value="20"> Pay As You Go £20 </option>
+                                <option value="50"> Pay As You Go £50 </option>
+                                <option value="100"> Pay As You Go £100 </option>
+                                <option value="200"> Pay As You Go £200 </option>
+                            </select>
+                            <input type="hidden" name="currency_code2" value="GBP" />
+                            <center>
+                                <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_paynowCC_LG.gif" name="submit" alt="PayPal ? The safer, easier way to pay online.">
+                            </center>
+                            <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">       
+                        </form>
+                    </div>
+                    <!-- END: PayPal Topup -->
+                    <hr>
+
+                    <!-- START: PayPal AutoPay -->
+                    <div>
+                        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+                            <input type="hidden" name="cmd" value="_xclick-subscriptions">
+                            <input id="paypal_custom_autoplay" type="hidden" name="custom" value="">
+                            <input type="hidden" name="business" value="ZRX6JLVU7XXM6"> <input type="hidden" name="lc" value="GB">
+                            <input type="hidden" name="item_name" value="UKWebSubConnect AutoTopup">
+                            <input type="hidden" name="item_number" value="connect-uk-auto-topup">
+                            <input type="hidden" name="no_note" value="1">
+                            <input type="hidden" name="no_shipping" value="2">
+                            <input type="hidden" name="rm" value="1">
+                            <input type="hidden" name="return" value="http://dextersim.com/index.php?main_page=connect_page3">
+                            <input type="hidden" name="cancel_return" value="http://dextersim.com/index.php?main_page=topup"> <input type="hidden" name="src" value="1">
+                            <input type="hidden" name="p3" value="1">
+                            <input type="hidden" name="t3" value="M">
+                            <input type="hidden" name="currency_code" value="GBP">
+                            <input type="hidden" name="bn" value="PP-SubscriptionsBF:Button.png:NonHosted">
+                            <input type="hidden" name="notify_url" value="http://dextersim.com/dex_ipn_main_handler.php">
+                            <input type="hidden" name="on0" value="Payment Options"> <input type="hidden" name="os0" value="Auto Topup">
+                            <center> Auto Topup Options </center>
+                            <select name="a3">
+                                <option value="10">Auto Topup : £10.00 - monthly</option>
+                                <option value="20">Auto Topup : £20.00 - monthly</option>
+                                <option value="50">Auto Topup : £50.00 - monthly</option>
+                                <option value="100">Auto Topup : £100.00 - monthly</option>
+                                <option value="200">Auto Topup : £200.00 - monthly</option>
+                            </select>
+
+                            <input type="hidden" name="currency_code" value="GBP"> 
+                            <center>
+                                <input src="http://dexterconnect.com/includes/templates/connect/images/Button.png" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+                            </center>
+                            <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1"> 
+                        </form>
+                    </div>
+                    <!-- END: PayPal AutoPay-->
+                </div>
+                <hr>
+                <!-- START: Inter Switch Payment-->
+                <div id="inter_switch_view" style="display: none;">
+                    <div style="padding-top:20px;">
+                        <div>Click here for Topups (Naira [&#8358;] Denominated Cards):</div>
+                    </div>
+                    <div>                              
+                        <input id="quickteller_amount" name="amount" type="text" value="" >                              
+                    </div>                    
+                    <div style="text-align: center;">
+                        <div id="quickteller_amount_error" style="color:red;"></div>
+                        <img style="cursor:pointer;" src="img/btn_paynowcc_nga.gif" onclick="form_quickteller_check();" />  
+                    </div>
+                    <script>
+                        function form_quickteller_check() {
+                            var amount = $.trim($('#quickteller_amount').val());
+                            if (amount === '') {
+                                $('#quickteller_amount_error').html('Amount is required field');
+                                return false;
+                            }
+                            if (isNumber(amount) === false) {
+                                $('#quickteller_amount_error').html('Amount must be a valid number');
+                                return false;
+                            }
+                            if (amount < 0.01) {
+                                $('#quickteller_amount_error').html('Amount is not valid');
+                                return false;
+                            }
+                            window.location.href = 'payment-create-quickteller.html?amount=' + amount;
+                        }
+                        function isNumber(n) {
+                            return !isNaN(parseFloat(n)) && isFinite(n);
+                        }
+                    </script>                   
+                </div>
+                <!-- END: Inter Switch Payment-->
+            </div>
+            <!-- END: Content -->            
+        </div>
+
+
+
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+            $(function(){
+                var user_id = global.getUser().data['id'];
+                $('#paypal_custom_topup').val(user_id);
+                $('#paypal_custom_autoplay').val(user_id);
+            });
+
+        </script>
+        <script>
+            $('#denominated_cards').keyup(function() {
+                var ref = $.trim($('#denominated_cards').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#denominated_cards').val(ref);
+            });
+            $('#credit_card_number').keyup(function() {
+                var ref = $.trim($('#credit_card_number').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#credit_card_number').val(ref);
+            });
+            $('#pin_number').keyup(function() {
+                var ref = $.trim($('#pin_number').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#pin_number').val(ref);
+            });
+            var user = global.getUser();
+            var user_id = user.getId();
+            if (user.getCurrency() !== 'NGN') {
+                //$('#paypal_view').show();
+                $('#paypal').prop('checked', true);
+            } else {
+                //$('#inter_switch_view').show();
+                $('#inter_switch').prop('checked', true)
+            }
+            function make_payment() {
+                var amount = $.trim($('#denominated_cards').val());
+                var credit_card_number = $.trim($('#credit_card_number').val());
+                var pin_number = $.trim($('#pin_number').val());
+                if (amount === '') {
+                    $('#message').html('<span style="color:red;">NGA Denominated Card is required field</span>').show();
+                }
+                else if (credit_card_number === '') {
+                    $('#message').html('<span style="color:red;">Credit card number is required field</span>').show();
+                }
+                else if (pin_number === '') {
+                    $('#message').html('<span style="color:red;">Pin number is required field</span>').show();
+                } else {
+                    global.api('payment_by_user_id', {user_id: user_id, amount: amount, credit_card_number: credit_card_number,
+                        pin_number: pin_number}, payment_by_user_id_response);
+                }
+            }
+            function payment_by_user_id_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+
+            function show_paymen_view() {
+                if ($('#inter_switch').is(':checked'))
+                {
+                    $('#inter_switch_view').show();
+                    $('#paypal_view').hide();
+                } else if ($('#paypal').is(':checked'))
+                {
+                    $('#paypal_view').show();
+                    $('#inter_switch_view').hide();
+                }
+            }
+        </script>
+    </body>
+</html>

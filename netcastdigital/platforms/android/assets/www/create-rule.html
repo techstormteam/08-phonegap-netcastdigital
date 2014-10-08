@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Rule</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="follow-me.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Create Rule</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <div data-role="fieldcontain">
+                    <label for="rule_name">Diversion Rule Name:</label>
+                    <input id="rule_name" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="first_forward_number">First Forward Number(Optional):<br>
+                        <span style="font-size:10px;">Always first forward to this number</span>
+                    </label>
+                    <input id="first_forward_number" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="second_forward_number">Second Forward Number(Optional):<br>
+                        <span style="font-size:10px;">If above number is not answering or busy, forward to this number</span>
+                    </label>
+                    <input id="second_forward_number" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="third_forward_number">Third Forward Number(Optional):<br>
+                        <span style="font-size:10px;">If above number is not answering or busy, forward to this number</span>
+                    </label>
+                    <input id="third_forward_number" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="third_forward_number">Otherwise, Email the Voicemail to:</label>
+                    <input id="email" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Create Rule</button>
+                </div>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+                        app.initialize();
+                        if (global.get('auth') === null) {
+                            window.location = 'login.html';
+                        }
+        </script>
+        <script>
+            $('#first_forward_number').keyup(function() {
+                var ref = $.trim($('#first_forward_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#first_forward_number').val(ref);
+            });
+            $('#second_forward_number').keyup(function() {
+                var ref = $.trim($('#second_forward_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#second_forward_number').val(ref);
+            });
+            $('#third_forward_number').keyup(function() {
+                var ref = $.trim($('#third_forward_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#third_forward_number').val(ref);
+            });
+            
+            balance_display_in_button();  
+
+            function check_form() {
+                $('#message').html('');
+
+                var user = global.getUser();
+                var user_id = user.getId();
+                var rule_name = $('#rule_name').val();
+                var first_forward_number = $.trim($('#first_forward_number').val());
+                var second_forward_number = $.trim($('#second_forward_number').val());
+                var third_forward_number = $.trim($('#third_forward_number').val());
+                var email = $.trim($('#email').val());
+
+                global.api('rule_create', {user_id: user_id, rule_name: rule_name, first_forward_number: first_forward_number,
+                    second_forward_number: second_forward_number, third_forward_number: third_forward_number, email: email},
+                rule_create_response);
+            }
+            function rule_create_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

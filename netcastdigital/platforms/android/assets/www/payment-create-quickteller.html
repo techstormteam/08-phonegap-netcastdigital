@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Payment Confirmation</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script> 
+        <script src="js/number_format.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" data-icon="back" class="button_back">Back</a>
+                <h1 id="title">Payment Confirmation</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <div>                    
+                    <span><b>Your Deposit (NGN)</b></span><br>
+                    <input id="quickteller_amount" type="text" name="deposit" readonly="readonly" />                    
+                </div>
+                <div id="qt_form_board">
+
+                </div>
+            </div>
+            <!-- END: Content -->
+            
+        </div>
+
+        <script type="text/javascript">
+            function displayQuickTellerForm() {
+                var amount = getUrlParameter('amount');
+                var user_id = global.getUser().data['id'];
+                var user_email = global.getUser().data['email'];
+                var dextersim_ngn = global.getUser().data['dextersim_ngn'];
+                var mobile_phone = global.getUser().data['dextersim_uk'];
+                if ($.trim(mobile_phone) === '') {
+                    mobile_phone = global.getUser().data['phone'];
+                }
+
+                var form = '';
+                form += '<form action="https://paywith.quickteller.com" method="post" id="quickteller_payment_form" name="quickteller_payment_form">';
+                form += '<input type="hidden" name="paymentCode" value="' + global.getQuicktellerPaymentCode() + '" />';
+                form += '<input type="hidden" name="amount" value="' + amount * 100 + '" />';
+                form += '<input type="hidden" name="site_name" value="Self Serve" />';
+                form += '<input type="hidden" name="currency" value="566" />';
+                form += '<input type="hidden" name="customerId" value="' + user_id + '" />';
+                form += '<input type="hidden" name="redirectUrl" value="' + global.getQuicktellerPaymentCompleteUrl() + '" />';
+                form += '<input type="hidden" name="ispopup" value="false" />';
+                form += '<input type="hidden" name="emailAddress" value="' + user_email + '" />';
+                form += '<input type="hidden" name="mobileNumber" value="' + mobile_phone + '" />';
+                form += '<button type="submit" name="pay" id="pay" value="Submit" style="border:0;background-color: transparent;">';
+                form += '<img src="img/pay-with-quickteller-small.png" />';
+                form += '</button>';
+                form += '</form>';
+                $('#qt_form_board').html(form);
+            }
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+
+
+            $(function() {
+                var amount = getUrlParameter('amount');
+                console.log(amount);
+                $("#quickteller_amount").val(number_format(amount, 2, '.', ','));
+                displayQuickTellerForm();
+            });
+            var amount = getUrlParameter('amount');
+            console.log(amount);
+            $("#quickteller_amount").val(amount);
+
+            $.ajax({
+                type: 'GET',
+                url: global.getDashboardUrl() + 'login',
+                crossDomain: true,
+                data: {UserName: global.getUser().data['email'], Password: global.getUser().data['uipass'], auto: 'yes', mobile_root_url: global.getRootUrl()},
+                dataType: 'jsonp',
+                success: function(responseData, textStatus, jqXHR) {
+                },
+                error: function(responseData, textStatus, errorThrown) {
+                }
+            });
+
+            //$.post('http://clients.sinevia.com/dashboardsmall/selfserve/login', {
+            //    UserName:global.getUser().data['email'],
+            //    Password:global.getUser().data['uipass'],
+            //    auto:'yes'
+            //});
+        </script>
+    </body>
+</html>

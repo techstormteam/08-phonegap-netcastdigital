@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Diversion Schedule Edit</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <link rel="stylesheet" href="css/common.css" />       
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="follow-me.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Diversion Schedule Edit</h1>
+            </div>
+            <!-- END: Title -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                 <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button> 
+                <div data-role="fieldcontain">
+                    <label for="name">Name:</label>
+                    <input id="name" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="phone_number">Phone Number:</label>
+                    <input id="phone_number" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="week_day">Week Day:</label>
+                    <select id="week_day">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                    </select>
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="start_time">Start Time:</label>
+                    <input id="start_time" />
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Edit Schedule</button>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+                        app.initialize();
+                        if (global.get('auth') === null) {
+                            window.location = 'login.html';
+                        }
+        </script>
+        <script>
+            $('#phone_number').keyup(function() {
+                var ref = $.trim($('#phone_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#phone_number').val(ref);
+            });
+            var user = global.getUser();
+            var user_id = user.getId();
+            var schedule_id = getUrlParameter('schedule_id');
+            var profile_id = getUrlParameter('profile_id');
+
+            global.api('get_schedule', {user_id: user_id, profile_id: profile_id, schedule_id: schedule_id}, schedule_data_response);
+
+            function schedule_data_response(response) {
+                if (response.result === 'success') {
+                    $('#name').val(response.details['name']);
+                    $('#phone_number').val(response.details['phone_number']);
+                    //$('#week_day').val(response.details['week_day']);
+                    $('#week_day option[value="'+ response.details['week_day'] +'"]').attr('selected','selected');
+                    
+                    $('#week_day').selectmenu('refresh', true);
+                    //alert(response.details['week_day']);
+                    $('#start_time').val(response.details['start_time']);
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+            function check_form() {
+                $('#message').html('');
+
+                var user = global.getUser();
+                var user_id = user.getId();
+                var name = $('#name').val();
+                var phone_number = $.trim($('#phone_number').val());
+                var week_day = $.trim($('#week_day').val());
+                var start_time = $.trim($('#start_time').val());
+                
+                global.api('schedule_edit', {user_id: user_id, name: name, phone_number: phone_number,
+                    week_day: week_day, start_time: start_time},
+                schedule_edit_response);
+            }
+            function schedule_edit_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>
