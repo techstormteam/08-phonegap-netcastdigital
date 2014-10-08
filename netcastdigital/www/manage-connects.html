@@ -1,0 +1,223 @@
+<html>
+    <head>
+        <title>Manage Connects</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>         
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true" id="main_page"> 
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="connect.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Manage Connects</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <button type="submit" onclick="window.location.href = 'add-connect.html';" data-theme="b">
+                    Add Connect
+                </button>  
+                <a href="#" data-role="button" data-icon="search" data-mini="true" onclick="$('#search_box').toggle();" data-theme="b">Search Options</a>
+                <div id="search_box" style="display: none;">
+                    <div data-role="fieldcontain">
+                        <label for="local_number">Local Number:</label>
+                        <input id="local_number" />
+                    </div>  
+                    <button type="submit" onclick="search();" data-theme="e">Search</button>
+                </div>
+                <table data-role="table" id="manage_connects_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Local Number</th>
+                            <th data-priority="persist">Connect Destination</th>
+                            <th data-priority="2">Destination Name</th>  
+                            <th data-priority="3">Call Attempts</th>  
+                            <th data-priority="4">Unlimited Destination</th> 
+                            <th data-priority="5">Creation Date</th> 
+                            <th data-priority="6">Action</th> 
+                            <th data-priority="7">&nbsp;</th>
+                            <th data-priority="7">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="9"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="manage_connects_pagination"></div>
+                <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                    <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                    <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                    <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+                </div>
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <!-- START: Make Unlimited -->
+        <div data-role="page" id="make_unlimited">
+            <div data-role="header">
+                <h1>Make Unlimited</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                Are you sure you want to make this destination unlimited?
+                <input type="hidden" id="destination">
+                <input type="hidden" id="destination_name">
+                <p><a href="#main_page" data-role="button" data-theme="b">Close</a></p>
+                <p><a href="#" data-role="button" onclick="make_unlimited();" data-theme="b">Apply</a></p>
+            </div><!-- /content -->
+        </div>
+        <!-- END: Make Unlimited -->
+        
+        <!-- START: Connect Delete -->
+        <div data-role="page" id="connect_delete">
+            <div data-role="header">
+                <h1>Connect Delete</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                Are you sure you want to delete this connect? 
+                <input type="hidden" id="destination_delete">
+                <input type="hidden" id="destination_name_delete">
+                <p><a href="#main_page" data-role="button" data-theme="b">Close</a></p>
+                <p><a href="#" data-role="button" onclick="connect_delete();" data-theme="b">Apply</a></p>
+            </div><!-- /content -->
+        </div>
+        <!-- END: Connect Delete -->
+
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            $('#local_number').keyup(function() {
+                var ref = $.trim($('#local_number').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#local_number').val(ref);
+            });
+
+            var user = global.getUser();
+            var user_id = user.getId();
+            balance_display_in_button();  
+            function search() {
+                var local_number = $('#local_number').val();
+                global.api('manage_connects_by_user_id', {user_id: user_id, local_number: local_number}, manage_connects_display);
+            }
+
+            manage_connects_show_page(0);
+            function manage_connects_show_page(page) {
+                global.api('manage_connects_by_user_id', {user_id: user_id, page: page}, manage_connects_display);
+            }
+            function manage_connects_display(result) {
+                var connects = result.details['connects'];
+                var connects_count = result.details['connects_count'];
+                var page = result.details['page'];
+                var pages_count = result.details['pages_count'];
+                var rows = '';
+                for (var i = 0; i < connects.length; i++) {
+                    var connect = connects[i];
+                    var row = '<tr>';
+                    row += '<td>' + connect["virtual_number"] + '</td>';
+                    row += '<td>' + connect["destination"] + '</td>';
+                    row += '<td>' + connect["destination_name"] + '</td>';
+                    row += '<td>' + connect["use_count"] + '</td>';
+                    row += '<td>' + connect["unlimited_destination"] + '</td>';
+                    row += '<td>' + connect["creationdate"] + '</td>';
+                    row += '<td><a href="#make_unlimited" data-role="button" data-rel="dialog" data-transition="pop" onclick="dialog_make_unlimited_show(\'' + connect['destination'] + '\', \'' + connect['destination_name'] + '\');" data-mini="true" data-inline="true" data-theme="b">Make Unlimited</a></td>';
+                    row += '<td><a href="manage-connect-edit.html?destination=' + connect['destination'] + '&destination_name=' + connect['destination_name'] + '" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Edit</a></td>';
+                    row += '<td><a href="#connect_delete" data-role="button" data-rel="dialog" data-transition="pop" onclick="dialog_connect_delete(\'' + connect['destination'] + '\', \'' + connect['destination_name'] + '\');" data-mini="true" data-inline="true" data-theme="b">Delete</a></td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows !== '') {
+                    $('#pagination').show();
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="9">No connects found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#manage_connects_table tbody').html(rows);
+                $('#manage_connects_table').table('refresh');
+                try {
+                    $('#manage_connects_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+                $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                if (page > 0) {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
+                        manage_connects_show_page(page - 1);
+                    });
+                }
+                $('#pagination_current .ui-btn-text').html(page + 1);
+                $('#pagination_current').removeClass('ui-disabled').click(function() {
+                    manage_connects_show_page(page);
+                });
+                if ((page + 1) < pages_count) {
+                    $('#pagination_next').removeClass('ui-disabled').click(function() {
+                        manage_connects_show_page(page + 1);
+                    });
+                }
+            }
+            function dialog_make_unlimited_show(destination, destination_name) {
+                $('#destination').val(destination);
+                $('#destination_name').val(destination_name);
+            }
+
+            function make_unlimited() {
+                var destination = $('#destination').val();
+                var destination_name = $('#destination_name').val();
+                global.api('connects_make_unlimited', {user_id: user_id, destination: destination, destination_name: destination_name}, connects_make_unlimited_response);
+            }
+
+            function connects_make_unlimited_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+            
+            function dialog_connect_delete(destination, destination_name){
+                $('#destination_delete').val(destination);
+                $('#destination_name_delete').val(destination_name);
+            }
+            
+            function connect_delete(){
+                var destination = $('#destination_delete').val();
+                var destination_name = $('#destination_name_delete').val();
+                global.api('connect_delete', {user_id: user_id, destination: destination, destination_name: destination_name}, connect_delete_response);
+            }
+            function connect_delete_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

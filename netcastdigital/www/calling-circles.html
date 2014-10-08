@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Calling Circles </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <h1 id="title">My Calling Circles</h1>
+                <a href="circle-add.html" rel="external" data-icon="plus" data-theme="b">Add Circle</a>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <p style="font-size:10px; font-family:Segoe UL Thin;">
+                    Calling Circles (or monthly payment calling groups) and Closed User Groups
+                    (or daily payment calling groups) give unlimited calls (and SMS where specified) to other group members.
+                    Browse, add or change existing calling circles or closed user groups here
+                </p>
+
+                <table data-role="table" id="circles_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Description</th>
+                            <th data-priority="persist">Type</th>
+                            <th data-priority="2">Tariff</th>
+                            <th data-priority="3">Mins Used</th>
+                            <th data-priority="4">Roaming Mins Used</th>
+                            <th data-priority="5">Expiry Date</th>
+                            <th data-priority="6">Status</th>
+                            <th data-priority="7"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Content -->
+        </div>
+
+
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            
+            balance_display_in_button(); 
+            
+            global.api('circles_by_user_id', {user_id: user_id}, circles_display);
+            
+            function circles_display(result) {
+                var circles = result.details['calling_circles'];
+                var rows = '';
+                for (var i = 0; i < circles.length; i++) {
+                    var circle = circles[i];
+                    var circle_id = circle["id"];
+                    var row = '<tr>';
+                    row += '<td>';
+                    row += '<a href="calling-circle-details.html?circle_id=' + circle_id + '" rel="external" data-role="button" data-mini="true" data-theme="b">';
+                    row += '[' + circle_id + ']' + circle["description"];
+                    row += '</a>';
+                    row += '</td>';
+                    row += '<td style="vertical-align: middle">' + circle["Circle_Type"] + '</td>';
+                    row += '<td style="vertical-align: middle">' + circle["monthly_fee"] + '</td>';
+                    row += '<td style="vertical-align: middle">' + circle["cug_this_month"] + '</td>';
+                    row += '<td style="vertical-align: middle">' + circle["roam_monthly_this_month"] + '</td>';
+                    row += '<td style="vertical-align: middle">' + circle["grp_member_lease_expiry"] + '</td>';
+                    row += '<td style="vertical-align: middle">';
+                    if (circle['Status'] === 'ACTIVE') {
+                        row += '<span class="badge badge-success">Active</span>';
+                    } else {
+                        row += '<span class="badge badge-important">Inactive</span>';
+                    }
+                    row += '</td>';
+                    row += '<td>';
+                    if (circle['button_type'] === 'SUSPEND') {
+                        row += '<a href="#" rel="external" data-role="button" data-mini="true" data-theme="b" onclick="suspend(\'' + circle_id + '\');">Suspend</a>';
+                    } else {
+                        row += '<a href="#" data-role="button" data-mini="true" data-theme="b" onclick="activate(\'' + circle_id + '\');" >Activate</a>';
+                    }
+                    row += '</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="8">No circles found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#circles_table tbody').html(rows);
+                $('#circles_table').table('refresh');
+                try {
+                    $('#circles_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+            }
+            function activate(circle_id) {
+                var circle_id = circle_id;
+                var user = global.getUser();
+                var user_id = user.getId();
+                global.api('circles_activated', {user_id: user_id, circle_id: circle_id}, circles_activated);
+            }
+            function circles_activated(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    location.reload();
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+            function suspend(circle_id) {
+                var circle_id = circle_id;
+                var user = global.getUser();
+                var user_id = user.getId();
+                global.api('circles_suspend', {user_id: user_id}, circles_suspend);
+            }
+            function circles_suspend(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    location.reload();
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,251 @@
+<html>
+    <head>
+        <title>My Payments</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true" id="main_page">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="account.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">My Payments</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <a href="#" data-role="button" data-icon="search" data-mini="true" onclick="$('#search_box').toggle();" data-theme="b">Search Options</a>
+                <div id="search_box" style="display: none;">
+                    <div data-role="fieldcontain">
+                        <label for="payment_ref">Payment Ref</label>
+                        <input id="payment_ref" />
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="start_date">Start Date</label>
+                        <input id="start_date" type="date" data-role="datebox"
+                               data-options='{"mode": "calbox", "overrideDateFormat":"%d %b %Y"}' >
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="end_date">End Date</label>
+                        <input id="end_date" type="date" data-role="datebox"
+                               data-options='{"mode": "calbox", "overrideDateFormat":"%d %b %Y"}'>
+                    </div>
+                    <button type="submit" onclick="search();" data-theme="e">Search</button>
+                </div>
+                <table data-role="table" id="payments_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Payment Ref</th>
+                            <th data-priority="persist">Date</th>
+                            <th data-priority="2">Amount</th>
+                            <th data-priority="3">Credit Notes</th>
+                            <th data-priority="4">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="invoices_pagination"></div>
+                <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                    <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                    <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                    <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+                </div>
+
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <!-- START: Page Details -->
+        <div data-role="page" id="payment_details">
+
+            <div data-role="header">
+                <h1>Payment Details</h1>
+            </div><!-- /header -->
+
+            <div data-role="content">
+                <p id="payment_details_board">Details come here</p>
+                <p><a href="#main_page" data-role="button" data-theme="b">Close</a></p>
+            </div><!-- /content -->
+        </div>
+        <!-- END: Page Details -->
+
+
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+        </script>
+        <script>
+            var today = new Date();
+            var previos_month = new Date();
+            previos_month.setMonth(today.getMonth() - 1);
+            var prev_mm = previos_month.getMonth();
+            var prev_mmm = month_names_short[prev_mm];
+            var dd = ((today.getDate() < 10) ? "0" : "") + today.getDate();
+            var yyyy = today.getFullYear();
+            $("#start_date").val(dd + ' ' + prev_mmm + ' ' + yyyy);
+
+            var next_month = new Date();
+            next_month.setMonth(today.getMonth());
+            var next_mm = next_month.getMonth();
+            var next_mmm = month_names_short[next_mm];
+            $("#end_date").val(dd + ' ' + next_mmm + ' ' + yyyy);
+
+
+            $('#start_date').change(function () {
+                $('#payment_ref').val('');
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                var startDate = new Date(start_date);
+                var endDate = new Date(end_date);
+                var more_than_month = (endDate - startDate - (30 * 24 * 60 * 60 * 1000)) > 0 ? true : false;
+
+                if (end_date === "" || more_than_month) {
+                    var endDate = startDate;
+                    endDate.setMonth(endDate.getMonth() + 1);
+                    var dd = ((endDate.getDate() < 10) ? "0" : "") + endDate.getDate();
+                    var mm = endDate.getMonth();
+                    var mmm = month_names_short[mm];
+                    var yyyy = endDate.getFullYear();
+                    $('#end_date').val(dd + ' ' + mmm + ' ' + yyyy);
+                }
+            });
+
+            $('#end_date').change(function () {
+                $('#payment_ref').val('');
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                var startDate = new Date(start_date);
+                var endDate = new Date(end_date);
+                var more_than_month = (endDate - startDate - (30 * 24 * 60 * 60 * 1000)) > 0 ? true : false;
+
+                if (start_date === "" || more_than_month) {
+                    var startDate = endDate;
+                    startDate.setMonth(startDate.getMonth() - 1);
+                    var dd = ((startDate.getDate() < 10) ? "0" : "") + startDate.getDate();
+                    var mm = startDate.getMonth();
+                    var mmm = month_names_short[mm];
+                    var yyyy = startDate.getFullYear();
+                    $('#start_date').val(dd + ' ' + mmm + ' ' + yyyy);
+                }
+            });
+
+            $('#payment_ref').keyup(function () {
+                var ref = $.trim($('#payment_ref').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#payment_ref').val(ref);
+
+                if (ref === '') {
+                    var endDate = new Date();
+                    var startDate = new Date();
+                    startDate.setMonth(startDate.getMonth() - 1);
+                    $('#start_date').val($.datepicker.formatDate('dd M yy', startDate));
+                    $('#end_date').val($.datepicker.formatDate('dd M yy', endDate));
+                } else {
+                    $('#start_date').val('');
+                    $('#end_date').val('');
+                }
+            });
+
+            function search() {
+                var payment_ref = $('#payment_ref').val();
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                global.api('payments_by_user_id', {user_id: user_id, payment_ref: payment_ref, start_date: start_date, end_date: end_date}, payments_display);
+            }
+
+            var user = global.getUser();
+            var user_id = user.getId();
+
+            balance_display_in_button();
+
+            payments_show_page(0);
+            function payments_show_page(page) {
+                var payment_ref = $('#payment_ref').val();
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                global.api('payments_by_user_id', {user_id: user_id, page: page, payment_ref: payment_ref, start_date: start_date, end_date: end_date}, payments_display);
+            }
+            function payments_display(result) {
+                var payments = result.details['payments'];
+                var payments_count = result.details['payments_count'];
+                var pages_count = result.details['pages_count'];
+                var page = result.details['page'];
+                var rows = '';
+
+                for (var i = 0; i < payments.length; i++) {
+                    var payment = payments[i];
+
+                    var row = '<tr>';
+                    row += '<td>' + payment["id"] + '</td>';
+                    row += '<td>' + payment["date"] + '</td>';
+                    row += '<td>' + payment["payment"] + '</td>';
+                    row += '<td>';
+                    if (payment['id_logrefill'] !== '' && payment['id_logrefill'] !== '0' && payment['id_logrefill'] !== null) {
+                        row += '<a href="account-credit-notes.html?CreditRef=' + payment['id_logrefill'] + '" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Refill Details</a>';
+                    }
+                    row += '</td>';
+                    row += '<td><a href="#payment_details" data-rel="dialog" data-transition="pop" onclick="payment_details_show(\'' + payment["description"] + '\');" data-role="button" data-theme="b">Details</a></td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows !== '') {
+                    $('#pagination').show();
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="5">No payments found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#payments_table tbody').html(rows);
+                $('#payments_table').table('refresh');
+                $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+
+                if (page > 0) {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function () {
+                        payments_show_page(page - 1);
+                    });
+                }
+                $('#pagination_current .ui-btn-text').html(page + 1);
+                $('#pagination_current').removeClass('ui-disabled').click(function () {
+                    payments_show_page(page);
+                });
+                if ((page + 1) < pages_count) {
+                    $('#pagination_next').removeClass('ui-disabled').click(function () {
+                        payments_show_page(page + 1);
+                    });
+                }
+            }
+            function payment_details_show(details) {
+                $('#payment_details_board').html(details);
+            }
+        </script>
+    </body>
+</html>

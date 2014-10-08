@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>Connect Edit</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="manage-connects.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Connect Edit</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <p style="font-size:10px; font-family:Segoe UL Thin;">
+                    Are you sure you want to edit this connect? 
+                </p>  
+                <div id="cug_name_row"  data-role="fieldcontain">
+                    <label for="destination_number">Destination Number:</label>
+                    <input id="destination_number" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="destination_name">Destination Name:</label>
+                    <input id="destination_name" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Submit</button>
+                </div>
+
+            </div>
+            <!-- END: Content -->
+            <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+            </script>
+            <script>
+                $('#destination_number').keyup(function() {
+                    var ref = $.trim($('#destination_number').val());
+
+                    ref = ref.replace(/\D/g, '');
+                    $('#destination_number').val(ref);
+                });
+                var destination_number_old = getUrlParameter('destination');
+                $('#destination_number').val(getUrlParameter('destination'));
+                $('#destination_name').val(getUrlParameter('destination_name'));
+                balance_display_in_button();  
+                function check_form() {
+                    $('#message').html('');
+                    var user = global.getUser();
+                    var user_id = user.getId();
+                    var destination_number = $.trim($('#destination_number').val());
+                    var destination_name = $.trim($('#destination_name').val());
+                    if (destination_number === '') {
+                        $('#message').html('<span style="color:red;">Destination number is required field</span>');
+                    }
+                    if (destination_name === '') {
+                        $('#message').html('<span style="color:red;">Destination name is required field</span>');
+                    }
+
+                    global.api('connect_edit', {user_id: user_id, destination_number_old: destination_number_old, destination_number: destination_number, destination_name: destination_name},
+                    connect_edit_response);
+                }
+                function connect_edit_response(response) {
+                    if (response.result === 'success') {
+                        alert(response.details);
+                        window.location.href = 'index.html';
+                    } else {
+                        $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    }
+                }
+
+            </script>
+        </div>
+    </body>
+</html>

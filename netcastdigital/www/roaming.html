@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>SIM Based Global Roaming</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" /> 
+        <style>
+            #page_content .ui-btn{
+                width:100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="global-roaming.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">SIM Based Global Roaming</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content" id="page_content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <p style="font-size:10px; font-family:Segoe UL Thin;">
+                    FREE Roam your local line in over 100+ global destinations, and make outbound cross network calls at local 
+                    rates - independent of your current worldwide location 
+                </p>
+                <table data-role="table" id="roaming_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">UK Telno</th>
+                            <th data-priority="persist">USA Telno</th>
+                            <th data-priority="2">NGA Telno</th>
+                            <th data-priority="3">Actions</th>
+                            <th data-priority="4"></th>
+                            <th data-priority="4"></th>
+                            <th data-priority="4"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Content -->            
+        </div>
+
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            balance_display_in_button();
+            global.api('roaming', {user_id: user_id}, roaming_result);
+            function roaming_result(result) {
+                var cards = result.details['cards'];
+                var countries = result.details['countries'];
+                var roaming_note = result.details['roaming_note'];
+                var rows = '';
+                for (var i = 0; i < cards.length; i++) {
+                    var card = cards[i];
+                    var row = '<tr>';
+
+                    row += '<td>';
+                    if (is_numeric(card['uk_telno']) === true) {
+                        row += '+' + card['uk_telno'];
+                    } else {
+                        row += card['uk_telno'];
+                    }
+                    row += '</td>';
+
+                    row += '<td>';
+                    if (is_numeric(card['usa_telno']) === true) {
+                        row += '+' + card['usa_telno'];
+                    } else {
+                        row += card['usa_telno'];
+                    }
+                    row += '</td>';
+
+                    row += '<td>';
+                    if (is_numeric(card['ngn_telno']) === true) {
+                        row += '+' + card['ngn_telno'];
+                    } else {
+                        row += card['ngn_telno'];
+                    }
+                    row += '</td>';
+                    row += '<td><a href="#" data-transition="pop" data-mini="true" onclick="window.location.href=\'update_caller_id.html\'" data-role="button" data-theme="b">Active CallerID</a></td>';
+                    if ($.trim(card['uk_telno']) === '' || $.trim(card['uk_telno']) === 'Unavailable') {
+                        row += '<td><a href="#" onclick="purchase_sim();" data-role="button" data-mini="true" data-inline="true" data-theme="b">Purchase SIM</a></td>';
+                    } else {
+                        row += '<td><a href="travel-advice.html" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Travel Advice</a></td>';
+                        row += '<td><a href="activate-line.html" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Activate Line</a></td>';
+                    }
+                    row += '<td><a href="#" data-role="button" onclick="other_lines();" data-mini="true" data-inline="true" data-theme="b">My Other Lines</a></td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="4">No roaming found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#roaming_table tbody').html(rows);
+                $('#roaming_table').table('refresh');
+                try {
+                    $('#roaming_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+            }
+            function other_lines() {
+                var user = global.getUser();
+                var user_id = user.getId();
+                global.api('other_lines', {user_id: user_id}, other_lines_response);
+            }
+            function other_lines_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    location.reload();
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+            function purchase_sim() {
+                var user = global.getUser();
+                var user_id = user.getId();
+                global.api('purchase_sim', {user_id: user_id}, purchase_sim_response);
+            }
+            function purchase_sim_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    location.reload();
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

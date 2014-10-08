@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Schedule</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="roaming.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Active Profile CallerID</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <legend>Please select your desired CallerID on all outbound calls:</legend>
+                        <input type="radio" name="caller_id" id="radio-choice-1" value="AUTO" />
+                        <label for="radio-choice-1">Auto</label>
+
+                        <input type="radio" name="caller_id" id="radio-choice-2" value="UK"  />
+                        <label for="radio-choice-2">UK</label>
+
+                        <input type="radio" name="caller_id" id="radio-choice-3" value="USA"  />
+                        <label for="radio-choice-3">USA</label>
+
+                        <input type="radio" name="caller_id" id="radio-choice-4" value="NGA"  />
+                        <label for="radio-choice-4">Nigeria</label>
+                    </fieldset>
+                    <div data-role="fieldcontain">
+                        <button id="submit" onclick="check_form();">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            var callerid_autoswitch = user.getCallerid_autoswitch();
+
+            if (callerid_autoswitch === 'AUTO') {
+                $('#radio-choice-1').prop('checked', true);
+            } else if (callerid_autoswitch === 'UK') {
+                $('#radio-choice-2').prop('checked', true);
+            } else if (callerid_autoswitch === 'USA') {
+                $('#radio-choice-3').prop('checked', true);
+            } else if (callerid_autoswitch === 'NGN') {
+                $('#radio-choice-4').prop('checked', true);
+            }
+
+            balance_display_in_button();
+
+
+            function check_form() {
+                var caller_id = $('input[name=caller_id]:checked').val();
+                global.api('update_callerid', {user_id: user_id, caller_id: caller_id}, update_callerid_response);
+            }
+            
+            function update_callerid_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    global.updateUser(function(){window.location.href = 'index.html';});
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    
+                }
+            }
+            
+        </script>
+    </body>
+</html>
+

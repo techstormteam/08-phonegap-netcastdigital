@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Calling Circle Summary</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="calling-circles.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Calling Circle Summary</h1>
+            </div>
+            <!-- END: Title -->
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <div id="content_loading">
+                    <img src="img/ajax-load-black.gif"> Loading data 
+                </div>
+                <div id="content_loaded" style="display:none;">
+                    <h4>General: </h4>
+                    <div  data-role="fieldcontain">
+                        <label>Description: </label>
+                        <span id="description"></span>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label>Regular Amount: </label>
+                        <span id="amount"></span>
+                    </div>
+                    <h4>Included services: </h4>
+                    <div data-role="fieldcontain">
+                        <label>The charging period for this circle (or group) is every </label>
+                        <span id="period"></span>
+                        <span> day(s) </span>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label>Roaming circles available on request</label>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            var circle_id = getUrlParameter('circle_id');
+
+            balance_display_in_button(); 
+
+            global.api('circles_by_user_id', {user_id: user_id, circle_id: circle_id}, circle_fill);
+
+            function circle_fill(response) {
+                var circle = response.details['calling_circle'];
+                var circle_desc = circle["description"];
+                var amount = circle["amount"];
+                var period = circle['cug_lease_days']
+                $('#description').html(circle_desc);
+                $('#amount').html(amount);
+                $('#period').html(period);
+                $('#content_loading').hide();
+                $('#content_loaded').show();
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<head>
+    <title>Support Request</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <script src="js/jquery/jquery.js"></script>
+    <script src="js/jquery-mobile/jquery.mobile.js"></script>
+    <script type="text/javascript" src="js/class.user.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>     
+</head>
+<body>
+    <div data-role="page" data-add-back-btn="true">
+        <!-- START: Title -->
+        <div data-role="header">
+            <a href="support.html" data-icon="back" class="button_back">Back</a>
+            <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+            <h1>Support Request</h1>
+        </div>
+        <!-- END: Title -->
+
+        <!-- START: Content -->
+        <div data-role="content">
+            <!-- START: Message Board -->
+            <div id="message"></div>
+            <!-- END: Message Board -->
+            <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                Make Payment
+            </button>  
+            <div>
+                <div data-role="fieldcontain">
+                    <label for="title">Title</label>
+                    <input id="title" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="comment">Comment</label>
+                    <textarea id="comment"></textarea>
+                </div>
+
+                <button onclick="create_ticket();" type="submit" data-theme="b">Create</button>
+            </div>
+        </div>
+        <!-- END: Content -->
+    </div>
+    <script>
+
+//        $(function() {
+//            $("#title").focus();
+//
+//            $('#text-counter-text').textCounter({
+//                target: '#description',
+//                count: 255,
+//                warnAt: 10
+//            });
+//
+//            $('#text-counter-title').textCounter({
+//                target: '#title',
+//                count: 140,
+//                warnAt: 10
+//            });
+//        });
+
+                balance_display_in_button();  
+                function create_ticket() {
+                    var user = global.getUser();
+                    var user_id = user.getId();
+                    var title = $('#title').val();
+                    var comment = $('#comment').val();
+                    var message = '';
+                    if (title === '' || comment === '') {
+                        message = 'title and comments are required field.';
+                    }
+                    if (message === '') {
+                        global.api('create_ticket', {user_id: user_id, title: title, comment: comment}, create_ticket_display);
+                    } else {
+                        $('#message').html('<span style="color:red;">' + message + '</span>').show();
+                    }
+                }
+
+                function create_ticket_display(response) {
+                    if (response.result === 'success') {
+                        alert(response.details);
+                        location.reload();
+                    } else {
+                        $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    }
+                }
+    </script>
+</body>
+</html>

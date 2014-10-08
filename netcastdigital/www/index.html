@@ -1,41 +1,135 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
     <head>
         <meta charset="utf-8" />
+        <title>Home - Self Care Hosting Portal</title>
         <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>Hello World</title>
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div data-role="page">
+            <!-- START: Title -->
+            <div data-role="header">
+                <h1 id="user_name" style="margin-left: 0px; margin-right: 0px;">Self Care Portal</h1>
             </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <h3 id="title" style="text-align: center; color: #5F5F5F;">Welcome to Self Care Portal</h3>
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <ul data-role="listview" data-inset="true">
+                    <!--li>
+                        <a href="packages.html" rel="external">
+                            <img src="img/briefcase.png" alt="" />
+                            <h2>Packages</h2>
+                            <p>Tariffs and mobile features</p></a>
+                    </li-->
+                    <li>
+                        <a href="prayer-line.html" rel="external">
+                            <img src="img/prayer-line.png" alt="" />
+                            <h2>Prayer Line</h2>
+                            <p>Prayer Line</p></a>
+                    </li>
+                    <!--li>
+                        <a href="calling-circles.html" rel="external">
+                            <img src="img/internet-telephony.png" alt="" />
+                            <h2>Calling Circles</h2>
+                            <p>Local and international call groups</p></a>
+                    </li-->
+                    <!--li id="connect" style="display: none;">
+                        <a href="connect.html" rel="external">
+                            <img src="img/network-connect.png" alt="" />
+                            <h2>Connect</h2>
+                            <p>Local numbers routed abroad</p></a>
+                    </li-->
+                    <!--li>
+                        <a href="global-roaming.html" rel="external">
+                            <img src="img/globe.png" alt="" />
+                            <h2>Global Roaming</h2>
+                            <p>SIM & WiFi roaming features</p></a>
+                    </li-->
+                    <li>
+                        <a href="account.html" rel="external">
+                            <img src="img/user_male.png" alt="" />
+                            <h2>Account</h2>
+                            <p>Account related features</p></a>
+                    </li>
+                    <li>
+                        <a href="support.html" rel="external">
+                            <img src="img/support.png" alt="" />
+                            <h2>Support</h2>
+                            <p>Support ticket management</p></a>
+                    </li>
+                    <li id="logout_option">
+                        <a href="logout.html" rel="external">
+                            <img src="img/logout.png" alt="" />
+                            <h2>Logout</h2>
+                            <p>Exit the self care portal</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END: Content -->
         </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                var username = getUrlParameter('username');
+                var password = getUrlParameter('password');
+                console.log(username);
+                console.log(password);
+                if (username !== null && password !== null) {
+                    window.location.href = 'auto.html?u=' + username + '&p=' + password;
+                } else {
+                    window.location = 'login.html';
+                }
+            }
+
+            if (global.get('auto_login') === 'true') {
+                $('#logout_option').hide();
+            } else if (global.get('auto_login') === 'false') {
+                $('#logout_option').show();
+            }
+        </script>
+        <script>
+            if (global.get('auth') === null) {
+                // Second test
+                window.location.href = 'login.html';
+            } else {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var currency = user.getCurrency();
+                $('#user_name').html(user.getFirstName() + ' ' + user.getLastName());
+                if (user.getCurrency() !== 'NGN') {
+                    $('#connect').show();
+                }
+                balance_display_in_button();
+
+                global.api('usage_and_sms_last_month', {user_id: user_id, currency: currency}, usage_and_sms_last_month_display);
+
+            }
+
+            function usage_and_sms_last_month_display(result) {
+                var voice_total = result.details['voice_total'];
+                var data_total = result.details['data_total'];
+                var sms_total = result.details['sms_total'];
+
+                var html = ' <img src="img/dashboard.png" width="50" height="50" style="vertical-align:middle;"> - ';
+                html += ' Last Month\'s Voice Usage (' + voice_total + ' mins),';
+                html += ' Data Usage (' + data_total + ' GB),';
+                html += ' SMS (' + sms_total + ' messages)';
+
+                $('#title').html(html);
+            }
+
+        </script>
     </body>
 </html>

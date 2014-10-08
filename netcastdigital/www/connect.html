@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Connect</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page">
+
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <h1 id="title">Connect</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <ul data-role="listview" data-inset="true">
+                    <li><a href="manage-connects.html" rel="external">Manage Connects</a></li>
+                    <li><a href="manage-trusted-numbers.html" rel="external">Manage Trusted Numbers</a></li>
+                </ul>
+            </div>
+            <!-- END: Content -->
+        </div>
+
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+            balance_display_in_button(); 
+        </script>
+    </body>
+</html>
+
+
