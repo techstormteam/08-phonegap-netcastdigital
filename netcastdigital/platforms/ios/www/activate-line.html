@@ -1,0 +1,82 @@
+<head>
+    <title>Travel Advice</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <script src="js/jquery/jquery.js"></script>
+    <script src="js/jquery-mobile/jquery.mobile.js"></script>
+    <script type="text/javascript" src="js/class.user.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />     
+</head>
+<body>
+    <div data-role="page" data-add-back-btn="true">
+        <!-- START: Title -->
+        <div data-role="header">
+            <a href="roaming.html" rel="external" data-icon="back" class="button_back">Back</a>
+            <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+            <h1 id="title">Activate Line</h1>
+        </div>
+        <!-- END: Title -->
+
+        <!-- START: Content -->
+        <div data-role="content">
+            <!-- START: Message Board -->
+            <div id="message"></div>
+            <!-- END: Message Board -->
+            <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                Make Payment
+            </button>  
+            <p style="font-size:10px; font-family:Segoe UL Thin;">Select your intended travel destination, and we will give you important tips and tricks to make your roaming experience blissful and most affordable </p>
+            <select id="modal_activate_line_country">
+                <option value="">-- SELECT COUNTRY --</option>
+            </select>  
+            <a href="#" data-role="button" onclick="activate_line();" data-mini="true" data-inline="true" data-theme="b">Submit</a>
+        </div>
+        <!-- END: Content -->
+    </div>
+    <script type="text/javascript">
+                app.initialize();
+                if (global.get('auth') === null) {
+                    window.location = 'login.html';
+                }
+    </script>
+    <script>
+        var user = global.getUser();
+        var user_id = user.getId();
+        
+        balance_display_in_button(); 
+        
+        global.api('roaming', {user_id: user_id}, roaming_result);
+        function roaming_result(result) {
+            var countries = result.details['countries'];
+
+            var row = '';
+            for (var i = 0; i < countries.length; i++) {
+                var countrie = countries[i];
+                if (countrie === 'USA') {
+                    row += '<option value="' + countrie + '" selected="selected">' + countrie + '</option>';
+                } else {
+                    row += '<option value="' + countrie + '">' + countrie + '</option>';
+                }
+            }
+
+            $('#modal_activate_line_country').html(row);
+        }
+        function activate_line() {
+            var country = $('#modal_activate_line_country').val();
+            global.api('activate_line', {user_id: user_id, country: country}, activate_line_response);
+        }
+        function activate_line_response(response) {
+            if (response.result === 'success') {
+                alert(response.details);
+                location.reload();
+            } else {
+                $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+            }
+        }
+    </script>
+</body>
+</html>

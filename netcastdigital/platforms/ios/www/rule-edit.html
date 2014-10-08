@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Make Payment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <link rel="stylesheet" href="css/common.css" />       
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="follow-me.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Diversion Rule Edit</h1>
+            </div>
+            <!-- END: Title -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button> 
+                <div data-role="fieldcontain">
+                    <label for="name">Name:</label>
+                    <input id="name" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="first_number">First Number:</label>
+                    <input id="first_number" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="second_number">Second Number:</label>
+                    <input id="second_number" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="third_number">Third Number:</label>
+                    <input id="third_number" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="email">Email:</label>
+                    <input id="email" />
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Edit Rule</button>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            $('#first_number').keyup(function() {
+                var ref = $.trim($('#first_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#first_number').val(ref);
+            });
+            $('#second_number').keyup(function() {
+                var ref = $.trim($('#second_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#second_number').val(ref);
+            });
+            $('#third_number').keyup(function() {
+                var ref = $.trim($('#third_number').val());
+                ref = ref.replace(/\D/g, '');
+                $('#third_number').val(ref);
+            });
+            var profile_id = getUrlParameter('id');
+            var user = global.getUser();
+            var user_id = user.getId();
+            global.api('get_rule', {user_id: user_id, profile_id: profile_id}, rule_data_response);
+
+            function rule_data_response(response) {
+                if (response.result === 'success') {
+                    $('#name').val(response.details['name']);
+                    $('#first_number').val(response.details['first_number']);
+                    $('#second_number').val(response.details['second_number']);
+                    $('#third_number').val(response.details['third_number']);
+                    $('#email').val(response.details['email']);
+
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+            function check_form() {
+                $('#message').html('');
+
+                var user = global.getUser();
+                var user_id = user.getId();
+                var name = $('#name').val();
+                var first_number = $.trim($('#first_number').val());
+                var second_number = $.trim($('#second_number').val());
+                var third_number = $.trim($('#third_number').val());
+                var email = $.trim($('#email').val());
+
+                global.api('rule_edit', {user_id: user_id, name: name, first_number: first_number,
+                    second_number: second_number, third_number: third_number, email: email},
+                rule_edit_response);
+            }
+            function rule_edit_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'follow-me.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

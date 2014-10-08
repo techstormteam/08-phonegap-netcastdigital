@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Invoices</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="account.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Usage</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <a href="#" data-role="button" data-icon="search" data-mini="true" onclick="$('#search_box').toggle();" data-theme="b">Search Options</a>
+                <div id="search_box" style="display: none;">
+                    <div data-role="fieldcontain">
+                        <label for="usage_ref">Call Ref</label>
+                        <input id="usage_ref" />
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="start_date">Start Date</label>
+                        <input id="start_date" type="date" data-role="datebox"
+                               data-options='{"mode": "calbox", "overrideDateFormat":"%d %b %Y"}' >
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="end_date">End Date</label>
+                        <input id="end_date" type="date" data-role="datebox"
+                               data-options='{"mode": "calbox", "overrideDateFormat":"%d %b %Y"}'>
+                    </div>
+                    <button type="submit" onclick="search();" data-theme="e">Search</button>
+                </div>
+                <table data-role="table" id="usage_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Call</th>
+                            <th data-priority="persist">Start Time</th>
+                            <th data-priority="2">Stop Time</th>
+                            <th data-priority="3">Session Time</th>
+                            <th data-priority="4">Destination</th>
+                            <th data-priority="5">Amount</th>
+                            <th data-priority="6">Caller/Data Usage</th>
+                            <th data-priority="7">Account Balance</th>
+                            <th data-priority="8">Call Type</th>
+<!--                            <th data-priority="9">Voicemail</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="10"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="usages_pagination"></div>
+                <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                    <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                    <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                    <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+                </div>
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var today = new Date();          
+            var previos_month = new Date();
+            previos_month.setMonth(today.getMonth() - 1);
+            var prev_mm = previos_month.getMonth();
+            var prev_mmm = month_names_short[prev_mm];      
+            var dd = ((today.getDate() < 10) ? "0" : "") + today.getDate();
+            var yyyy = today.getFullYear();
+            $("#start_date").val(dd + ' ' + prev_mmm + ' ' + yyyy);
+
+            var next_month = new Date();
+            next_month.setMonth(today.getMonth());
+            var next_mm = next_month.getMonth();
+            var next_mmm = month_names_short[next_mm];
+            $("#end_date").val(dd + ' ' + next_mmm + ' ' + yyyy);
+
+
+            $('#start_date').change(function() {
+                $('#usage_ref').val('');
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                var startDate = new Date(start_date);
+                var endDate = new Date(end_date);
+                var more_than_month = (endDate - startDate - (30 * 24 * 60 * 60 * 1000)) > 0 ? true : false;
+
+                if (end_date === "" || more_than_month) {
+                    var endDate = startDate;
+                    endDate.setMonth(endDate.getMonth() + 1);
+                    var dd = ((endDate.getDate() < 10) ? "0" : "") + endDate.getDate();
+                    var mm = endDate.getMonth();
+                    var mmm = month_names_short[mm];
+                    var yyyy = endDate.getFullYear();
+                    $('#end_date').val(dd + ' ' + mmm + ' ' + yyyy);
+                }
+            });
+
+            $('#end_date').change(function() {
+                $('#usage_ref').val('');
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                var startDate = new Date(start_date);
+                var endDate = new Date(end_date);
+                var more_than_month = (endDate - startDate - (30 * 24 * 60 * 60 * 1000)) > 0 ? true : false;
+
+                if (start_date === "" || more_than_month) {
+                    var startDate = endDate;
+                    startDate.setMonth(startDate.getMonth() - 1);
+                    var dd = ((startDate.getDate() < 10) ? "0" : "") + startDate.getDate();
+                    var mm = startDate.getMonth();
+                    var mmm = month_names_short[mm];
+                    var yyyy = startDate.getFullYear();
+                    $('#start_date').val(dd + ' ' + mmm + ' ' + yyyy);
+                }
+            });
+
+            $('#usage_ref').keyup(function() {
+                var ref = $.trim($('#usage_ref').val());
+
+                ref = ref.replace(/\D/g, '');
+                $('#usage_ref').val(ref);
+
+                if (ref === '') {
+                    var endDate = new Date();
+                    var startDate = new Date();
+                    startDate.setMonth(startDate.getMonth() - 1);
+                    $('#start_date').val($.datepicker.formatDate('dd M yy', startDate));
+                    $('#end_date').val($.datepicker.formatDate('dd M yy', endDate));
+                } else {
+                    $('#start_date').val('');
+                    $('#end_date').val('');
+                }
+            });
+
+
+            function search() {
+                var usage_ref = $('#usage_ref').val();
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                global.api('usages_by_user_id', {user_id: user_id, usage_ref: usage_ref, start_date: start_date, end_date: end_date, orderby:start_date }, usages_display);
+            }
+
+
+
+            var user = global.getUser();
+            var user_id = user.getId();
+            
+            balance_display_in_button(); 
+            
+            usages_show_page(0);
+            function usages_show_page(page) {
+                var usage_ref = $('#usage_ref').val();
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                global.api('usages_by_user_id', {user_id: user_id, page: page, usage_ref: usage_ref, start_date: start_date, end_date: end_date, orderby:start_date}, usages_display);
+            }
+
+            function usages_display(result) {
+                var usages = result.details['usages'];
+                var usages_count = result.details['usages_count'];
+                var pages_count = result.details['pages_count'];
+                var page = result.details['page'];
+                var rows = '';
+                
+                for (var i = 0; i < usages.length; i++) {
+                    var usage = usages[i];
+                    var row = '<tr>';
+                    row += '<td>' + usage["id"] + '</td>';
+                    row += '<td>' + usage["starttime"] + '</td>';
+                    row += '<td>' + usage["stoptime"] + '</td>';
+                    row += '<td>' + usage["sessiontime"] + '</td>';
+                    row += '<td>' + usage["calledstation"] + '</td>';
+                    row += '<td>' + usage["sessionbill"] + '</td>';
+                    row += '<td>' + usage["caller"] + '</td>';
+                    row += '<td>' + usage["accountbalance"] + '</td>';
+                    row += '<td>' + usage["callcode_summary"] + '</td>';
+//                    row += '<td>';
+//                    if (usage['vmail_flag'] !== '') {
+//                        row += usage["vmail_flag"];
+//                    }
+//                    row += '</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows !== '') {
+                    $('#pagination').show();
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="10">No usages found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#usage_table tbody').html(rows);
+                $('#usage_table').table('refresh');
+                try {
+                    $('#usage_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+
+                $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                if (page > 0) {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
+                        usages_show_page(page - 1);
+                    });
+                }
+                $('#pagination_current .ui-btn-text').html(page + 1);
+                $('#pagination_current').removeClass('ui-disabled').click(function() {
+                    usages_show_page(page);
+                });
+                if ((page + 1) < pages_count) {
+                    $('#pagination_next').removeClass('ui-disabled').click(function() {
+                        usages_show_page(page + 1);
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

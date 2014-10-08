@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Rewards</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>      
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="account.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Rewards</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <table data-role="table" id="rewards_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Referred Id</th>
+                            <th data-priority="persist">Referred Email</th>
+                            <th data-priority="2">Referral Bonus This Day</th>
+                            <th data-priority="3">Daily Limit</th>
+                            <th data-priority="4">Bonus Stop Date</th>
+                            <th data-priority="5">Bonus Type</th>
+                            <th data-priority="6">Referral Date</th>
+                            <th data-priority="7">Update Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="8"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="rewards_pagination"></div>
+                <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                    <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                    <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                    <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+                </div>
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+
+            balance_display_in_button();
+
+            rewards_show_page(0);
+            function rewards_show_page(page) {
+                global.api('rewards_show', {user_id: user_id, page: page}, rewards_display);
+            }
+
+            function rewards_display(result) {
+                var rewards = result.details['customer_referrals'];
+                var pages_count = result.details['pages_count'];
+                var page = result.details['page'];
+                var rows = '';
+
+                for (var i = 0; i < rewards.length; i++) {
+                    var rewards = rewards[i];
+                    var row = '<tr>';
+                    row += '<td>' + rewards["referred_id_cc_card"] + '</td>';
+                    row += '<td>' + rewards["referred_email"] + '</td>';
+                    row += '<td>' + rewards["referral_bonus_this_day"] + '</td>';
+                    row += '<td>' + rewards["daily_limit"] + '</td>';
+                    row += '<td>' + rewards["bonus_stop_date"] + '</td>';
+                    row += '<td>' + rewards["bonus_type"] + '</td>';
+                    row += '<td>' + rewards["referral_date"] + '</td>';
+                    row += '<td>' + rewards["update_date"] + '</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows !== '') {
+                    $('#pagination').show();
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="10">No rewards found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#rewards_table tbody').html(rows);
+                $('#rewards_table').table('refresh');
+                try {
+                    $('#rewards_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+
+                $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                if (page > 0) {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
+                        rewards_show_page(page - 1);
+                    });
+                }
+                $('#pagination_current .ui-btn-text').html(page + 1);
+                $('#pagination_current').removeClass('ui-disabled').click(function() {
+                    rewards_show_page(page);
+                });
+                if ((page + 1) < pages_count) {
+                    $('#pagination_next').removeClass('ui-disabled').click(function() {
+                        rewards_show_page(page + 1);
+                    });
+                }
+            }
+        </script>
+    </body>
+</html>

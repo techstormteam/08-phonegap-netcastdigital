@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WiFi Access Points</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="account.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">WiFi Access Points</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <div data-role="fieldcontain">
+                    <label for="ssid_name">SSID Name:</label>
+                    <input id="ssid_name" value=""  />
+                </div>
+
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="update_ssid();" data-theme="b">Update SSID</button>
+                </div>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+
+            balance_display_in_button();
+            var user = global.getUser();
+            var user_id = user.getId();
+            
+            global.api('get_ssid_name', {user_id: user_id}, ssid_name_display);
+            function ssid_name_display(result) {
+                var ssid_name = result.details['ssid'];
+                if (ssid_name !== 0 && ssid_name !== '' && ssid_name !== null) {
+                    $('#ssid_name').val(ssid_name['ssid']);
+                }
+                
+            }
+            
+            function update_ssid() {
+                $('#message').html('');
+                var ssid_name = $('#ssid_name').val();
+                global.api('update_ssid', {user_id: user_id, ssid_name: ssid_name}, ssid_name_response);
+            }
+            
+            function ssid_name_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'index.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

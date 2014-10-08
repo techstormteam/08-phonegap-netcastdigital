@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Packages - Self Care Hosting Portal</title>
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script src="js/class.logbucket.js"></script>
+        <script src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body onunload="">
+        <div data-role="page">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" data-icon="back" rel="external" class="button_back">Back</a>
+                <h1 id="title">Packages</h1>
+                <a href="package-add.html" rel="external" data-icon="plus" data-theme="b">Add Package</a>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                <p style="font-size:10px; font-family:Segoe UL Thin;">
+                    Packages are bundled data, voice or SMS tariffs that provide high value for a set payment. Browse your packages, add more or change existing packages
+                </p>
+                <table data-role="table" id="packages_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Package</th>
+                            <th data-priority="persist">Start Date</th>
+                            <th data-priority="2">Bill Date</th>
+                            <th data-priority="3">Details</th>
+                            <th data-priority="4">Status</th>
+                            <th data-priority="6">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Content -->
+        </div>
+
+
+        <script type="text/javascript">
+            app.initialize();
+            // Check authorization?
+            if (global.get('auth') === null) {
+                window.location.href = 'login.html';
+            }
+            balance_display_in_button();  
+            function packages_display(result) {
+                var packages = result.details;
+                var user = global.getUser();
+                var currency = user.getCurrency();
+                var rows = '';
+                for (var i = 0; i < packages.length; i++) {
+                    var package = packages[i];
+                    var row = '<tr>';
+                    //row += '<td style="font-weight:bold;">' + package["package"] + '</td>';
+                    row += '<td>';
+                    row += '<a href="package-details.html?package_id=' + package["package"] + '&currency=' + currency + '" rel="external" data-role="button" data-mini="true" data-theme="b">';
+                    row += package["package"];
+                    row += '</a>';
+                    row += '</td>';
+                    row += '<td>' + package["start_date"] + '</td>';
+                    row += '<td>' + package["expiry_date"] + '</td>';
+                    row += '<td>Click on the package for details</td>';
+                    if (package["status"] === 'ACTIVE') {
+                        row += '<td style="color:green;">' + package["status"] + '</td>';
+                    } else {
+                        row += '<td style="color:red;">' + package["status"] + '</td>';
+                    }
+                    row += '<td><a href="#" data-role="button" data-mini="true" data-inline="true" data-theme="b" data-icon="delete" onclick="package_suspend(\'' + package["package"] + '\');">Suspend</a></td>';
+                    row += '</tr>';
+                    rows += row;
+
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="6">No packages found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#packages_table tbody').html(rows);
+                $('#packages_table').table('refresh');
+                try {
+                    $('#packages_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+            }
+            function package_suspend(package) {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var data = {package: package, user_id: user_id};
+                global.api('package_suspend', data, package_suspend_success);
+            }
+            function package_suspend_success(response) {
+                alert(response.details);
+                if (response.result === 'success') {
+                    window.location.href = 'packages.html';
+                }
+            }
+            $(document).delegate('body', 'pageinit', function() {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var data = {user_id: user_id};
+                global.api('packages_by_user_id', data, packages_display);
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,13 @@
+.button_back{
+     background: #FFBD3F;
+     background-image: -moz-linear-gradient(top, #EE9639, #FFBD3F);
+     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EE9639), color-stop(1, #FFBD3F));
+     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#EE9639', EndColorStr='#FFBD3F')";
+}
+
+.button_back:hover{
+     background: #b54a4a;
+     background-image: -moz-linear-gradient(top, #c44f4f, #b54a4a);
+     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #c44f4f), color-stop(1, #b54a4a));
+     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#c44f4f', EndColorStr='#b54a4a')";
+}

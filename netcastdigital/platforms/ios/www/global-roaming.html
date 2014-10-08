@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Global Roaming</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page">
+
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <h1 id="title">Global Roaming</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+                
+                <p style="font-size:10px; font-family:Segoe UL Thin; color: red;">
+                    Add text '"Dial *88880*num# to confirm the
+                    applicable call rate. e.g. dialing *88880*234123456#
+                    will confirm the rate to +234123456 from
+                    your current location
+                </p>
+                
+                <ul data-role="listview" data-inset="true">
+                    <li><a href="follow-me.html" rel="external">FollowMe Diversions</a></li>
+                    <li><a href="wifi-roaming.html" rel="external">WiFi Roaming</a></li>
+                    <li><a href="roaming.html" rel="external">SIM Based Global Roaming</a></li>
+                </ul>
+            </div>
+            <!-- END: Content -->
+        </div>
+
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+            balance_display_in_button();  
+        </script>
+    </body>
+</html>
+
+

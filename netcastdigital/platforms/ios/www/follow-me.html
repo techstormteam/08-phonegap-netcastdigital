@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FollowMe Diversions</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true" id="main_page">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="global-roaming.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">FollowMe Diversions</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <p style="font-size:10px; font-family:Segoe UL Thin; color: red;">
+                    You must must have purchased a 'FollowMe' SIM Based Voice/SMS package in order to create a FollowMe rule and associated schedules
+                </p>
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="create-rule.html" rel="external" data-role="button" data-icon="plus" data-mini="true" data-theme="b">Create Rule</a>
+                    <a href="create-schedule.html" rel="external" data-role="button" data-icon="plus" data-mini="true" data-theme="b">Create Schedule</a>
+                </div>
+
+                <h3>Diversion Rules</h3>
+                <table data-role="table" id="diversion_rules_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Rule Name</th>
+                            <th data-priority="persist">First Forward</th>
+                            <th data-priority="2">Second Forward</th>
+                            <th data-priority="3">Third Forward</th>
+                            <th data-priority="4">Email Voicemail To</th>
+                            <th data-priority="5">Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <h3>Diversion Schedules</h3>
+                <table data-role="table" id="diversion_schedules_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Rule Name</th>
+                            <th data-priority="persist">Divert From</th>
+                            <th data-priority="2">Day of Week</th>
+                            <th data-priority="3">Start Time</th>
+                            <th data-priority="4">Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END: Content -->
+        </div>
+        <!-- START: Rule Delete -->
+        <div data-role="page" id="rule_delete">
+            <div data-role="header">
+                <h1>Rule Delete</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                Are you sure you want to delete this rule? 
+                <input type="hidden" id="name">
+                <p><a href="#main_page" data-role="button" data-theme="b">Cancel</a></p>
+                <p><a href="#" data-role="button" onclick="rule_delete();" data-theme="b">Delete</a></p>
+            </div><!-- /content -->
+        </div>
+        <!-- END: Rule Delete -->
+        <!-- START: Schedule Delete -->
+        <div data-role="page" id="schedule_delete">
+            <div data-role="header">
+                <h1>Schedule Delete</h1>
+            </div><!-- /header -->
+            <div data-role="content">
+                Are you sure you want to delete this schedule? 
+                <input type="hidden" id="schedule_id">
+                <input type="hidden" id="profile_id">
+                <p>
+                    <a href="#main_page" data-role="button" data-theme="b">Cancel</a>
+                    <a href="#" data-role="button" onclick="schedule_delete();" data-theme="b">Delete</a>
+                </p>
+            </div><!-- /content -->
+        </div>
+        <!-- END: Schedule Delete -->
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            balance_display_in_button();
+            global.api('rules_and_schedules', {user_id: user_id}, rules_and_schedules_result);
+
+            function rules_and_schedules_result(result) {
+                var rules = result.details['rules'];
+                var schedules = result.details['schedules'];
+                var phones = result.details['phones'];
+                var rows_rules = '';
+                var rows_schedule = '';
+                //START Rules
+                for (var i = 0; i < rules.length; i++) {
+                    var rule = rules[i];
+                    var row = '<tr>';
+                    row += '<td>' + rule["name"] + '</td>';
+                    row += '<td>' + rule["firstfwd"] + '</td>';
+                    row += '<td>' + rule["secondfwd"] + '</td>';
+                    row += '<td>' + rule["thirdfwd"] + '</td>';
+                    row += '<td>' + rule["email"] + '</td>';
+                    row += '<td>';
+                    row += '<a href="rule-edit.html?id='+ rule['profileID'] +'" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Edit</a>';
+                    row += '<a href="#rule_delete" data-role="button" data-rel="dialog" data-transition="pop" data-icon="delete" data-mini="true" data-inline="true" data-theme="b" onclick="dialog_rule_delete(\'' + rule["name"] + '\');">Delete</a>';
+                    row += '</td>';
+                    row += '</tr>';
+                    rows_rules += row;
+                }
+                if (rows_rules === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="6">No diversion rules</td>';
+                    row += '</tr>';
+                    rows_rules += row;
+                }
+                $('#diversion_rules_table tbody').html(rows_rules);
+                $('#diversion_rules_table').table('refresh');
+                try {
+                    $('#diversion_rules_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+                //END Rules
+                //START Schedules
+                for (var i = 0; i < schedules.length; i++) {
+                    var schedule = schedules[i];
+                    var row = '<tr>';
+                    row += '<td>' + schedule["name"] + '</td>';
+                    row += '<td>' + schedule["DIDnumber"] + '</td>';
+                    row += '<td>' + schedule["weekday"] + '</td>';
+                    row += '<td>' + schedule["starttime"] + '</td>';
+                    row += '<td>';
+                    row += '<a href="schedule-edit.html?schedule_id='+ schedule['scheduleID'] +'&profile_id='+ schedule['profileID'] +'" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Edit</a>';
+                    row += '<a href="#schedule_delete" data-role="button" data-rel="dialog" data-transition="pop" data-icon="delete" data-mini="true" data-inline="true" data-theme="b" onclick="dialog_schedule_delete(\'' + schedule["scheduleID"] + '\', \'' + schedule["profileID"] + '\');">Delete</a>';
+                    row += '</td>';
+                    row += '</tr>';
+                    rows_schedule += row;
+                }
+                if (rows_schedule === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="5">No diversion schedules</td>';
+                    row += '</tr>';
+                    rows_schedule += row;
+                }
+                $('#diversion_schedules_table tbody').html(rows_schedule);
+                $('#diversion_schedules_table').table('refresh');
+                try {
+                    $('#diversion_schedules_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+                //END Schedules
+            }
+
+            function dialog_rule_delete(name) {
+                $('#name').val(name);
+            }
+            function rule_delete() {
+                var name = $('#name').val();
+                $('#schedule_delete').dialog('close');
+                global.api('rule_delete', {user_id: user_id, name: name}, delete_response);
+            }
+            function dialog_schedule_delete(schedule_id, profile_id) {
+                $('#schedule_id').val(schedule_id);
+                $('#profile_id').val(profile_id);
+            }
+            function schedule_delete() {
+                var schedule_id = $('#schedule_id').val();
+                var profile_id = $('#profile_id').val();
+                $('#schedule_delete').dialog('close');
+                global.api('schedule_delete', {user_id: user_id, schedule_id: schedule_id, profile_id: profile_id}, delete_response);
+            }
+            function delete_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    window.location.href = 'follow-me.html';
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>

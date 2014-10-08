@@ -1,0 +1,166 @@
+<head>
+    <title>Manage Trusted Numbers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <script src="js/jquery/jquery.js"></script>
+    <script src="js/jquery-mobile/jquery.mobile.js"></script>
+    <script type="text/javascript" src="js/class.user.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>         
+</head>
+<body>
+    <div data-role="page" data-add-back-btn="true" id="main_page"> 
+        <!-- START: Title -->
+        <div data-role="header">
+            <a href="connect.html" rel="external" data-icon="back" class="button_back">Back</a>
+            <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+            <h1 id="title">Manage Trusted Numbers</h1>
+        </div>
+        <!-- END: Title -->
+
+        <!-- START: Content -->
+        <div data-role="content">
+            <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                Make Payment
+            </button>
+            <button type="submit" onclick="window.location.href = 'add-trusted-number.html';" data-theme="b">
+                    Add trusted telephone number
+                </button>
+            <div id="search_box" style="display: none;">
+                <div data-role="fieldcontain">
+                    <label for="trusted_number">Enter Trusted Telephone Number:</label>
+                    <input id="trusted_number" />
+                </div>  
+                <button type="submit" onclick="dialog_add_trusted_number_show();" data-theme="e">Add</button>
+            </div>
+            <table data-role="table" id="manage_trusted_number_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                <thead>
+                    <tr>
+                        <th data-priority="1">CallerID</th>
+                        <th data-priority="2">Action</th> 
+                        <th data-priority="3">&nbsp;</th>                
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3"><img src="img/ajax-load-black.gif"> Loading data</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="manage_trusted_number_pagination"></div>
+            <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+            </div>
+        </div>
+        <!-- END: Content -->            
+    </div>
+
+    <!-- START: Trusted Number Delete -->
+    <div data-role="page" id="connect_delete">
+        <div data-role="header">
+            <h1>Trusted Number Delete</h1>
+        </div><!-- /header -->
+        <div data-role="content">
+            Are you sure you want to delete this trusted number? 
+            <input type="hidden" id="trusted_number">
+            <p><a href="#main_page" data-role="button" data-theme="b">Close</a></p>
+            <p><a href="#" data-role="button" onclick="trusted_number_delete();" data-theme="b">Apply</a></p>
+        </div><!-- /content -->
+    </div>
+    <!-- END: Trusted Number Delete -->
+
+    <script type="text/javascript">
+                app.initialize();
+                if (global.get('auth') === null) {
+                    window.location = 'login.html';
+                }
+    </script>
+    <script>
+        $('#trusted_number').keyup(function() {
+            var ref = $.trim($('#trusted_number').val());
+
+            ref = ref.replace(/\D/g, '');
+            $('#trusted_number').val(ref);
+        });
+
+        var user = global.getUser();
+        var user_id = user.getId();
+        balance_display_in_button();  
+        manage_trusted_number_show_page(0);
+        function manage_trusted_number_show_page(page) {
+            global.api('manage_trusted_number_by_user_id', {user_id: user_id, page: page}, manage_trusted_number_display);
+        }
+
+        function manage_trusted_number_display(result) {
+            var trusted_numbers = result.details['trusted_numbers'];
+            var trusted_numbers_count = result.details['trusted_numbers_count'];
+            var page = result.details['page'];
+            var pages_count = result.details['pages_count'];
+            var rows = '';
+            for (var i = 0; i < trusted_numbers.length; i++) {
+                var trusted_number = trusted_numbers[i];
+                var row = '<tr>';
+                row += '<td>' + trusted_number["cid"] + '</td>';
+                row += '<td><a href="manage-trusted-number-edit.html?trusted_number=' + trusted_number['cid'] + '" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Edit</a></td>';
+                row += '<td><a href="#connect_delete" data-role="button" data-rel="dialog" data-transition="pop" onclick="dialog_trusted_number_delete(\'' + trusted_number['cid'] + '\');" data-mini="true" data-inline="true" data-theme="b">Delete</a></td>';
+                row += '</tr>';
+                rows += row;
+            }
+            if (rows !== '') {
+                $('#pagination').show();
+            }
+            if (rows === '') {
+                var row = '<tr>';
+                row += '<td colspan="3">No trusted number are found</td>';
+                row += '</tr>';
+                rows += row;
+            }
+            $('#manage_trusted_number_table tbody').html(rows);
+            $('#manage_trusted_number_table').table('refresh');
+            try {
+                $('#manage_trusted_number_table a').button().button('refresh');
+            } catch (e) {
+
+            }
+            $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+            $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+            $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+            if (page > 0) {
+                $('#pagination_previous').removeClass('ui-disabled').click(function() {
+                    manage_trusted_number_show_page(page - 1);
+                });
+            }
+            $('#pagination_current .ui-btn-text').html(page + 1);
+            $('#pagination_current').removeClass('ui-disabled').click(function() {
+                manage_trusted_number_show_page(page);
+            });
+            if ((page + 1) < pages_count) {
+                $('#pagination_next').removeClass('ui-disabled').click(function() {
+                    manage_trusted_number_show_page(page + 1);
+                });
+            }
+        }
+        function dialog_trusted_number_delete(trusted_number) {
+            $('#trusted_number').val(trusted_number);
+        }
+
+        function trusted_number_delete() {
+            var trusted_number = $('#trusted_number').val();
+            global.api('trusted_number_delete', {user_id: user_id, trusted_number: trusted_number}, trusted_number_delete_response);
+        }
+
+        function trusted_number_delete_response() {
+            if (response.result === 'success') {
+                alert(response.details);
+                window.location.href = 'index.html';
+            } else {
+                $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+            }
+        }
+    </script>
+</body>
+</html>

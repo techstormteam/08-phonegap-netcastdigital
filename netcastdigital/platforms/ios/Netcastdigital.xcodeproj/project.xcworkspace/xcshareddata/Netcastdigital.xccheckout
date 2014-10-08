@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>EBF0066D-A00D-441F-8763-85AB71ADE9EC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Netcastdigital</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0FDAA8EEABA8D289FAB3F68429CDC234E2060350</key>
+		<string>https://github.com/techstormteam/08-phonegap-netcastdigital.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>netcastdigital/platforms/ios/Netcastdigital.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0FDAA8EEABA8D289FAB3F68429CDC234E2060350</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/techstormteam/08-phonegap-netcastdigital.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0FDAA8EEABA8D289FAB3F68429CDC234E2060350</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0FDAA8EEABA8D289FAB3F68429CDC234E2060350</string>
+			<key>IDESourceControlWCCName</key>
+			<string>08-phonegap-netcastdigital</string>
+		</dict>
+	</array>
+</dict>
+</plist>

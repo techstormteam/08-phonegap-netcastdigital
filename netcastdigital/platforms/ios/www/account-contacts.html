@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Contacts</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />       
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="support.html" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">My Contacts</h1>
+            </div>
+            <!-- END: Title -->
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <div id="content_loading">
+                    <img src="img/ajax-load-black.gif"> Loading data 
+                </div>
+                <div id="content_loaded" style="display:none;">
+                    <h4>Billing Contact: </h4>
+                    <div  data-role="fieldcontain">
+                        <label>Address: </label>
+                        <span id="billing_address"></span><br>
+                        <label>Email: </label>
+                        <span id="billing_email"></span><br>
+                        <label>Phone: </label>
+                        <span id="billing_phone"></span>
+                        <a href="#" data-role="button" onclick="callback($('#billing_phone').html());" data-mini="true" data-inline="true" data-theme="b">Call Billing Team</a>
+                    </div>
+                    <h4>Admin Desk : </h4>
+                    <div  data-role="fieldcontain">
+                        <label>Address: </label>
+                        <span id="admin_address"></span><br>
+                        <label>Email: </label>
+                        <span id="admin_email"></span><br>
+                        <label>Phone: </label>
+                        <span id="admin_phone"></span>
+                        <a href="#" data-role="button" onclick="callback($('#admin_phone').html());" data-mini="true" data-inline="true" data-theme="b">Call Admin Desk</a>
+                    </div>
+                    <h4>Geek Team : </h4>
+                    <div  data-role="fieldcontain">
+                        <label>Address: </label>
+                        <span id="geek_address"></span><br>
+                        <label>Email: </label>
+                        <span id="geek_email"></span><br>
+                        <label>Phone: </label>
+                        <span id="geek_phone"></span>
+                        <a href="#" data-role="button" onclick="callback($('#geek_phone').html());" data-mini="true" data-inline="true" data-theme="b">Call Geek Team</a>
+                    </div>
+                </div>
+            </div>
+            <!-- END: Content --> 
+        </div>
+
+        <script type="text/javascript">
+                            app.initialize();
+                            if (global.get('auth') === null) {
+                                window.location = 'login.html';
+                            }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            balance_display_in_button(); 
+            global.api('contacts_by_user_id', {user_id: user_id}, contacts_fill);
+
+            function contacts_fill(response) {
+
+                var billing_customer_address = response.billing_customer['address'] + ' ' + response.billing_customer['city']
+                        + ' ' + response.billing_customer['state'] + ' ' + response.billing_customer['zipcode'] + ' ' + response.billing_customer['country'];
+                var billing_customer_email = response.billing_customer['email'];
+                var billing_customer_phone = response.billing_customer['phone'];
+
+                var admin_customer_address = response.admin_customer['address'] + ' ' + response.admin_customer['city']
+                        + ' ' + response.admin_customer['state'] + ' ' + response.admin_customer['zipcode'] + ' ' + response.admin_customer['country'];
+                var admin_customer_email = response.admin_customer['email'];
+                var admin_customer_phone = response.admin_customer['phone'];
+
+                var tech_customer_address = response.tech_customer['address'] + ' ' + response.tech_customer['city']
+                        + ' ' + response.tech_customer['state'] + ' ' + response.tech_customer['zipcode'] + ' ' + response.tech_customer['country'];
+                var tech_customer_email = response.tech_customer['email'];
+                var tech_customer_phone = response.tech_customer['phone'];
+
+                $('#billing_address').html(billing_customer_address);
+                $('#billing_email').html(billing_customer_email);
+                $('#billing_phone').html(billing_customer_phone);
+
+                $('#admin_address').html(admin_customer_address);
+                $('#admin_email').html(admin_customer_email);
+                $('#admin_phone').html(admin_customer_phone);
+
+                $('#geek_address').html(billing_customer_address);
+                $('#geek_email').html(billing_customer_email);
+                $('#geek_phone').html(billing_customer_phone);
+
+                $('#content_loading').hide();
+                $('#content_loaded').show();
+            }
+
+            function callback(phone) {
+                var user = global.getUser();
+                var user_id = user.getId();
+                if (phone === '') {
+                    var msg = "<span style='color:red;'>phone is empty...</span>";
+                    $('#message').html(msg).show();
+                    return;
+                }
+                global.api('contacts_callback', {user_id: user_id, phone: phone}, callback_response);
+            }
+            function callback_response(response) {
+                if (response.result === 'success') {
+                    alert(response.details);
+                    location.reload();
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+    </body>
+</html>
