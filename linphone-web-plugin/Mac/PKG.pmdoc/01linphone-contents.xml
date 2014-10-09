@@ -1,0 +1,69 @@
+<pkg-contents spec="1.12">
+	<f n="${FBSTRING_PluginFileName}.${PLUGIN_EXT}" p="16877" pt="${FBSTRING_PluginFileName}.${PLUGIN_EXT}" m="false" t="file">
+		<f n="Contents" p="16877">
+			<f n="Info.plist" p="33188"/>
+			<f n="MacOS" p="16877">
+				<f n="${FBSTRING_PluginFileName}" p="33261"/>
+				<f n="linphoneweb" p="16877">
+					<f n="libantlr3c.1.dylib" p="33261"/>
+					<f n="libbellesip.0.dylib" p="33261"/>
+					<f n="liblinphone.6.dylib" p="33261"/>
+					<f n="libmediastreamer-base.3.dylib" p="33261"/>
+					<f n="libmediastreamer-voip.3.dylib" p="33261"/>
+					<f n="libortp.9.dylib" p="33261"/>
+					<f n="libpolarssl.3.dylib" p="33261"/>
+					<f n="libspeex.1.dylib" p="33261"/>
+					<f n="libspeexdsp.1.dylib" p="33261"/>
+					${IF ENABLE_SRTP}
+					<f n="libsrtp.1.dylib" p="33261"/>
+					${ENDIF}
+					${IF ENABLE_FFMPEG}
+					<f n="libavcodec.53.61.100.dylib" p="33261"/>
+					<f n="libavutil.51.35.100.dylib" p="33261"/>
+					<f n="libswscale.2.1.100.dylib" p="33261"/>
+					${ENDIF}
+					${IF ENABLE_TUNNEL}
+					<f n="libtunnel.0.dylib" p="33261"/>
+					${ENDIF}
+					<f n="lib" p="16877">
+						<f n="mediastreamer" p="16877">
+							<f n="plugins" p="16877">
+								${IF ENABLE_G729}
+								<f n="libmsbcg729.0.so" p="33261"/>
+								${ENDIF}
+								${IF ENABLE_OPENH264}
+								<f n="libmsopenh264.0.so" p="33261"/>
+								${ENDIF}
+								${IF ENABLE_X264}
+								<f n="libmsx264.0.so" p="33261"/>
+								${ENDIF}
+							</f>
+						</f>
+					</f>
+					<f n="share" p="16877">
+						<f n="images" p="16877">
+							<f n="nowebcamCIF.jpg" p="33188"/>
+						</f>
+						<f n="linphone" p="16877">
+							<f n="rootca.pem" p="33188"/>
+						</f>
+						<f n="sounds" p="16877">
+							<f n="linphone" p="16877">
+								<f n="ringback.wav" p="33188"/>
+								<f n="rings" p="16877">
+									<f n="oldphone.wav" p="33188"/>
+									<f n="toy-mono.wav" p="33188"/>
+								</f>
+							</f>
+						</f>
+					</f>
+				</f>
+			</f><f n="Resources" p="16877">
+				<f n="English.lproj" p="16877">
+					<f n="InfoPlist.strings" p="33188"/>
+					<f n="Localized.rsrc" p="33188"/>
+				</f>
+			</f>
+		</f>
+	</f>
+</pkg-contents>

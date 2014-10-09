@@ -1,0 +1,25 @@
+<pkmkdoc spec="1.12">
+	<properties>
+		<title>${FBSTRING_PluginName}</title>
+		<organization>${FBSTRING_CompanyName}</organization>
+		<userSees ui="easy"/>
+		<min-target os="3"/>
+		<domain user="true"/>
+	</properties>
+	<distribution>
+		<versions min-spec="1.000000"/>
+		<scripts/>
+	</distribution>
+	<contents>
+		<choice title="${FBSTRING_PluginName}" id="${FBSTRING_PluginDomain}" starts_selected="true" starts_enabled="true" starts_hidden="true">
+			<pkgref id="${FBSTRING_CompanyDomain}.${FBSTRING_PluginDomain}"/>
+		</choice>
+	</contents>
+	<resources bg-scale="none" bg-align="topleft">
+		<locale lang="fr"/>
+	</resources>
+	<flags/>
+	<item type="file">01linphone.xml</item>
+	<mod>properties.title</mod>
+	<mod>properties.userDomain</mod>
+</pkmkdoc>

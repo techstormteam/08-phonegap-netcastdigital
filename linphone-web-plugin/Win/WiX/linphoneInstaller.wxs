@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="${FBSTRING_PluginName}" Language="1033" Version="${FBSTRING_PLUGIN_VERSION}" Manufacturer="${FBSTRING_CompanyName}" UpgradeCode="{${FBControl_WixUpgradeCode_GUID}}">
+		<Package InstallerVersion="200" Compressed="yes" Description="Installer for the ${FBSTRING_PluginName} plugin" InstallScope="${WIX_INSTALL_SCOPE}" />
+		<Upgrade Id="{${FBControl_WixUpgradeCode_GUID}}">
+			<UpgradeVersion
+				Property="OLD_VERSION_FOUND"
+				Minimum="0.0.1" IncludeMinimum="yes"
+				Maximum="${FBSTRING_PLUGIN_VERSION}" IncludeMaximum="yes"
+				OnlyDetect="no" IgnoreRemoveFailure="yes"
+				MigrateFeatures="yes" />
+		</Upgrade>
+		<Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable" />
+		<InstallExecuteSequence>
+			<RemoveExistingProducts After="InstallInitialize" />
+			<InstallExecute After="RemoveExistingProducts" />
+		</InstallExecuteSequence>
+		<Media Id="1" Cabinet="${PLUGIN_PREFIX}.cab" EmbedCab="yes" />
+		<Icon Id="linphone.ico" SourceFile="${CMAKE_CURRENT_SOURCE_DIR}/Win/WiX/linphone.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="linphone.ico" />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="${FB_WIX_INSTALL_LOCATION}">
+				<Directory Id="CompanyDir" Name="${FBSTRING_CompanyDomain}">
+					<Component Id="CompanyDirComp" Guid="*">
+						<RemoveFolder Id="RemoveCompanyDir" On="uninstall" />
+						<RegistryValue
+							Root="${REGKEY_ROOT}"
+							Key="SOFTWARE\${FBSTRING_CompanyDomain}"
+							Name="Uninstall"
+							Type="string"
+							Value="${FBSTRING_PLUGIN_VERSION}"
+							KeyPath="yes" />
+					</Component>
+					<Directory Id="PluginNameDir" Name="${FBSTRING_PluginDomain}">
+						<Component Id="PluginNameDirComp" Guid="*">
+							<RemoveFolder Id="RemovePluginNameDir" On="uninstall" />
+							<RegistryValue
+								Root="${REGKEY_ROOT}"
+								Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}"
+								Name="Uninstall"
+								Type="string"
+								Value="${FBSTRING_PLUGIN_VERSION}"
+								KeyPath="yes" />
+						</Component>
+						<Directory Id="INSTALLDIR" Name="${FBSTRING_PLUGIN_VERSION}">
+							<Component Id="InstallDirComp" Guid="*">
+								<RemoveFolder Id="RemoveInstallDir" On="uninstall" />
+								<RegistryValue
+									Root="${REGKEY_ROOT}"
+									Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}"
+									Name="Uninstall"
+									Type="string"
+									Value="${FBSTRING_PLUGIN_VERSION}"
+									KeyPath="yes" />
+							</Component>
+
+
+							<Component Id="MainLibraries" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc6a">
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="nplinphone_web_pdb" Source="$(var.BINSRC)/${FBSTRING_PluginFileName}.pdb" />
+								<?endif ?>
+								<File Id="antlr3c" Source="$(var.BINSRC)/antlr3c.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="antlr3c_pdb" Source="$(var.BINSRC)/antlr3c.pdb" />
+								<?endif ?>
+								<File Id="bellesip" Source="$(var.BINSRC)/bellesip.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="bellesip_pdb" Source="$(var.BINSRC)/bellesip.pdb" />
+								<?endif ?>
+								<File Id="linphone" Source="$(var.BINSRC)/linphone.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="linphone_pdb" Source="$(var.BINSRC)/linphone.pdb" />
+								<?endif ?>
+								<File Id="mediastreamer_base" Source="$(var.BINSRC)/mediastreamer_base.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="mediastreamer_base_pdb" Source="$(var.BINSRC)/mediastreamer_base.pdb" />
+								<?endif ?>
+								<File Id="mediastreamer_voip" Source="$(var.BINSRC)/mediastreamer_voip.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="mediastreamer_voip_pdb" Source="$(var.BINSRC)/mediastreamer_voip.pdb" />
+								<?endif ?>
+								<File Id="libopus" Source="$(var.BINSRC)/libopus-0.dll" />
+								<File Id="ortp" Source="$(var.BINSRC)/ortp.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="ortp_pdb" Source="$(var.BINSRC)/ortp.pdb" />
+								<?endif ?>
+								<File Id="polarssl" Source="$(var.BINSRC)/polarssl.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="polarssl_pdb" Source="$(var.BINSRC)/polarssl.pdb" />
+								<?endif ?>
+								<File Id="speex" Source="$(var.BINSRC)/speex.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="speex_pdb" Source="$(var.BINSRC)/speex.pdb" />
+								<?endif ?>
+								<File Id="speexdsp" Source="$(var.BINSRC)/speexdsp.dll" />
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="speexdsp_pdb" Source="$(var.BINSRC)/speexdsp.pdb" />
+								<?endif ?>
+								${IF ENABLE_SRTP}
+								<File Id="srtp" Source="$(var.BINSRC)/srtp.dll" />
+								${ENDIF}
+								${IF ENABLE_FFMPEG}
+								<File Id="avcodec" Source="$(var.BINSRC)/avcodec-53.dll" />
+								<File Id="avutil" Source="$(var.BINSRC)/avutil-51.dll" />
+								<File Id="swscale" Source="$(var.BINSRC)/swscale-2.dll" />
+								${ENDIF}
+								${IF ENABLE_TUNNEL}
+								<File Id="tunnel" Source="$(var.BINSRC)/tunnel.dll" />
+								${ENDIF}
+								${IF WITH_DYNAMIC_MSVC_RUNTIME}
+								<?if $(var.Configuration) = Debug ?>
+								  <File Id="msvcp100d" Source="$(var.BINSRC)/msvcp100d.dll" />
+								  <File Id="msvcr100d" Source="$(var.BINSRC)/msvcr100d.dll" />
+								<?else ?>
+								  <File Id="msvcp100" Source="$(var.BINSRC)/msvcp100.dll" />
+								  <File Id="msvcr100" Source="$(var.BINSRC)/msvcr100.dll" />
+								<?endif ?>
+								${ENDIF}
+								<RegistryValue
+									Root="${REGKEY_ROOT}"
+									Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\MainLibraries"
+									Name="Uninstall"
+									Type="string"
+									Value="${FBSTRING_PLUGIN_VERSION}"
+									KeyPath="yes" />
+							</Component>
+							<Directory Id="LinphoneWebDir" Name="${PLUGIN_SHAREDIR}">
+								<Component Id="LinphoneWebDirComp" Guid="*">
+									<RemoveFolder Id="RemoveLinphoneWebDir" On="uninstall" />
+									<RegistryValue
+										Root="${REGKEY_ROOT}"
+										Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\LinphoneWebDirComp"
+										Name="Uninstall"
+										Type="string"
+										Value="${FBSTRING_PLUGIN_VERSION}"
+										KeyPath="yes" />
+								</Component>
+								<Directory Id="LibDir" Name="lib">
+									<Component Id="LibDirComp" Guid="*">
+										<RemoveFolder Id="RemoveLibDir" On="uninstall" />
+										<RegistryValue
+											Root="${REGKEY_ROOT}"
+											Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\LibDirComp"
+											Name="Uninstall"
+											Type="string"
+											Value="${FBSTRING_PLUGIN_VERSION}"
+											KeyPath="yes" />
+									</Component>
+									<Directory Id="LibMediastreamerDir" Name="mediastreamer">
+										<Component Id="LibMediastreamerDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc70">
+											<RemoveFolder Id="RemoveLibMediastreamerDir" On="uninstall" />
+											<RegistryValue
+												Root="${REGKEY_ROOT}"
+												Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\LibMediastreamerDirComp"
+												Name="Uninstall"
+												Type="string"
+												Value="${FBSTRING_PLUGIN_VERSION}"
+												KeyPath="yes" />
+										</Component>
+										<Directory Id="MsPluginsDir" Name="plugins">
+											<Component Id="MsPluginsDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc71">
+												<RemoveFolder Id="RemoveMsPluginsDir" On="uninstall" />
+												${IF ENABLE_G729}
+												<File Id="libmsbcg729" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/lib/mediastreamer/plugins/libmsbcg729-0.dll" />
+												${ENDIF}
+												${IF ENABLE_OPENH264}
+												<File Id="libmsopenh264" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/lib/mediastreamer/plugins/libmsopenh264.dll" />
+												${ENDIF}
+												${IF ENABLE_X264}
+												<File Id="libmsx264" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/lib/mediastreamer/plugins/libmsx264-0.dll" />
+												${ENDIF}
+												<RegistryValue
+													Root="${REGKEY_ROOT}"
+													Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\MsPluginsDirComp"
+													Name="Uninstall"
+													Type="string"
+													Value="${FBSTRING_PLUGIN_VERSION}"
+													KeyPath="yes" />
+											</Component>
+										</Directory>
+									</Directory>
+								</Directory>
+								<Directory Id="ShareDir" Name="share">
+									<Component Id="ShareDirComp" Guid="*">
+										<RemoveFolder Id="RemoveShareDir" On="uninstall" />
+										<RegistryValue
+											Root="${REGKEY_ROOT}"
+											Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\ShareDirComp"
+											Name="Uninstall"
+											Type="string"
+											Value="${FBSTRING_PLUGIN_VERSION}"
+											KeyPath="yes" />
+									</Component>
+									<Directory Id="ShareLinphoneDir" Name="linphone">
+										<Component Id="ShareLinphoneDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc6f">
+											<RemoveFolder Id="RemoveShareLinphoneDir" On="uninstall" />
+											<File Id="rootca" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/share/linphone/rootca.pem" />
+											<RegistryValue
+												Root="${REGKEY_ROOT}"
+												Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\ShareLinphoneDirComp"
+												Name="Uninstall"
+												Type="string"
+												Value="${FBSTRING_PLUGIN_VERSION}"
+												KeyPath="yes" />
+										</Component>
+									</Directory>
+									<Directory Id="ShareImagesDir" Name="images">
+										<Component Id="ShareImagesDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc6e">
+											<RemoveFolder Id="RemoveShareImagesDir" On="uninstall" />
+											<File Id="nowebcamCIF" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/share/images/nowebcamCIF.jpg" />
+											<RegistryValue
+												Root="${REGKEY_ROOT}"
+												Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\ShareImagesDirComp"
+												Name="Uninstall"
+												Type="string"
+												Value="${FBSTRING_PLUGIN_VERSION}"
+												KeyPath="yes" />
+										</Component>
+									</Directory>
+									<Directory Id="ShareSoundsDir" Name="sounds">
+										<Component Id="ShareSoundsDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc6d">
+											<RemoveFolder Id="RemoveShareSoundsDir" On="uninstall" />
+											<RegistryValue
+												Root="${REGKEY_ROOT}"
+												Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\ShareSoundsDirComp"
+												Name="Uninstall"
+												Type="string"
+												Value="${FBSTRING_PLUGIN_VERSION}"
+												KeyPath="yes" />
+										</Component>
+										<Directory Id="ShareSoundsLinphoneDir" Name="linphone">
+											<Component Id="ShareSoundsLinphoneDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc6b">
+												<RemoveFolder Id="RemoveShareSoundsLinphoneDir" On="uninstall" />
+												<File Id="ringback" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/share/sounds/linphone/ringback.wav" />
+												<RegistryValue
+													Root="${REGKEY_ROOT}"
+													Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\ShareSoundsLinphoneDirComp"
+													Name="Uninstall"
+													Type="string"
+													Value="${FBSTRING_PLUGIN_VERSION}"
+													KeyPath="yes" />
+											</Component>
+											<Directory Id="ShareSoundsLinphoneRingsDir" Name="rings">
+												<Component Id="ShareSoundsLinphoneRingsDirComp" Guid="d540fc92-55c6-4477-a481-c9dc7bb8dc6c">
+													<RemoveFolder Id="RemoveShareSoundsLinphoneRingsDir" On="uninstall" />
+													<File Id="oldphone" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/share/sounds/linphone/rings/oldphone.wav" />
+													<File Id="toymono" Source="$(var.BINSRC)/${PLUGIN_SHAREDIR}/share/sounds/linphone/rings/toy-mono.wav" />
+													<RegistryValue
+														Root="${REGKEY_ROOT}"
+														Key="SOFTWARE\${FBSTRING_CompanyDomain}\${FBSTRING_PluginDomain}\${FBSTRING_PLUGIN_VERSION}\ShareSoundsLinphoneRingsDirComp"
+														Name="Uninstall"
+														Type="string"
+														Value="${FBSTRING_PLUGIN_VERSION}"
+														KeyPath="yes" />
+												</Component>
+											</Directory>
+										</Directory>
+									</Directory>
+								</Directory>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+
+		<Feature Id="MainPluginFeature" Title="${FBSTRING_PluginName}" Level="1">
+			<ComponentRef Id="InstallDirComp"/>
+			<ComponentRef Id="PluginNameDirComp"/>
+			<ComponentRef Id="CompanyDirComp"/>
+			<ComponentGroupRef Id="PluginDLLGroup"/>
+			<ComponentRef Id="MainLibraries"/>
+			<ComponentRef Id="LinphoneWebDirComp"/>
+			<ComponentRef Id="LibDirComp"/>
+			<ComponentRef Id="LibMediastreamerDirComp"/>
+			<ComponentRef Id="MsPluginsDirComp"/>
+			<ComponentRef Id="ShareDirComp"/>
+			<ComponentRef Id="ShareLinphoneDirComp"/>
+			<ComponentRef Id="ShareImagesDirComp"/>
+			<ComponentRef Id="ShareSoundsDirComp"/>
+			<ComponentRef Id="ShareSoundsLinphoneDirComp"/>
+			<ComponentRef Id="ShareSoundsLinphoneRingsDirComp"/>
+		</Feature>
+	</Product>
+</Wix>
