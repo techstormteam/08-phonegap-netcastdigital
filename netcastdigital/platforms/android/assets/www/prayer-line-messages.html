@@ -17,7 +17,7 @@
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
-        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>     
     </head>
     <body>
         <div data-role="page" data-add-back-btn="true">
@@ -269,9 +269,17 @@
                 }
             };
 
+			function successFunction() {
+				alert('sd');
+			}
+			
+			function failFunction() {
+				alert('sd222');
+			}
+
             function playMessage(button, messageInvite) {
                 var message = 'playMessage-' + messageInvite;
-
+				cordova.exec(successFunction, failFunction, 'Echo', 'beep');
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
@@ -298,6 +306,7 @@
                 }
             });
         </script>
-
+		<script type="text/javascript" src="cordova.js"><!--empty--></script>
+		<script type="text/javascript" src="js/index.js"><!--empty--></script>
     </body>
 </html>
