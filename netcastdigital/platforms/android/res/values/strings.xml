@@ -4,6 +4,8 @@
     <string name="launcher_name">@string/app_name</string>
     <string name="activity_name">@string/launcher_name</string>
     
+    <string name="sip_domain">cloud.netcastdigital.net</string>
+    
     <string name="default_domain">sip.linphone.org</string>
     <string name="tunnel_mode_entry_value_always">tunnel_mode_entry_value_always</string>
     <string name="tunnel_mode_entry_value_3G_only">tunnel_mode_entry_value_3G_only</string>

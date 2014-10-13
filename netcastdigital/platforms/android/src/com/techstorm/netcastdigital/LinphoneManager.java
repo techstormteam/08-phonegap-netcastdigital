@@ -296,9 +296,8 @@ public class LinphoneManager implements LinphoneCoreListener {
 		return mLPConfigXsd;
 	}
 
-	public void newOutgoingCall(AddressType address) {
-		String to = address.getText().toString();
-		newOutgoingCall(to, address.getDisplayedName());
+	public void newOutgoingCall(String address) {
+		newOutgoingCall(address, null);
 	}
 
 	public void newOutgoingCall(String to, String displayName) {
@@ -309,9 +308,9 @@ public class LinphoneManager implements LinphoneCoreListener {
 		LinphoneAddress lAddress;
 		try {
 			lAddress = mLc.interpretUrl(to);
-			if (mServiceContext.getResources().getBoolean(R.bool.override_domain_using_default_one)) {
-				lAddress.setDomain(mServiceContext.getString(R.string.default_domain));
-			}
+//			if (mServiceContext.getResources().getBoolean(R.bool.override_domain_using_default_one)) {
+//				lAddress.setDomain(mServiceContext.getString(R.string.default_domain));
+//			}
 			LinphoneProxyConfig lpc = mLc.getDefaultProxyConfig();
 
 			if (mR.getBoolean(R.bool.forbid_self_call) && lpc!=null && lAddress.asStringUriOnly().equals(lpc.getIdentity())) {
@@ -325,7 +324,6 @@ public class LinphoneManager implements LinphoneCoreListener {
 		lAddress.setDisplayName(displayName);
 
 		boolean isLowBandwidthConnection = !LinphoneUtils.isHightBandwidthConnection(LinphoneService.instance().getApplicationContext());
-
 		if (mLc.isNetworkReachable()) {
 			try {
 				if (Version.isVideoCapable()) {

@@ -47,13 +47,9 @@ import org.linphone.core.PublishState;
 import org.linphone.core.SubscriptionState;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
@@ -169,12 +165,49 @@ public class Netcastdigital extends CordovaActivity implements LinphoneCoreListe
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				logIn("thienssau", "thien8776941", "sip.linphodne.org", false);
+				logIn("thienau", "thien8776941", "sip.linphone.org", false);
+				sip(String.format("%s@%s", "sip:playMessage-1-24612-244", getResources().getString(R.string.sip_domain)));
 			}
 		}, 1000);
 	}
 
 
+	private void sip(String address) {
+		try {
+			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
+				if (address.length() > 0) { 
+					LinphoneManager.getInstance().newOutgoingCall(address);
+				} else {
+//					if (getContext().getResources().getBoolean(R.bool.call_last_log_if_adress_is_empty)) {
+//						LinphoneCallLog[] logs = LinphoneManager.getLc().getCallLogs();
+//						LinphoneCallLog log = null;
+//						for (LinphoneCallLog l : logs) {
+//							if (l.getDirection() == CallDirection.Outgoing) {
+//								log = l;
+//								break;
+//							}
+//						}
+//						if (log == null) {
+//							return;
+//						}
+//						
+//						LinphoneProxyConfig lpc = LinphoneManager.getLc().getDefaultProxyConfig();
+//						if (lpc != null && log.getTo().getDomain().equals(lpc.getDomain())) {
+//							mAddress.setText(log.getTo().getUserName());
+//						} else {
+//							mAddress.setText(log.getTo().asStringUriOnly());
+//						}
+//						mAddress.setSelection(mAddress.getText().toString().length());
+//						mAddress.setDisplayedName(log.getTo().getDisplayName());
+//					}
+				}
+			}
+		} catch (LinphoneCoreException e) {
+			LinphoneManager.getInstance().terminateCall();
+//			onWrongDestinationAddress();
+		};
+	}
+	
 	private class ServiceWaitThread extends Thread {
 		public void run() {
 			while (!LinphoneService.isReady()) {
