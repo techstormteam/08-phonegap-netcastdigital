@@ -138,6 +138,8 @@ public class Netcastdigital extends CordovaActivity {
 	}
 	
 	protected void onServiceReady() {
+		
+		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(Netcastdigital.class);
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
