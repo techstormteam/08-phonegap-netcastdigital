@@ -5,6 +5,9 @@
     <string name="activity_name">@string/launcher_name</string>
     
     <string name="sip_domain">cloud.netcastdigital.net</string>
+    <string name="sip_username">123456</string>
+    <string name="sip_password">123456</string>
+    
     
     <string name="default_domain">sip.linphone.org</string>
     <string name="tunnel_mode_entry_value_always">tunnel_mode_entry_value_always</string>
@@ -35,7 +38,7 @@
 	<string name="today_date_format">HH:mm</string>
 	<string name="picture_name_format">linphone-mms-%s.jpg</string>
     
-	<string name="service_name">Linphone Service</string>
+	<string name="service_name">PrayerLine</string>
 	<string name="addressbook_label">Linphone</string>
 	<string name="notification_title">Linphone</string>
 	<string name="wait_dialog_text">Starting up</string>

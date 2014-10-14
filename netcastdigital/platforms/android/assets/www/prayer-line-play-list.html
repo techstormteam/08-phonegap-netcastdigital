@@ -11,6 +11,8 @@
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
         <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
         <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
@@ -342,6 +344,10 @@
                     session.bye();
                 }
                 if ($(button).hasClass('btn-success')) {
+                	window.cancelSip(message, function(message) {
+					    //empty
+					    //alert(false);
+					});
                     //$(button).removeClass('btn-success').addClass('btn-warning').html('Stop PlayList');
                     $(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_stop.png">');
                     $("#start_playlist").css('background', 'red');
@@ -349,6 +355,11 @@
                     $(button).button().button('refresh');
                     session = userAgent.invite(message, options);
                 } else {
+                	window.callSip(message, function(message) {
+					    //empty
+					    //alert(true);
+					});
+                	
                     $("#start_playlist").css('background', 'green');
                     $("#start_playlist").button().button('refresh');
                     $(button).removeClass('btn-warning').addClass('btn-success').html('Start PlayList');

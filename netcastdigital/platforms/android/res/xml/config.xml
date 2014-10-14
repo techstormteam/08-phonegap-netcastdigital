@@ -10,5 +10,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <plugin name="Echo" value="com.techstorm.netcastdigital.Echo" />
+    <feature name="LinPhonePlugin">
+       <param name="android-package" value="com.techstorm.netcastdigital.LinPhonePlugin" />
+	</feature>
 </widget>

@@ -11,6 +11,8 @@
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
         <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
         <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
@@ -269,22 +271,23 @@
                 }
             };
 
-			function successFunction() {
-				alert('sd');
-			}
 			
-			function failFunction() {
-				alert('sd222');
-			}
+		
+			
 
             function playMessage(button, messageInvite) {
                 var message = 'playMessage-' + messageInvite;
-				cordova.exec(successFunction, failFunction, 'Echo', 'beep');
+                
+				
+
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
 
                 if ($(button).hasClass('btn-success')) {
+                	window.callSip(message, function(message) {
+					    //empty
+					});
                     session = userAgent.invite(message, options);
                     $(button).removeClass('btn-success').addClass('btn-warning');
                     //$(button).find(".ui-btn-text").text("Stop Message");
@@ -292,6 +295,9 @@
                     $(button).css('background','red');
                     $(button).button().button('refresh');
                 } else {
+               		window.cancelSip(message, function(message) {
+					    //empty
+					});
                     $(button).removeClass('btn-warning').addClass('btn-success');
                     //$(button).find(".ui-btn-text").text("Play Message");
                     $(button).find(".ui-btn-text").html('<img src="img/control_play.png">');
@@ -306,7 +312,6 @@
                 }
             });
         </script>
-		<script type="text/javascript" src="cordova.js"><!--empty--></script>
-		<script type="text/javascript" src="js/index.js"><!--empty--></script>
+		
     </body>
 </html>

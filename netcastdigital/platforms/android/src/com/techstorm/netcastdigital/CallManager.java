@@ -53,6 +53,7 @@ public class CallManager {
 		LinphoneCore lc = LinphoneManager.getLc();
 		
 		LinphoneCallParams params = lc.createDefaultCallParameters();
+//		params.setAudioBandwidth(0);
 		bm().updateWithProfileSettings(lc, params);
 
 		if (videoEnabled && params.getVideoEnabled()) {

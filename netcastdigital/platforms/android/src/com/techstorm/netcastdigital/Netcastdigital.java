@@ -21,41 +21,23 @@ package com.techstorm.netcastdigital;
 
 import static android.content.Intent.ACTION_MAIN;
 
-import java.nio.ByteBuffer;
-
 import org.apache.cordova.CordovaActivity;
-import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneAddress.TransportType;
-import org.linphone.core.LinphoneCall;
-import org.linphone.core.LinphoneCall.State;
-import org.linphone.core.LinphoneCallStats;
-import org.linphone.core.LinphoneChatMessage;
-import org.linphone.core.LinphoneChatRoom;
-import org.linphone.core.LinphoneContent;
 import org.linphone.core.LinphoneCore;
-import org.linphone.core.LinphoneCore.EcCalibratorStatus;
-import org.linphone.core.LinphoneCore.GlobalState;
-import org.linphone.core.LinphoneCore.RegistrationState;
-import org.linphone.core.LinphoneCore.RemoteProvisioningState;
 import org.linphone.core.LinphoneCoreException;
-import org.linphone.core.LinphoneCoreListener;
-import org.linphone.core.LinphoneEvent;
-import org.linphone.core.LinphoneFriend;
-import org.linphone.core.LinphoneInfoMessage;
-import org.linphone.core.LinphoneProxyConfig;
-import org.linphone.core.PublishState;
-import org.linphone.core.SubscriptionState;
+import org.linphone.core.PayloadType;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
 import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
-public class Netcastdigital extends CordovaActivity implements LinphoneCoreListener {
+public class Netcastdigital extends CordovaActivity {
 	
-	
+	public static String SIP_DOMAIN;
+	public static String SIP_USERNAME;
+	public static String SIP_PASSWORD;
 	private Handler mHandler;
 	private ServiceWaitThread mThread;
 	
@@ -64,6 +46,10 @@ public class Netcastdigital extends CordovaActivity implements LinphoneCoreListe
 		super.onCreate(savedInstanceState);
 		// Set by <content src="index.html" /> in config.xml
 		loadUrl(launchUrl);
+		
+		SIP_DOMAIN = getResources().getString(R.string.sip_domain);
+		SIP_USERNAME = getResources().getString(R.string.sip_username);
+		SIP_PASSWORD = getResources().getString(R.string.sip_password);
 		
 		mHandler = new Handler();
 		
@@ -152,60 +138,25 @@ public class Netcastdigital extends CordovaActivity implements LinphoneCoreListe
 	}
 	
 	protected void onServiceReady() {
-		final Class<? extends Activity> classToStart;
-//		if (getResources().getBoolean(R.bool.show_tutorials_instead_of_app)) {
-//			classToStart = TutorialLauncherActivity.class;
-//		} else if (getResources().getBoolean(R.bool.display_sms_remote_provisioning_activity) && LinphonePreferences.instance().isFirstRemoteProvisioning()) {
-//			classToStart = RemoteProvisioningActivity.class;
-//		} else {
-//			classToStart = LinphoneActivity.class;
-//		}
-		
-//		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(classToStart);
 		mHandler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				logIn("thienau", "thien8776941", "sip.linphone.org", false);
-				sip(String.format("%s@%s", "sip:playMessage-1-24612-244", getResources().getString(R.string.sip_domain)));
+				try {
+					enableAllAudioCodecs();
+					logIn(SIP_USERNAME, SIP_PASSWORD, SIP_DOMAIN, false);
+				} catch (LinphoneCoreException e) {
+					e.printStackTrace();
+				}
 			}
 		}, 1000);
 	}
 
 
-	private void sip(String address) {
-		try {
-			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
-				if (address.length() > 0) { 
-					LinphoneManager.getInstance().newOutgoingCall(address);
-				} else {
-//					if (getContext().getResources().getBoolean(R.bool.call_last_log_if_adress_is_empty)) {
-//						LinphoneCallLog[] logs = LinphoneManager.getLc().getCallLogs();
-//						LinphoneCallLog log = null;
-//						for (LinphoneCallLog l : logs) {
-//							if (l.getDirection() == CallDirection.Outgoing) {
-//								log = l;
-//								break;
-//							}
-//						}
-//						if (log == null) {
-//							return;
-//						}
-//						
-//						LinphoneProxyConfig lpc = LinphoneManager.getLc().getDefaultProxyConfig();
-//						if (lpc != null && log.getTo().getDomain().equals(lpc.getDomain())) {
-//							mAddress.setText(log.getTo().getUserName());
-//						} else {
-//							mAddress.setText(log.getTo().asStringUriOnly());
-//						}
-//						mAddress.setSelection(mAddress.getText().toString().length());
-//						mAddress.setDisplayedName(log.getTo().getDisplayName());
-//					}
-				}
-			}
-		} catch (LinphoneCoreException e) {
-			LinphoneManager.getInstance().terminateCall();
-//			onWrongDestinationAddress();
-		};
+	private void enableAllAudioCodecs() throws LinphoneCoreException {
+		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+		for (final PayloadType pt : lc.getAudioCodecs()) {
+			LinphoneManager.getLcIfManagerNotDestroyedOrNull().enablePayloadType(pt, true);
+		}
 	}
 	
 	private class ServiceWaitThread extends Thread {
@@ -228,184 +179,5 @@ public class Netcastdigital extends CordovaActivity implements LinphoneCoreListe
 		}
 	}
 	
-	@Override
-	public void authInfoRequested(LinphoneCore lc, String realm,
-			String username, String Domain) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void globalState(LinphoneCore lc, GlobalState state, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void callState(LinphoneCore lc, LinphoneCall call, State cstate,
-			String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void callStatsUpdated(LinphoneCore lc, LinphoneCall call,
-			LinphoneCallStats stats) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void callEncryptionChanged(LinphoneCore lc, LinphoneCall call,
-			boolean encrypted, String authenticationToken) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void registrationState(LinphoneCore lc, LinphoneProxyConfig cfg,
-			RegistrationState cstate, String smessage) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void newSubscriptionRequest(LinphoneCore lc, LinphoneFriend lf,
-			String url) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyPresenceReceived(LinphoneCore lc, LinphoneFriend lf) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void textReceived(LinphoneCore lc, LinphoneChatRoom cr,
-			LinphoneAddress from, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void messageReceived(LinphoneCore lc, LinphoneChatRoom cr,
-			LinphoneChatMessage message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void isComposingReceived(LinphoneCore lc, LinphoneChatRoom cr) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dtmfReceived(LinphoneCore lc, LinphoneCall call, int dtmf) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void ecCalibrationStatus(LinphoneCore lc, EcCalibratorStatus status,
-			int delay_ms, Object data) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyReceived(LinphoneCore lc, LinphoneCall call,
-			LinphoneAddress from, byte[] event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void transferState(LinphoneCore lc, LinphoneCall call,
-			State new_call_state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void infoReceived(LinphoneCore lc, LinphoneCall call,
-			LinphoneInfoMessage info) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void subscriptionStateChanged(LinphoneCore lc, LinphoneEvent ev,
-			SubscriptionState state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyReceived(LinphoneCore lc, LinphoneEvent ev,
-			String eventName, LinphoneContent content) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void publishStateChanged(LinphoneCore lc, LinphoneEvent ev,
-			PublishState state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void configuringStatus(LinphoneCore lc,
-			RemoteProvisioningState state, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void show(LinphoneCore lc) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void displayStatus(LinphoneCore lc, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void displayMessage(LinphoneCore lc, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void displayWarning(LinphoneCore lc, String message) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fileTransferProgressIndication(LinphoneCore lc,
-			LinphoneChatMessage message, LinphoneContent content, int progress) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void fileTransferRecv(LinphoneCore lc, LinphoneChatMessage message,
-			LinphoneContent content, byte[] buffer, int size) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int fileTransferSend(LinphoneCore lc, LinphoneChatMessage message,
-			LinphoneContent content, ByteBuffer buffer, int size) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 }
