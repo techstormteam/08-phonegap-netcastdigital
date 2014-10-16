@@ -28,16 +28,25 @@
             }
 
             function playerBackward() {
+            	alert(true);
                 if (typeof session !== 'undefined') {
+                	alert(true);
                     session.dialDtmf("4");
                 }
+                /*if (messageIndex > 0) {
+                	messageIndex--;
+                	var messageObj = messages[messageIndex];
+	                var message = 'playMessage-' + messageObj["entity_id"] + '-' + user_id + '-' + messageObj["msg_id"];
+	                window.callSip(message, function(message) {
+	                    //empty
+	                });
+                }*/
             }
 
             function playerPlay() {
                 var message = 'playMessage-' + currentMessage;
                 window.callSip(message, function(message) {
                     //empty
-                    var d = message;
                 });
                 session = userAgent.invite(message, options);
             }
@@ -160,6 +169,8 @@
             var user = global.getUser();
             var user_id = user.getId();
             var currentMessage = null;
+            //var messageIndex = null;
+            //var messages = null;
 
             getkeyword();
 

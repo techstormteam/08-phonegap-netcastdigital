@@ -97,7 +97,7 @@
                             <a href="#" data-role="button" onclick="playerForward();">Forward</a>
                         </div>
                     </div>
-                    <a href="page-dialogs.html" id="player_popup_close" data-role="button" data-rel="back" data-theme="b" data-transition="flow">
+                    <a href="page-dialogs.html" id="player_popup_close" data-role="button" data-rel="back" onclick="playerStop()" data-theme="b" data-transition="flow">
                         Stop Playlist
                     </a> 
                 </div>
@@ -394,11 +394,10 @@
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
+                window.callSip(message, function(message) {
+                    //empty
+                });
                 if ($(button).hasClass('btn-success')) {
-                    window.cancelSip(message, function(message) {
-                        //empty
-                        //alert(false);
-                    });
                     $(button).removeClass('btn-success').addClass('btn-warning');
                     //$(button).removeClass('btn-success').addClass('btn-warning').html('Stop PlayList');
                     //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_stop.png">');
@@ -407,10 +406,7 @@
                     //$(button).button().button('refresh');
                     session = userAgent.invite(message, options);
                 } else {
-                    window.callSip(message, function(message) {
-                        //empty
-                        //alert(false);
-                    });
+                    
                     $(button).removeClass('btn-warning').addClass('btn-success');
                     //$("#start_playlist").css('background', 'green');
                     //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'green');
@@ -444,6 +440,9 @@
 
             function playerPlay() {
                 var message = 'playMessage-' + currentMessage;
+                window.callSip(message, function(message) {
+                    //empty
+                });
                 session = userAgent.invite(message, options);
             }
 
@@ -451,6 +450,9 @@
                 if (typeof session !== 'undefined') {
                     session.dialDtmf("#");
                 }
+                window.cancelSip('empty', function(message) {
+                    //empty
+                });
             }
 
             function playerForward() {
