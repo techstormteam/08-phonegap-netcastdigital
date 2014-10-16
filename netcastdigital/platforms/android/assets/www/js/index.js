@@ -58,11 +58,15 @@ function Global() {
     var data = {
         'apiUrl':'http://portal.netcastdigital.net/ncd/selfserve/api',
         'dashboardUrl':'http://portal.netcastdigital.net/ncd/selfserve/',
+        'sipUsernameUrl':'http://portal.netcastdigital.net/getInfo.php',
         'quickTellerPaymentCompleteUrl':'http://portal.netcastdigital.net/ncd/selfserve/payment-provider-interswitch-quickteller-complete',
         'quickTellerPaymentCode':'888889'
     };
 
-
+    this.getSipUsernameUrl = function (){
+        return data.sipUsernameUrl;
+    };
+    
     this.getApiUrl = function (){
         return data.apiUrl;
     };
@@ -178,6 +182,46 @@ function Global() {
             }
         });
     };
+    
+    /**
+     * Calls the API to get sip username
+     * parameters
+     * @param {Object} data
+     * @param {function} callback_success
+     * @param {function} callback_error
+     * @param {function} callback_complete
+     * @returns {void}
+     */
+    this.getSipUsernameApi = function(data, callback_success, callback_error, callback_complete) {
+        var url = this.getSipUsernameUrl()+'?cmd=_telno';
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+               type: 'POST',
+               url: url,
+               crossDomain: true,
+               cache: false,
+               dataType: 'json',
+               data: data
+               }).success(function(data) {
+                          if (this.debug === true) {
+                          LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+                          }
+                          callback_success(data);
+                          }).error(function(xhr, status, error) {
+                                   if (this.debug === true) {
+                                   LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+                                   }
+                                   var msg = "<span style='color:red;'>There was an error</span>";
+                                   $('#message').html(msg).show();
+                                   }).complete(function() {
+                                               if (this.debug === true) {
+                                               LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+                                               }
+                                               });
+    };
+
 }
 
 var global = new Global();
@@ -397,6 +441,7 @@ function getUrlParameter(name) {
             );
     if (result === 'null') {
         result = null;
+        return null;
     }
     return decodeURIComponent(result);
 }

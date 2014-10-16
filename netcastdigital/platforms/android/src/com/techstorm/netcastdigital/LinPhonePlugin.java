@@ -7,6 +7,9 @@ import org.json.JSONException;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
+import org.linphone.core.LinphoneAddress.TransportType;
+
+import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
 public class LinPhonePlugin extends CordovaPlugin {
 
@@ -14,7 +17,7 @@ public class LinPhonePlugin extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("callSip")) {
         	hangUp();
-        	sip(String.format("sip:%s@%s", args.get(0), "cloud.netcastdigital.net"));
+        	sip(String.format("sip:%s@%s", args.get(0), Netcastdigital.SIP_DOMAIN));
         	LinphoneManager.getInstance().routeAudioToSpeaker();
 			LinphoneManager.getLc().enableSpeaker(true);
         	callbackContext.success("call sip");
@@ -22,6 +25,12 @@ public class LinPhonePlugin extends CordovaPlugin {
         } else if (action.equals("cancelSip")) {
         	hangUp();
         	callbackContext.success("cancel sip");
+        	return true;
+        } else if (action.equals("registerSip")) {
+        	String username = (String)args.get(0);
+        	String password = (String)args.get(1);
+        	logIn(username, password, Netcastdigital.SIP_DOMAIN, false);
+        	callbackContext.success("register sip");
         	return true;
         }
         return false;
@@ -45,35 +54,76 @@ public class LinPhonePlugin extends CordovaPlugin {
 			if (!LinphoneManager.getInstance().acceptCallIfIncomingPending()) {
 				if (address.length() > 0) { 
 					LinphoneManager.getInstance().newOutgoingCall(address);
-				} else {
-//					if (getContext().getResources().getBoolean(R.bool.call_last_log_if_adress_is_empty)) {
-//						LinphoneCallLog[] logs = LinphoneManager.getLc().getCallLogs();
-//						LinphoneCallLog log = null;
-//						for (LinphoneCallLog l : logs) {
-//							if (l.getDirection() == CallDirection.Outgoing) {
-//								log = l;
-//								break;
-//							}
-//						}
-//						if (log == null) {
-//							return;
-//						}
-//						
-//						LinphoneProxyConfig lpc = LinphoneManager.getLc().getDefaultProxyConfig();
-//						if (lpc != null && log.getTo().getDomain().equals(lpc.getDomain())) {
-//							mAddress.setText(log.getTo().getUserName());
-//						} else {
-//							mAddress.setText(log.getTo().asStringUriOnly());
-//						}
-//						mAddress.setSelection(mAddress.getText().toString().length());
-//						mAddress.setDisplayedName(log.getTo().getDisplayName());
-//					}
 				}
 			}
 		} catch (LinphoneCoreException e) {
 			LinphoneManager.getInstance().terminateCall();
-//			onWrongDestinationAddress();
 		};
+	}
+    
+    private void logIn(String username, String password, String domain, boolean sendEcCalibrationResult) {
+//		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//		if (imm != null && getCurrentFocus() != null) {
+//			imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+//		}
+
+        saveCreatedAccount(username, password, domain);
+
+		if (LinphoneManager.getLc().getDefaultProxyConfig() != null) {
+//			launchEchoCancellerCalibration(sendEcCalibrationResult);
+		}
+	}
+	
+	public void saveCreatedAccount(String username, String password, String domain) {
+//		if (accountCreated)
+//			return;
+		
+		boolean isMainAccountLinphoneDotOrg = false;
+		boolean useLinphoneDotOrgCustomPorts = false;
+		AccountBuilder builder = new AccountBuilder(LinphoneManager.getLc())
+		.setUsername(username)
+		.setDomain(domain)
+		.setPassword(password);
+		
+		if (isMainAccountLinphoneDotOrg && useLinphoneDotOrgCustomPorts) {
+			boolean disable_all_security_features_for_markets = true;
+			if (disable_all_security_features_for_markets) {
+				builder.setProxy(domain + ":5228")
+				.setTransport(TransportType.LinphoneTransportTcp);
+			}
+			else {
+				builder.setProxy(domain + ":5223")
+				.setTransport(TransportType.LinphoneTransportTls);
+			}
+			
+			builder.setExpires("604800")
+			.setOutboundProxyEnabled(true)
+			.setAvpfEnabled(true)
+			.setAvpfRRInterval(3)
+			.setQualityReportingCollector("sip:voip-metrics@sip.linphone.org")
+			.setQualityReportingEnabled(true)
+			.setQualityReportingInterval(180)
+			.setRealm("sip.linphone.org");
+			
+			
+//			mPrefs.setStunServer(getString(R.string.default_stun));
+//			mPrefs.setIceEnabled(true);
+//			mPrefs.setPushNotificationEnabled(true);
+		} else {
+//			String forcedProxy = getResources().getString(R.string.setup_forced_proxy);
+//			if (!TextUtils.isEmpty(forcedProxy)) {
+//				builder.setProxy(forcedProxy)
+//				.setOutboundProxyEnabled(true)
+//				.setAvpfRRInterval(5);
+//			}
+		}
+		
+		try {
+			builder.saveNewAccount();
+//			accountCreated = true;
+		} catch (LinphoneCoreException e) {
+			e.printStackTrace();
+		}
 	}
     
 }

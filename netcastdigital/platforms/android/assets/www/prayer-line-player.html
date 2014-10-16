@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Prayerline PlayDeck</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <style>
+            .ui-icon-player {
+                background-image: url("img/control_end_blue.png");
+            }
+        </style>
+        <script>
+            function playerPlay(){
+                $('h1');
+            }
+        </script>
+    </head>
+    <body> 
+        <div data-role="dialog" id="dialogPage">
+            <div data-role="header" data-theme="d">
+                <h1>Prayerline PlayDeck</h1>
+            </div>
+
+            <div data-role="content" data-theme="c">
+                <p>
+                    Playback is only supported on Google Chrome, Firefox
+                    and Opera
+                </p>
+
+                <div data-role="controlgroup" data-type="horizontal">
+                    <a href="#" data-role="button">Backward</a>
+                    <a href="#" data-role="button">Stop</a>
+                    <a href="#" data-role="button" onclick="playerPlay();">Play</a>
+                    <a href="#" data-role="button">Pause</a>
+                    <a href="#" data-role="button">Forward</a>
+                </div>
+
+                <a href="page-dialogs.html" data-role="button" data-rel="back" data-theme="b">Close</a>    
+            </div>
+        </div>
+        <script type="text/javascript">
+            app.initialize();
+            $(document).on('pageshow', '#dialog', function (e) {
+                //var page = $(this);
+                //var query = page.data("url").split("?")[1];
+                //get plan id from localStorage 
+                var msgId = localStorage["prayer-line-player-msg"];
+                alert(msgId);
+                console.log(msgId);
+                //$("input[name=Title]", this).val(planid);
+            });
+        </script>
+    </body>
+</html>

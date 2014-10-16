@@ -49,9 +49,9 @@
             */
             console.log("Is Mobile?");
             console.log(isMobile.any());
-            if (isMobile.any() === false) {
-                 window.location.href = global.getDashboardUrl();
-            }
+            //if (isMobile.any() === false) {
+            //     window.location.href = global.getDashboardUrl();
+            //}
         </script>
     </head>
     <body>
@@ -79,30 +79,33 @@
                     <input type="password" placeholder="Password" id="password" value=""  />
                 </div>
                 <div data-role="fieldcontain">
-                    <button id="submit" onclick="check_form();">Submit</button>
+                    <button id="submit" onclick="check_form();" data-theme="e">Access PrayerLine</button>
                 </div>
                 <div data-role="fieldcontain">
                     <button id="submit" onclick="window.location.href = 'password-forgot.html';" >Forgot Password?</button>
+                </div>
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="window.location.href = 'register.html';" >Sign Up</button>
                 </div>
 
                 <hr />
 
                 <div data-role="fieldcontain" style="text-align: center;">
 <!--                                        <button id="facebook_button" onclick="window.location.href = '../selfserve/social/facebook?mobile=yes';">Facebook Login</button>-->
-                <a href="../selfserve/social/facebook?mobile=yes" rel="external">
-                            <img src="img/mmn-facebook.png" alt="" /></a>
+                <!--a href="../selfserve/social/facebook?mobile=yes" rel="external"-->
+                            <!--img src="img/mmn-facebook.png" alt="" /></a-->
                 </div>
 
                 <div data-role="fieldcontain" style="text-align: center;">
 <!--                    <button id="google_button" onclick="window.location.href = '../selfserve/social/google?mobile=yes';">Google Login</button>-->
-                           <a href="../selfserve/social/google?mobile=yes" rel="external">
-                            <img src="img/mmn-google.png" alt="" /></a>
+                           <!--a href="../selfserve/social/google?mobile=yes" rel="external"-->
+                            <!--img src="img/mmn-google.png" alt="" /></a-->
                 </div>
 
                 <div data-role="fieldcontain" style="text-align: center;">
 <!--                    <button id="linkedin_button" onclick="window.location.href = '../selfserve/social/linkedin?mobile=yes';">LinkedIn Login</button>-->
-                      <a href="../selfserve/social/linkedin?mobile=yes'" rel="external">
-                            <img src="img/mmn-linkedin.png" alt="" /></a>
+                      <!--a href="../selfserve/social/linkedin?mobile=yes'" rel="external">
+                            <img src="img/mmn-linkedin.png" alt="" /></a!-->
                 </div>
 
                 <!--
@@ -121,11 +124,13 @@
                 //LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response:' + response);
                 if (response.result === 'success') {
                     global.set('auth', json_encode(response.details));
+                    global.set('password', password);
                     window.location.href = 'index.html';
                 } else {
                     $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
                 }
             }
+        
             function check_form() {
                 var username = $('#username').val();
                 var password = $('#password').val();
@@ -140,6 +145,7 @@
                 }
                 else {
                     global.set('auto_login', false);
+                    global.set('password', password);
                     global.api('login', {username: username, password: password}, login);
                 }
             }
@@ -148,6 +154,8 @@
             var password = getUrlParameter('p');
             if (username !== null && password !== null) {
                 global.set('auto_login', true);
+                
+                global.set('password', password);
                 global.api('login', {username: username, password: password}, login);
             }
         </script>

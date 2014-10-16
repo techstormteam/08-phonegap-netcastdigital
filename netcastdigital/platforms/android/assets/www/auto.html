@@ -29,23 +29,32 @@
         </div>
         <script type="text/javascript">
             app.initialize();
-            function login(response) {
-                //LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response:' + response);
-                if (response.result === 'success') {
-                    global.set('auth', json_encode(response.details));
-                    window.location.href = 'index.html';
-                } else {
-                    window.location.href = 'login.html';
-                }
-            }
 
             var username = getUrlParameter('u');
             var password = getUrlParameter('p');
+            var redirect = getUrlParameter('r');
+
             if (username !== null && password !== null) {
                 global.set('auto_login', true);
                 global.api('login', {username: username, password: password}, login);
             } else {
                 window.location.href = 'login.html';
+            }
+
+            function login(response) {
+                //LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response:' + response);
+                if (response.result === 'success') {
+                    global.set('auth', json_encode(response.details));
+                    console.log(redirect);
+                    console.log(redirect !== null);
+                    if (redirect !== null) {
+                        window.location.href = redirect;
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } else {
+                    window.location.href = 'login.html';
+                }
             }
         </script>
     </body>

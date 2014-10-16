@@ -63,80 +63,6 @@ public class Netcastdigital extends CordovaActivity {
 		}
 	}
 	
-	private void logIn(String username, String password, String domain, boolean sendEcCalibrationResult) {
-//		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//		if (imm != null && getCurrentFocus() != null) {
-//			imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-//		}
-
-        saveCreatedAccount(username, password, domain);
-
-		if (LinphoneManager.getLc().getDefaultProxyConfig() != null) {
-//			launchEchoCancellerCalibration(sendEcCalibrationResult);
-		}
-	}
-	
-	public void saveCreatedAccount(String username, String password, String domain) {
-//		if (accountCreated)
-//			return;
-		
-		boolean isMainAccountLinphoneDotOrg = domain.equals(getString(R.string.default_domain));
-		boolean useLinphoneDotOrgCustomPorts = false;
-		AccountBuilder builder = new AccountBuilder(LinphoneManager.getLc())
-		.setUsername(username)
-		.setDomain(domain)
-		.setPassword(password);
-		
-		if (isMainAccountLinphoneDotOrg && useLinphoneDotOrgCustomPorts) {
-			if (getResources().getBoolean(R.bool.disable_all_security_features_for_markets)) {
-				builder.setProxy(domain + ":5228")
-				.setTransport(TransportType.LinphoneTransportTcp);
-			}
-			else {
-				builder.setProxy(domain + ":5223")
-				.setTransport(TransportType.LinphoneTransportTls);
-			}
-			
-			builder.setExpires("604800")
-			.setOutboundProxyEnabled(true)
-			.setAvpfEnabled(true)
-			.setAvpfRRInterval(3)
-			.setQualityReportingCollector("sip:voip-metrics@sip.linphone.org")
-			.setQualityReportingEnabled(true)
-			.setQualityReportingInterval(180)
-			.setRealm("sip.linphone.org");
-			
-			
-//			mPrefs.setStunServer(getString(R.string.default_stun));
-//			mPrefs.setIceEnabled(true);
-//			mPrefs.setPushNotificationEnabled(true);
-		} else {
-//			String forcedProxy = getResources().getString(R.string.setup_forced_proxy);
-//			if (!TextUtils.isEmpty(forcedProxy)) {
-//				builder.setProxy(forcedProxy)
-//				.setOutboundProxyEnabled(true)
-//				.setAvpfRRInterval(5);
-//			}
-		}
-		
-		if (getResources().getBoolean(R.bool.enable_push_id)) {
-//			String regId = mPrefs.getPushNotificationRegistrationID();
-			String regId = "1";
-			String appId = getString(R.string.push_sender_id);
-			if (regId != null /*&& mPrefs.isPushNotificationEnabled()*/) {
-				String contactInfos = "app-id=" + appId + ";pn-type=google;pn-tok=" + regId;
-				builder.setContactParameters(contactInfos);
-			}
-		}
-		
-		try {
-			builder.saveNewAccount();
-//			accountCreated = true;
-		} catch (LinphoneCoreException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	protected void onServiceReady() {
 		
 		LinphoneService.instance().setActivityToLaunchOnIncomingReceived(Netcastdigital.class);
@@ -145,7 +71,6 @@ public class Netcastdigital extends CordovaActivity {
 			public void run() {
 				try {
 					enableAllAudioCodecs();
-					logIn(SIP_USERNAME, SIP_PASSWORD, SIP_DOMAIN, false);
 				} catch (LinphoneCoreException e) {
 					e.printStackTrace();
 				}

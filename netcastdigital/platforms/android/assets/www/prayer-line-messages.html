@@ -19,7 +19,37 @@
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
-        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>     
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>
+        <script>
+            function playerPause() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("#");
+                }
+            }
+
+            function playerBackward() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("4");
+                }
+            }
+
+            function playerPlay() {
+                var message = 'playMessage-' + currentMessage;
+                session = userAgent.invite(message, options);
+            }
+
+            function playerStop() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("#");
+                }
+            }
+
+            function playerForward() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("6");
+                }
+            }
+        </script>
     </head>
     <body>
         <div data-role="page" data-add-back-btn="true">
@@ -33,14 +63,39 @@
 
             <!-- START: Content -->
             <div data-role="content">
+                <!-- START: Player -->
+                <div data-role="popup" id="playerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="header" data-theme="a">
+                        <h1>Prayerline PlayDeck</h1>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p> <br>
+                        </p>
+
+                        <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+                            <a href="#" data-role="button" onclick="playerBackward();">Back</a>
+<!--                            <a href="#" data-role="button" onclick="playerStop();">Stop</a>
+                            <a href="#" data-role="button" onclick="playerPlay();">Play</a>-->
+                            <a href="#" data-role="button" onclick="playerPause();">Pause</a>
+                            <a href="#" data-role="button" onclick="playerForward();">Forward</a>
+                        </div>
+                    </div>
+                    <a href="page-dialogs.html" data-role="button" data-rel="back" data-theme="b" data-transition="flow" onclick="playerStop();">
+                        Stop Message
+                    </a> 
+                </div>
+                <!-- END: Player -->
+
                 <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
                     Make Payment
                 </button>  
                 <a href="#" data-role="button" data-icon="search" data-mini="true" onclick="$('#search_box').toggle();" data-theme="b">Search Options</a>
                 <div id="search_box" style="display: none;">
                     <div data-role="fieldcontain">
-                        <label for="keyword">Keyword</label>
-                        <input id="keyword" />
+                        <label for="keyword">-Select Keyword-</label>
+                        <select id="keyword">
+                            <option>-Select Keyword-</option>
+                        </select>
                     </div>
                     <div data-role="fieldcontain">
                         <label for="title">Title</label>
@@ -97,6 +152,23 @@
         <script>
             var user = global.getUser();
             var user_id = user.getId();
+            var currentMessage = null;
+
+            getkeyword();
+
+            function getkeyword() {
+                global.api('get_keyword', {}, get_keyword_display);
+            }
+
+            function get_keyword_display(result) {
+                var keywords = result.details['keywords'];
+                var row = '';
+                for (var i = 0; i < keywords.length; i++) {
+                    row = row + '<option value="' + keywords[i] + '">' + keywords[i] + '</option>';
+                }
+                $('#keyword').append(row);
+                $("#keyword").selectmenu('refresh', true);
+            }
 
             function search() {
                 var keyword = $('#keyword').val();
@@ -130,8 +202,12 @@
                     row += '<td>' + message["msg_by"] + '</td>';
                     row += '<td>' + message["msg_type"] + '</td>';
                     row += '<td>';
-                    row += '<a href="#" class="btn-success" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="playMessage(this,\'' + message["entity_id"] + '-' + user_id + '-' + message["msg_id"] + '\');"><img src="img/control_play.png"></a>';
-                    row += '<a href="#" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="playListAdd(\'' + message["msg_id"] + '\');">Add to PlayList</a>';
+                    row += '<a class="btn-success" data-role="button" data-mini="true" data-inline="true" data-theme="b"  href="#playerDialog" onclick="currentMessage=\'' + message["entity_id"] + '-' + user_id + '-' + message["msg_id"] + '\';playerPlay();" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-b">Play Message</a>';
+                    //row += '<a href="prayer-line-player.html?msg=' + message["entity_id"] + '-' + user_id + '-' + message["msg_id"] + '" data-rel="dialog">Open dialog</a> ';
+                    //row += '<a href="#" class="btn-success" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="player();">Player</a>';
+                    //row += '<a href="#" class="btn-success" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="player();">Player</a>';
+//                    row += '<a href="#" class="btn-success" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="playMessage(this,\'' + message["entity_id"] + '-' + user_id + '-' + message["msg_id"] + '\');">Play Message</a>';
+                    row += '<a href="#" data-role="button" data-icon="plus" data-mini="true" data-inline="true" data-theme="b" onclick="playListAdd(\'' + message["msg_id"] + '\');">Add to PlayList</a>';
                     //row += '<a href="#" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="deleteMessage(\'' + message["msg_id"] + '\');">Delete Message</a>';
                     row += '</td>';
                     row += '</tr>';
@@ -148,8 +224,7 @@
                 }
                 $('#message_table tbody').html(rows);
                 $('#message_table').table('refresh');
-                $('.btn-success').css('background','green');
-                $('.btn-success').button().button('refresh');
+                $('.btn-success').css('background', 'green');
                 try {
                     $('#message_table a').button().button('refresh');
                 } catch (e) {
@@ -160,16 +235,16 @@
                 $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
                 $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
                 if (page > 0) {
-                    $('#pagination_previous').removeClass('ui-disabled').click(function () {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
                         messages_show_page(page - 1);
                     });
                 }
                 $('#pagination_current .ui-btn-text').html(page + 1);
-                $('#pagination_current').removeClass('ui-disabled').click(function () {
+                $('#pagination_current').removeClass('ui-disabled').click(function() {
                     messages_show_page(page);
                 });
                 if ((page + 1) < pages_count) {
-                    $('#pagination_next').removeClass('ui-disabled').click(function () {
+                    $('#pagination_next').removeClass('ui-disabled').click(function() {
                         messages_show_page(page + 1);
                     });
                 }
@@ -181,6 +256,10 @@
                 $('#msg_type').html(type_rows);
                 $("#msg_type").selectmenu('refresh', true);
                 $('#search_box').hide();
+            }
+
+            function player() {
+                $('#dialog').modal('show');
             }
 
             function playListAdd(message_id) {
@@ -271,47 +350,40 @@
                 }
             };
 
-			
-		
-			
-
             function playMessage(button, messageInvite) {
                 var message = 'playMessage-' + messageInvite;
-                
-				
 
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
 
                 if ($(button).hasClass('btn-success')) {
-                	window.callSip(message, function(message) {
-					    //empty
-					});
+                    window.callSip(message, function(message) {
+                        //empty
+                    });
                     session = userAgent.invite(message, options);
                     $(button).removeClass('btn-success').addClass('btn-warning');
-                    //$(button).find(".ui-btn-text").text("Stop Message");
-                    $(button).find(".ui-btn-text").html('<img src="img/control_stop.png">');
-                    $(button).css('background','red');
+                    $(button).find(".ui-btn-text").text("Stop Message");
+                    //$(button).find(".ui-btn-text").html('<img src="img/control_stop.png">');
+                    $(button).css('background', 'red');
                     $(button).button().button('refresh');
                 } else {
-               		window.cancelSip(message, function(message) {
-					    //empty
-					});
+                    window.cancelSip(message, function(message) {
+                        //empty
+                    });
                     $(button).removeClass('btn-warning').addClass('btn-success');
-                    //$(button).find(".ui-btn-text").text("Play Message");
-                    $(button).find(".ui-btn-text").html('<img src="img/control_play.png">');
-                    $(button).css('background','green');
+                    $(button).find(".ui-btn-text").text("Play Message");
+                    //$(button).find(".ui-btn-text").html('<img src="img/control_play.png">');
+                    $(button).css('background', 'green');
                     $(button).button().button('refresh');
                 }
             }
 
-            $(window).unload(function () {
+            $(window).unload(function() {
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
             });
         </script>
-		
     </body>
 </html>

@@ -1,0 +1,16 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule   ^facebook(.+)  http://portal.netcastdigital.net/ncd/selfserve/social/facebook?mobile=yes  [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule   ^linkedin(.+)  http://portal.netcastdigital.net/ncd/selfserve/social/linkedin?mobile=yes  [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule   ^google(.+)  http://portal.netcastdigital.net/ncd/selfserve/social/google?mobile=yes  [R=301,L]
+
+
+#Rewrites all to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.html [L,QSA]

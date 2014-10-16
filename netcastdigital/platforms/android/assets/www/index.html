@@ -10,6 +10,8 @@
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script src="js/class.user.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
     </head>
     <body>
         <div data-role="page">
@@ -36,7 +38,7 @@
                         <a href="prayer-line.html" rel="external">
                             <img src="img/prayer-line.png" alt="" />
                             <h2>Prayer Line</h2>
-                            <p>Prayer Line</p></a>
+                            <p>Access PrayerLine portal</p></a>
                     </li>
                     <!--li>
                         <a href="calling-circles.html" rel="external">
@@ -72,7 +74,7 @@
                         <a href="logout.html" rel="external">
                             <img src="img/logout.png" alt="" />
                             <h2>Logout</h2>
-                            <p>Exit the self care portal</p>
+                            <p>Exit the PrayerLine app</p>
                         </a>
                     </li>
                 </ul>
@@ -100,10 +102,17 @@
             }
         </script>
         <script>
+            function registerSip(response) {
+                window.registerSip(response, function(message) {
+                    //empty
+                });
+            }
+            
             if (global.get('auth') === null) {
                 // Second test
                 window.location.href = 'login.html';
             } else {
+                
                 var user = global.getUser();
                 var user_id = user.getId();
                 var currency = user.getCurrency();
@@ -113,6 +122,8 @@
                 }
                 balance_display_in_button();
 
+
+                global.getSipUsernameApi({email: user.data.email, password: user.data.uipass}, registerSip);
                 global.api('usage_and_sms_last_month', {user_id: user_id, currency: currency}, usage_and_sms_last_month_display);
 
             }
@@ -122,10 +133,8 @@
                 var data_total = result.details['data_total'];
                 var sms_total = result.details['sms_total'];
 
-                var html = ' <img src="img/dashboard.png" width="50" height="50" style="vertical-align:middle;"> - ';
-                html += ' Last Month\'s Voice Usage (' + voice_total + ' mins),';
-                html += ' Data Usage (' + data_total + ' GB),';
-                html += ' SMS (' + sms_total + ' messages)';
+                var html = ' <img src="img/dashboard.png" width="50" height="50" style="vertical-align:middle;">  ';
+                html += ' Last Month\'s Portal Usage - ' + voice_total + ' mins';
 
                 $('#title').html(html);
             }

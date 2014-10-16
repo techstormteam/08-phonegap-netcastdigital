@@ -43,9 +43,12 @@
                 </a>
                 <div id="search_box" style="display: none;">
                     <div data-role="fieldcontain">
-                        <label for="keyword">Keyword</label>
-                        <input id="keyword" />
+                        <label for="keyword">-Select Keyword-</label>
+                        <select id="keyword">                           
+                            <option>-Select Keyword-</option>
+                        </select>
                     </div>
+
                     <div data-role="fieldcontain">
                         <label for="title">Title</label>
                         <input id="title" />
@@ -66,9 +69,39 @@
                         Search
                     </a>
                 </div>
-                <button id="start_playlist" data-theme="b" data-role="button" onclick="playPlaylist(this)">
+                <!--
+                <button id="start_playlist" data-theme="b" data-role="button" onclick="//playPlaylist(this)" data-rel="popup" data-position-to="window" data-transition="pop"  >
                     <img src="img/control_play.png" />
+                    Start Playlist
                 </button>
+                -->
+                <a id="start_playlist" href="#playerDialog" data-theme="b" data-role="button" onclick="playPlaylist(this)" data-rel="popup" data-position-to="window" data-transition="pop"  >
+                    <img src="img/control_play.png" />
+                    Start Playlist
+                </a>
+                
+                 <!-- START: Player -->
+                <div data-role="popup" id="playerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="header" data-theme="a">
+                        <h1>Prayerline PlayDeck</h1>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>
+                            Playback is only supported on Google Chrome, Firefox
+                            and Opera
+                        </p>
+
+                        <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+                            <a href="#" data-role="button" onclick="playerBackward();">Back</a>
+                            <a href="#" data-role="button" onclick="playerPause();">Pause</a>
+                            <a href="#" data-role="button" onclick="playerForward();">Forward</a>
+                        </div>
+                    </div>
+                    <a href="page-dialogs.html" id="player_popup_close" data-role="button" data-rel="back" data-theme="b" data-transition="flow">
+                        Stop Playlist
+                    </a> 
+                </div>
+                <!-- END: Player -->
                 <p style="font-size:11px;">
                     Played messages will not be queued for autoplay except
                     you check the autoplay box. All unplayed messages will
@@ -121,11 +154,30 @@
             if (global.get('auth') === null) {
                 window.location = 'login.html';
             }
+            //$('#player_popup_close').parent().find('.ui-btn-inner').css('background', 'red');
+            //$('#player_popup_close').button().button('refresh');
         </script>
         <script>
             var user = global.getUser();
             var user_id = user.getId();
             var entity_id = 0; // To be dynamicly recalculated
+
+            getkeyword();
+
+            function getkeyword() {
+                global.api('get_keyword', {}, get_keyword_display);
+            }
+
+            function get_keyword_display(result) {
+                var keywords = result.details['keywords'];
+                var row = '';
+                for (var i = 0; i < keywords.length; i++) {
+                    row = row + '<option value="' + keywords[i] + '">' + keywords[i] + '</option>';
+                }
+                $('#keyword').html(row);
+                $("#keyword").selectmenu('refresh', true);
+            }
+
             function search() {
                 var keyword = $('#keyword').val();
                 var title = $('#title').val();
@@ -153,8 +205,8 @@
                 }
 
                 var rows = '';
-                $('#start_playlist').css('background','green');
-                $('#start_playlist').button().button('refresh');
+                //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'green');
+                //$('#start_playlist').button().button('refresh');
                 if (play_list.length === 0) {
                     $("#start_playlist").parent().hide();
                 }
@@ -177,12 +229,12 @@
 
                     row += '<td>';
                     if (prevMsg !== null) {
-                        row += '<button data-theme="b" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + prevMsg['msg_play_priority'] + '\');" >Move Up</button>';
+                        row += '<button data-theme="e" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + prevMsg['msg_play_priority'] + '\');" >Move Up</button>';
                     }
                     if (nextMsg !== null) {
                         row += '<button data-theme="b" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + nextMsg['msg_play_priority'] + '\');" >Move Down</button>';
                     }
-                    row += '<button data-theme="b" data-role="button" onclick="deleteMessage(\'' + value['msg_id'] + '\');" >Delete Message</button>';
+                    row += '<button data-theme="a" data-role="button" onclick="deleteMessage(\'' + value['msg_id'] + '\');" >Delete Message</button>';
                     row += '</td >';
 
                     row += '</tr>';
@@ -215,16 +267,16 @@
                 $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
                 $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
                 if (page > 0) {
-                    $('#pagination_previous').removeClass('ui-disabled').click(function () {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
                         messages_show_page(page - 1);
                     });
                 }
                 $('#pagination_current .ui-btn-text').html(page + 1);
-                $('#pagination_current').removeClass('ui-disabled').click(function () {
+                $('#pagination_current').removeClass('ui-disabled').click(function() {
                     messages_show_page(page);
                 });
                 if ((page + 1) < pages_count) {
-                    $('#pagination_next').removeClass('ui-disabled').click(function () {
+                    $('#pagination_next').removeClass('ui-disabled').click(function() {
                         messages_show_page(page + 1);
                     });
                 }
@@ -270,7 +322,7 @@
             function messagePriorityChange(messageID, newPlayPriority) {
                 var user = global.getUser();
                 var user_id = user.getId();
-                global.api('play_list_update', {user_id: user_id, msg_id: messageID, newPriority: newPlayPriority}, function (data) {
+                global.api('play_list_update', {user_id: user_id, msg_id: messageID, newPriority: newPlayPriority}, function(data) {
                     alert(data.details);
                     search(); // Execute search
                 });
@@ -282,7 +334,6 @@
         <audio id="remoteAudio"></audio>
         <audio id="localAudio" muted="muted"></audio>
         <script type="text/javascript">
-
             var asterisk_pbx = {
                 // ws_server_max_reconnection: 1000,
                 connectionRecoveryMinInterval: 4,
@@ -337,42 +388,76 @@
                     }
                 }
             };
-
+            
             function playPlaylist(button) {
                 var message = 'playbackPlayList-' + entity_id + '-' + user_id;
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
                 if ($(button).hasClass('btn-success')) {
-                	window.cancelSip(message, function(message) {
-					    //empty
-					    //alert(false);
-					});
+                    window.cancelSip(message, function(message) {
+                        //empty
+                        //alert(false);
+                    });
+                    $(button).removeClass('btn-success').addClass('btn-warning');
                     //$(button).removeClass('btn-success').addClass('btn-warning').html('Stop PlayList');
-                    $(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_stop.png">');
-                    $("#start_playlist").css('background', 'red');
-                    $("#start_playlist").button().button('refresh');
-                    $(button).button().button('refresh');
+                    //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_stop.png">');
+                    //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'red');
+                    //$("#start_playlist").button().button('refresh');
+                    //$(button).button().button('refresh');
                     session = userAgent.invite(message, options);
                 } else {
-                	window.callSip(message, function(message) {
-					    //empty
-					    //alert(true);
-					});
-                	
-                    $("#start_playlist").css('background', 'green');
-                    $("#start_playlist").button().button('refresh');
-                    $(button).removeClass('btn-warning').addClass('btn-success').html('Start PlayList');
-                    $(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_play.png">');
-                    $(button).button().button('refresh');
+                    window.callSip(message, function(message) {
+                        //empty
+                        //alert(false);
+                    });
+                    $(button).removeClass('btn-warning').addClass('btn-success');
+                    //$("#start_playlist").css('background', 'green');
+                    //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'green');
+                    //$("#start_playlist").button().button('refresh');
+                    //$(button).removeClass('btn-warning').addClass('btn-success').html('Start PlayList');
+                    //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_play.png">');
+                    //$(button).button().button('refresh');
                 }
             }
 
-            $(window).unload(function () {
+            $(window).unload(function() {
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
             });
+            
+        </script>
+        
+        <script>
+            function playerPause() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("#");
+                }
+            }
+
+            function playerBackward() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("4");
+                }
+            }
+
+            function playerPlay() {
+                var message = 'playMessage-' + currentMessage;
+                session = userAgent.invite(message, options);
+            }
+
+            function playerStop() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("#");
+                }
+            }
+
+            function playerForward() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("6");
+                }
+            }
         </script>
 
 
