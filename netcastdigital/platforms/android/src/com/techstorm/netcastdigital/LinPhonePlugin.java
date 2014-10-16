@@ -26,9 +26,9 @@ public class LinPhonePlugin extends CordovaPlugin {
         	callbackContext.success("cancel sip");
         	return true;
         } else if (action.equals("registerSip")) {
-        	String username = (String)args.get(0);
+        	String sipUsername = (String)args.get(0);
         	String password = (String)args.get(1);
-        	logIn(username, password, Netcastdigital.SIP_DOMAIN, false);
+        	logIn(sipUsername, password, Netcastdigital.SIP_DOMAIN, false);
         	callbackContext.success("register sip");
         	return true;
         }

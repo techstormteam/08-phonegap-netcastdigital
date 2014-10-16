@@ -186,24 +186,23 @@ function Global() {
     /**
      * Calls the API to get sip username
      * parameters
-     * @param {Object} data
+     * @param {String} email
+     * @param {String} password
      * @param {function} callback_success
      * @param {function} callback_error
      * @param {function} callback_complete
      * @returns {void}
      */
-    this.getSipUsernameApi = function(data, callback_success, callback_error, callback_complete) {
-        var url = this.getSipUsernameUrl()+'?cmd=_telno';
+    this.getSipUsernameApi = function(email, password, callback_success, callback_error, callback_complete) {
+        var url = this.getSipUsernameUrl()+'?cmd=_telno&email='+email+'&password='+password;
         if (this.debug === true) {
             LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
         }
         $.ajax({
-               type: 'POST',
+               type: 'GET',
                url: url,
-               crossDomain: true,
-               cache: false,
-               dataType: 'json',
-               data: data
+               crossDomain: false,
+               cache: false
                }).success(function(data) {
                           if (this.debug === true) {
                           LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');

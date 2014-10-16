@@ -10,8 +10,8 @@ window.cancelSip = function(str, callback) {
     }, "LinPhonePlugin", "cancelSip", [str]);
 };
 
-window.registerSip = function(str, callback) {
+window.registerSip = function(sipUsername, password, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "registerSip", [str]);
+    }, "LinPhonePlugin", "registerSip", [sipUsername, password]);
 };

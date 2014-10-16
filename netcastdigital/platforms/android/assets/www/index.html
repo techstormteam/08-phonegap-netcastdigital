@@ -102,10 +102,12 @@
             }
         </script>
         <script>
-            function registerSip(response) {
-                window.registerSip(response, function(error_message) {
+            function sipRegister(response) {
+            	var user = global.getUser();
+            	var sipUsername = response;
+            	var password = user.data.uipass
+                window.registerSip(sipUsername, password, function(message) {
                     //empty
-                    var s = error_message;
                 });
             }
             
@@ -124,7 +126,7 @@
                 balance_display_in_button();
 
 
-                global.getSipUsernameApi({email: user.data.email, password: user.data.uipass}, registerSip);
+                global.getSipUsernameApi(user.data.email, user.data.uipass, sipRegister);
                 global.api('usage_and_sms_last_month', {user_id: user_id, currency: currency}, usage_and_sms_last_month_display);
 
             }
