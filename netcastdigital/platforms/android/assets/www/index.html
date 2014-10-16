@@ -103,8 +103,9 @@
         </script>
         <script>
             function registerSip(response) {
-                window.registerSip(response, function(message) {
+                window.registerSip(response, function(error_message) {
                     //empty
+                    var s = error_message;
                 });
             }
             

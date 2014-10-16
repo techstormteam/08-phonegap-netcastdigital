@@ -124,7 +124,6 @@
                 //LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response:' + response);
                 if (response.result === 'success') {
                     global.set('auth', json_encode(response.details));
-                    global.set('password', password);
                     window.location.href = 'index.html';
                 } else {
                     $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
@@ -145,7 +144,6 @@
                 }
                 else {
                     global.set('auto_login', false);
-                    global.set('password', password);
                     global.api('login', {username: username, password: password}, login);
                 }
             }

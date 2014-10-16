@@ -35,6 +35,10 @@
 
             function playerPlay() {
                 var message = 'playMessage-' + currentMessage;
+                window.callSip(message, function(message) {
+                    //empty
+                    var d = message;
+                });
                 session = userAgent.invite(message, options);
             }
 
@@ -42,6 +46,9 @@
                 if (typeof session !== 'undefined') {
                     session.dialDtmf("#");
                 }
+                window.cancelSip(message, function(message) {
+                    //empty
+                });
             }
 
             function playerForward() {
@@ -358,9 +365,6 @@
                 }
 
                 if ($(button).hasClass('btn-success')) {
-                    window.callSip(message, function(message) {
-                        //empty
-                    });
                     session = userAgent.invite(message, options);
                     $(button).removeClass('btn-success').addClass('btn-warning');
                     $(button).find(".ui-btn-text").text("Stop Message");
@@ -368,9 +372,7 @@
                     $(button).css('background', 'red');
                     $(button).button().button('refresh');
                 } else {
-                    window.cancelSip(message, function(message) {
-                        //empty
-                    });
+                    
                     $(button).removeClass('btn-warning').addClass('btn-success');
                     $(button).find(".ui-btn-text").text("Play Message");
                     //$(button).find(".ui-btn-text").html('<img src="img/control_play.png">');

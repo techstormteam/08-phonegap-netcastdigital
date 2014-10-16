@@ -16,7 +16,6 @@ public class LinPhonePlugin extends CordovaPlugin {
 	@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("callSip")) {
-        	hangUp();
         	sip(String.format("sip:%s@%s", args.get(0), Netcastdigital.SIP_DOMAIN));
         	LinphoneManager.getInstance().routeAudioToSpeaker();
 			LinphoneManager.getLc().enableSpeaker(true);
