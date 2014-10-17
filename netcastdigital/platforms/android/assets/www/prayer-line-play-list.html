@@ -427,15 +427,15 @@
         
         <script>
             function playerPause() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("#");
-                }
+                window.pauseSip('empty', function(message) {
+                    //empty
+                });
             }
 
             function playerBackward() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("4");
-                }
+                window.backWind('empty', function(message) {
+                    //empty
+                });
             }
 
             function playerPlay() {
@@ -456,9 +456,9 @@
             }
 
             function playerForward() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("6");
-                }
+                window.forwardWind('empty', function(message) {
+                    //empty
+                });
             }
         </script>
 

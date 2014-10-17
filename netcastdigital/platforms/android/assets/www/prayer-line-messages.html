@@ -22,25 +22,15 @@
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>
         <script>
             function playerPause() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("#");
-                }
+                window.pauseSip('empty', function(message) {
+                    //empty
+                });
             }
 
             function playerBackward() {
-            	alert(true);
-                if (typeof session !== 'undefined') {
-                	alert(true);
-                    session.dialDtmf("4");
-                }
-                /*if (messageIndex > 0) {
-                	messageIndex--;
-                	var messageObj = messages[messageIndex];
-	                var message = 'playMessage-' + messageObj["entity_id"] + '-' + user_id + '-' + messageObj["msg_id"];
-	                window.callSip(message, function(message) {
-	                    //empty
-	                });
-                }*/
+            	window.backWind('empty', function(message) {
+                    //empty
+                });
             }
 
             function playerPlay() {
@@ -52,18 +42,15 @@
             }
 
             function playerStop() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("#");
-                }
                 window.cancelSip('empty', function(message) {
                     //empty
                 });
             }
 
             function playerForward() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("6");
-                }
+            	window.forwardWind('empty', function(message) {
+                    //empty
+                });
             }
         </script>
     </head>

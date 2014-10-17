@@ -4,10 +4,10 @@ import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
-import org.linphone.core.LinphoneAddress.TransportType;
 
 import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
@@ -31,9 +31,29 @@ public class LinPhonePlugin extends CordovaPlugin {
         	logIn(sipUsername, password, Netcastdigital.SIP_DOMAIN, false);
         	callbackContext.success("register sip");
         	return true;
+        } else if (action.equals("backWind")) {
+        	dialDtmf('4');
+        	callbackContext.success("back wind");
+        	return true;
+        } else if (action.equals("forwardWind")) {
+        	dialDtmf('6');
+        	callbackContext.success("forward wind");
+        	return true;
+        } else if (action.equals("pauseSip")) {
+        	dialDtmf('#');
+        	callbackContext.success("pause sip");
+        	return true;
         }
         return false;
     }
+	
+	private void dialDtmf(char keyCode) {
+		LinphoneCore lc = LinphoneManager.getLc();
+		lc.stopDtmf();
+		if (lc.isIncall()) {
+			lc.sendDtmf(keyCode);
+		}
+	}
 	
 	private void hangUp() {
 		LinphoneCore lc = LinphoneManager.getLc();
