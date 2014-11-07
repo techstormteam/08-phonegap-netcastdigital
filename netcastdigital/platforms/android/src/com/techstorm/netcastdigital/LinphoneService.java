@@ -543,6 +543,20 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		notifyWrapper(NOTIF_ID, mNotif);
 	}
 	
+	private void hangUp() {
+		LinphoneCore lc = LinphoneManager.getLc();
+		LinphoneCall currentCall = lc.getCurrentCall();
+		
+		if (currentCall != null) {
+			lc.stopRinging();
+			lc.terminateCall(currentCall);
+		} else if (lc.isInConference()) {
+			lc.terminateConference();
+		} else {
+			lc.terminateAllCalls();
+		}
+	}
+	
 	protected void onIncomingReceived() {
 		//wakeup linphone
 		startActivity(new Intent()
@@ -557,7 +571,8 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 		}
 		
 		if (state == LinphoneCall.State.IncomingReceived) {
-			onIncomingReceived();
+			hangUp();
+			//onIncomingReceived();
 		}
 		
 		if (state == State.CallUpdatedByRemote) {

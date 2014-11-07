@@ -124,8 +124,8 @@
                 window.location.href = 'login.html';
             } else {
                 var user = global.getUser();
-                console.log(user);
-                console.log(user.getStatus());
+                //console.log(user);
+                //console.log(user.getStatus());
                 if (user.getStatus() === '9') { // Check user account is activated
                     $('#message').html("<span style='color:red;'>Account awaiting activayion</span>").show();
                     window.location.href = 'account-activate.html';
