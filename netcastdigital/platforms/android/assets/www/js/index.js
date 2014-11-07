@@ -235,6 +235,21 @@ function Global() {
                                                }
                                                });
     };
+    
+    /*
+     * 
+     * @param {type} title
+     * @param {type} message
+     * @param {type} type - error / success
+     * @returns {undefined}
+     */
+    this.showPopup = function(title, message, type) {
+        if (type !== 'success' || type !== '') {
+            sweetAlert(title,message,'error');
+        } else {
+            sweetAlert(title, message, type);
+        }
+    };
 }
 
 

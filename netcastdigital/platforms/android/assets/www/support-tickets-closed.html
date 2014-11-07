@@ -4,6 +4,8 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+    <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+    <script type="text/javascript" src="js/sweet-alert.js"></script>
     <script src="js/jquery/jquery.js"></script>
     <script src="js/jquery-mobile/jquery.mobile.js"></script>
     <script type="text/javascript" src="js/class.user.js"></script>
@@ -205,7 +207,7 @@
 
             for (var i = 0; i < tickets.length; i++) {
                 var ticket = tickets[i];
-                //alert(ticket['files']);
+                //swal(ticket['files']);
                 var row = '<tr>';
                 row += '<td>' + ticket["id"] + '</td>';
                 row += '<td>' + ticket["title"] + '</td>';
@@ -260,7 +262,7 @@
         }
         function ticket_reopen_response(response) {
             if (response.result === 'success') {
-                alert(response.details);
+                swal(response.details);
                 $('#message').html('<span style="color:green;">You successfuly reopen the ticket.</span>').show();
             } else {
                 $('#message').html('<span style="color:red;">' + response.details + '</span>').show();

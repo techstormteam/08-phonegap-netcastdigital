@@ -7,6 +7,8 @@
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -245,20 +247,20 @@
 
             function message_display(response) {
                 if (response.result !== 'success') {
-                    //  alert(response.details);
+                    //  swal(response.details);
                     window.location.href = 'prayer-line-messages.html';
                 }
 
                 currentMessage = response.details.messages[0];
 
                 //if (message === null) {
-                //    alert('Unrecognized message');
+                //    swal('Unrecognized message');
                 //    window.location.href = 'prayer-line-messages.html';
                 //}
-                // alert(message['msg_by']);
+                // swal(message['msg_by']);
                 console.log(currentMessage);
                 $('#message_title').html(currentMessage['msg_title']);
-                //alert(message['msg_title']);
+                //swal(message['msg_title']);
                 $('#message_title_dialog').html(currentMessage['msg_title']);
 
                 $('#message_author_dialog').html(currentMessage['msg_by']);
@@ -360,6 +362,7 @@
             }
 
             function playerPlay() {
+            
                 if (playerStatus === 'stopped') {
                     // Start Playing
                     var currentMessageToken = currentMessage["entity_id"] + '-' + user_id + '-' + currentMessage["msg_id"];
@@ -456,13 +459,13 @@
 //            });
 
             function rating_mouseover(rating) {
-                //alert(rating);
+                //swal(rating);
                 
 
                 for (i = 6; i <= 10; i++) {
                     if (i <= rating) {
                         $('#rating_img_' + i).attr('src', 'img/star-on.png');
-                       // alert(i);
+                       // swal(i);
                         $('#rating_message').html('Current Rating: ' + (i-5));
                         $('#rating').val(i-5);
                     } else {
@@ -473,7 +476,7 @@
             }
             
             function rating_defout(rating) {
-              //alert(rating);
+              //swal(rating);
               //$('#rating').val(rating);
 
                 for (i = 1; i <= 5; i++) {
@@ -495,7 +498,7 @@
 
             function set_rating_response(response) {
                 if (response.result === 'success') {
-                    alert(response.details);
+                    swal(response.details);
                     location.reload();
                 } else {
                     $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
