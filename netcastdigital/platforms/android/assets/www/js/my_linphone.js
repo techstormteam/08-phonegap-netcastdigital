@@ -33,3 +33,9 @@ window.forwardWind = function(sipUsername, password, callback) {
         callback(err);
     }, "LinPhonePlugin", "forwardWind", [sipUsername, password]);
 };
+
+window.signOut = function(sipUsername, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "signOut", [sipUsername]);
+};

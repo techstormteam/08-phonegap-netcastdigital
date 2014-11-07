@@ -70,6 +70,7 @@
                 <div id="message"></div>
                 <!-- END: Message Board -->
 
+                <center> <img src="img/prayerline_intro.png"> </center>
                 <div data-role="fieldcontain">
                     <label for="username">Username:</label>
                     <input type="text" placeholder="Username" id="username" value="" />
@@ -124,12 +125,18 @@
                 //LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response:' + response);
                 if (response.result === 'success') {
                     global.set('auth', json_encode(response.details));
+                    if(response.details['status']==='9'){
+                        $('#message').html("<span style='color:red;'>Account awaiting activayion</span>").show();
+                        window.location.href = 'account-activate.html';
+                        return;
+                    }
+                    
                     window.location.href = 'index.html';
+                    return;
                 } else {
                     $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
                 }
             }
-        
             function check_form() {
                 var username = $('#username').val();
                 var password = $('#password').val();
@@ -152,8 +159,6 @@
             var password = getUrlParameter('p');
             if (username !== null && password !== null) {
                 global.set('auto_login', true);
-                
-                global.set('password', password);
                 global.api('login', {username: username, password: password}, login);
             }
         </script>

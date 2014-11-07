@@ -23,7 +23,7 @@
 
             <!-- START: Content -->
             <div data-role="content">
-                <h3 id="title" style="text-align: center; color: #5F5F5F;">Welcome to Self Care Portal</h3>
+                <h3 id="title" style="text-align: center; color: #5F5F5F;"></h3>
                 <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
                     Make Payment
                 </button>
@@ -70,8 +70,14 @@
                             <h2>Support</h2>
                             <p>Support ticket management</p></a>
                     </li>
+                    <li>
+                        <a href="about-prayerline.html" rel="external">
+                            <img src="img/about_us.png" alt="" />
+                            <h2>About Us</h2>
+                            <p></p></a>
+                    </li>
                     <li id="logout_option">
-                        <a href="logout.html" rel="external">
+                        <a href="#" rel="external" onclick="doSignOut();">
                             <img src="img/logout.png" alt="" />
                             <h2>Logout</h2>
                             <p>Exit the PrayerLine app</p>
@@ -83,6 +89,14 @@
         </div>
         <script type="text/javascript">
             app.initialize();
+            
+            function doSignOut() {
+            	var telno = global.get('telno');
+	        	window.signOut(telno, function(message) {
+	                window.location.href = 'logout.html';
+	            });
+            }
+            
             if (global.get('auth') === null) {
                 var username = getUrlParameter('username');
                 var password = getUrlParameter('password');
@@ -102,21 +116,18 @@
             }
         </script>
         <script>
-            function sipRegister(response) {
-            	var user = global.getUser();
-            	var sipUsername = response;
-            	var password = user.data.uipass
-                window.registerSip(sipUsername, password, function(message) {
-                    //empty
-                });
-            }
-            
             if (global.get('auth') === null) {
                 // Second test
                 window.location.href = 'login.html';
             } else {
-                
                 var user = global.getUser();
+                console.log(user);
+                console.log(user.getStatus());
+                if (user.getStatus() === '9') { // Check user account is activated
+                    $('#message').html("<span style='color:red;'>Account awaiting activayion</span>").show();
+                    window.location.href = 'account-activate.html';
+                }
+
                 var user_id = user.getId();
                 var currency = user.getCurrency();
                 $('#user_name').html(user.getFirstName() + ' ' + user.getLastName());
@@ -125,8 +136,7 @@
                 }
                 balance_display_in_button();
 
-
-                global.getSipUsernameApi(user.data.email, user.data.uipass, sipRegister);
+				
                 global.api('usage_and_sms_last_month', {user_id: user_id, currency: currency}, usage_and_sms_last_month_display);
 
             }
@@ -137,7 +147,7 @@
                 var sms_total = result.details['sms_total'];
 
                 var html = ' <img src="img/dashboard.png" width="50" height="50" style="vertical-align:middle;">  ';
-                html += ' Last Month\'s Portal Usage - ' + voice_total + ' mins';
+                html += ' Last Month\'s PrayerLine Usage - ' + voice_total + ' mins';
 
                 $('#title').html(html);
             }

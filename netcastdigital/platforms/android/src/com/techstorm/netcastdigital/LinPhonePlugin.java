@@ -1,18 +1,29 @@
 package com.techstorm.netcastdigital;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
+import org.apache.cordova.PluginResult.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.linphone.core.LinphoneAddress.TransportType;
+import org.linphone.core.LinphoneAuthInfo;
 import org.linphone.core.LinphoneCall;
 import org.linphone.core.LinphoneCore;
+import org.linphone.core.LinphoneCore.RegistrationState;
 import org.linphone.core.LinphoneCoreException;
+import org.linphone.core.LinphoneProxyConfig;
 
 import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
 public class LinPhonePlugin extends CordovaPlugin {
 
+	public static String NOT_REGISTERED = "NOT-REGISTERED";
+	public static String REGISTERED = "REGISTERED";
+	
 	@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("callSip")) {
@@ -26,10 +37,48 @@ public class LinPhonePlugin extends CordovaPlugin {
         	callbackContext.success("cancel sip");
         	return true;
         } else if (action.equals("registerSip")) {
-        	String sipUsername = (String)args.get(0);
-        	String password = (String)args.get(1);
-        	logIn(sipUsername, password, Netcastdigital.SIP_DOMAIN, false);
-        	callbackContext.success("register sip");
+			String sipUsername = (String) args.get(0);
+			String password = (String) args.get(1);
+			String domain = Netcastdigital.SIP_DOMAIN;
+			String sipAddress = sipUsername + "@" + domain;
+			
+			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			
+			if (lc.isNetworkReachable()) {
+				signOut(sipUsername, domain);
+				
+				// Get account index.
+				int nbAccounts = LinphonePreferences.instance().getAccountCount();
+				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+				
+				
+				if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered in linphone
+					logIn(sipUsername, password, domain, false);
+					lc.refreshRegisters();
+					accountIndexes.add(nbAccounts);
+				}
+				
+				for (Integer accountIndex : accountIndexes) {
+					if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
+						LinphonePreferences.instance().setDefaultAccount(accountIndex);
+						LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+						lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
+						lc.refreshRegisters();
+					} else {
+						if (lc != null && lc.getDefaultProxyConfig() != null) {
+							if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+								//empty
+							} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
+									|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+								LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+								lc.refreshRegisters();
+							}
+						}
+					}
+				}
+			}
+			PluginResult result = new PluginResult(Status.OK);
+			callbackContext.sendPluginResult(result);
         	return true;
         } else if (action.equals("backWind")) {
         	dialDtmf('4');
@@ -43,9 +92,51 @@ public class LinPhonePlugin extends CordovaPlugin {
         	dialDtmf('#');
         	callbackContext.success("pause sip");
         	return true;
+        } else if (action.equals("signOut")) {
+        	String sipUsername = (String) args.get(0);
+			String domain = Netcastdigital.SIP_DOMAIN;
+			signOut(sipUsername, domain);
+			callbackContext.success("Sign out successful.");
+			return true;
         }
         return false;
     }
+	
+	private List<Integer> findAuthIndexOf(String sipAddress) {
+		int nbAccounts = LinphonePreferences.instance().getAccountCount();
+		List<Integer> indexes = new ArrayList<Integer>();
+		for (int index = 0; index < nbAccounts; index++)
+		{
+			String accountUsername = LinphonePreferences.instance().getAccountUsername(index);
+			String accountDomain = LinphonePreferences.instance().getAccountDomain(index);
+			String identity = accountUsername + "@" + accountDomain;
+			if (identity.equals(sipAddress)) {
+				indexes.add(index);
+			}
+		}
+		return indexes;
+	}
+	
+	private void signOut(String sipUsername, String domain) {
+		if (LinphoneManager.isInstanciated()) {
+			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			
+			String sipAddress = sipUsername + "@" + domain;
+			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+			for (Integer accountIndex : accountIndexes) {
+				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
+				LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
+				lc.removeProxyConfig(proxyCfg);
+			}
+			
+			LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
+			if (authInfo != null) {
+				lc.removeAuthInfo(authInfo);
+			}
+			lc.refreshRegisters();
+			
+		}
+	}
 	
 	private void dialDtmf(char keyCode) {
 		LinphoneCore lc = LinphoneManager.getLc();

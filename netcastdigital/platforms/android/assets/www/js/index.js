@@ -21,6 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var global = new Global();
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -40,26 +42,39 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
+    
+    sipRegister: function(response) {
+    	//var user = global.getUser();
+    	//var sipUsername = response;
+    	//var password = user.data.uipass;
+    	var user = global.getUser();
+    	var sipUsername = response;
+    	var password = user.data.uipass;
+    	global.set('telno', sipUsername);
+        window.registerSip(sipUsername, password, function(message) {
+            //empty
+        });
+    },
+    
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+        if (global.get('auth') !== null) {
+        	var user = global.getUser();
+        	global.getSipUsernameApi(user.data.email, user.data.uipass, app.sipRegister);
+        	window.cancelSip(function(message) {
+                //empty
+            });
+        }
     }
 };
 
 function Global() {
     this.debug = false;
     var data = {
-        'apiUrl':'http://portal.netcastdigital.net/ncd/selfserve/api',
-        'dashboardUrl':'http://portal.netcastdigital.net/ncd/selfserve/',
+        'apiUrl':'http://portal.netcastdigital.net/prayerline/selfserve/api',
         'sipUsernameUrl':'http://portal.netcastdigital.net/getInfo.php',
-        'quickTellerPaymentCompleteUrl':'http://portal.netcastdigital.net/ncd/selfserve/payment-provider-interswitch-quickteller-complete',
+        'dashboardUrl':'http://portal.netcastdigital.net/prayerline/selfserve/',
+        'quickTellerPaymentCompleteUrl':'http://portal.netcastdigital.net/prayerline/selfserve/payment-provider-interswitch-quickteller-complete',
         'quickTellerPaymentCode':'888889'
     };
 
@@ -220,10 +235,8 @@ function Global() {
                                                }
                                                });
     };
-
 }
 
-var global = new Global();
 
 function is_numeric(mixed_var) {
     return (typeof mixed_var === 'number' || typeof mixed_var === 'string') && mixed_var !== '' && !isNaN(mixed_var);

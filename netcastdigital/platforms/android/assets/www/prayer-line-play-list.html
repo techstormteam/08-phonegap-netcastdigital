@@ -20,6 +20,43 @@
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
         <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+        <script src="js/jquery_sortable_list.js"></script>
+        <script src="js/jquery.ui.touch-punch.min.js"></script>
+
+        <style>
+            .ui-li{
+                text-align: center;
+            }
+            #playerDialog div.progressBarHolder{
+                max-width: 260px;
+                overflow:hidden;
+            }
+            #playerDialog div.progressBarHolder div.progress_bar{
+                width:190px;
+                overflow:hidden;
+            }
+            #playerDialog div.progressBarHolder div.progress_bar div.handle{
+                top:0px;
+            }
+            @media (max-width: 400px) {
+                #playerDialog div.progressBarHolder{
+                    max-width: 130px;
+                    overflow:hidden;
+                }
+                #playerDialog div.progressBarHolder div.progress_bar{
+                    width:70px;
+                    overflow:hidden;
+                }    
+            }
+
+            .ui-content .ui-listview-inset, .ui-panel-inner .ui-listview-inset{
+                margin: 1em 3em;
+            }
+            .ui-li {
+                font-size: 13px;
+            }
+        </style>
     </head>
     <body>
         <div data-role="page" data-add-back-btn="true">
@@ -45,7 +82,7 @@
                     <div data-role="fieldcontain">
                         <label for="keyword">-Select Keyword-</label>
                         <select id="keyword">                           
-                            <option>-Select Keyword-</option>
+                            <option value="">-Select Keyword-</option>
                         </select>
                     </div>
 
@@ -65,52 +102,147 @@
                         <label for="date">Date</label>
                         <input id="date" type="date" data-role="datebox" data-options='{"mode": "calbox", "overrideDateFormat":"%d %b %Y"}' />
                     </div>
-                    <a href="#" data-role="button" onclick="search();" data-theme="b">
+                    <a href="#" data-role="button" onclick="searchProcess();" data-theme="b">
                         Search
                     </a>
                 </div>
-                <!--
-                <button id="start_playlist" data-theme="b" data-role="button" onclick="//playPlaylist(this)" data-rel="popup" data-position-to="window" data-transition="pop"  >
-                    <img src="img/control_play.png" />
+                <div role="main" class="ui-content">
+                    <div>
+                        <div style="background-color: #202020; height: 45px;">
+                            <div style="float: left;width:15%;">
+                                <div class="play_button" onclick="playerPlay(this);">
+                                    <div style="width:40px;height:40px;background-image: url(img/player/play.svg);background-position: 40% 53%;background-repeat: no-repeat;background-size: 67.5% auto;">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="progressBarHolder" style="float: left;width:62%;">
+                                <div style="font-size: 11px;overflow:hidden;">
+                                    <marquee scrollamount="2" style="width:100%;">
+                                        Your Customized Playlist
+<!--                                        <span id="message_title_dialog" style="font-size: 12px; text-shadow:0; color: #FFFFFF;"></span>
+                                        -
+                                        <span id="message_author_dialog" style="font-size: 12px; text-shadow:0; color: #FFFFFF;"></span>-->
+                                    </marquee>
+                                </div>
+                                <div style="padding-top: 5px;">
+
+                                    <div id="playerTimeStart" style="float: left;width:10%;font-size: 10px;padding-right: 10px;">0:00</div>
+
+                                    <div class="progress_bar" style="float: left;position:relative; width:65%;padding-top: 5px;">
+                                        <div class="handle" style="position:absolute;left:0px;background:#194b7e;border-radius: 5px; width:10px;height:10px;top: 3px;">&nbsp;</div>
+                                        <div class="bar" style="height:5px;background:white;"></div>
+                                    </div>
+
+                                    <div id="playerTimeEnd" style="float: left;width:10%;font-size: 10px;padding-left: 5px;">10:00</div>
+
+                                </div>   
+                            </div>
+
+                            <div style="float:left;width:23%;">
+                                <div class="backward_button" style="float: left;width:50%;" onclick="playerBackward();">
+                                    <div style="width:40px;height:40px;background-image: url(img/player/first.svg);background-repeat: no-repeat;background-position: 40% 53%;background-size: 67.5% auto;">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="forward_button" style="float: left;width:50%;" onclick="playerForward();">
+                                    <div style="width:40px;height:40px;background-image: url(img/player/last.svg);background-repeat: no-repeat;background-position: 40% 53%;background-size: 67.5% auto;">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+<!--                <a id="start_playlist" href="#playerDialog" data-theme="e" data-role="button" onclick="playPlaylist(this)" data-rel="popup" data-position-to="window" data-transition="pop"  >
                     Start Playlist
-                </button>
-                -->
-                <a id="start_playlist" href="#playerDialog" data-theme="b" data-role="button" onclick="playPlaylist(this)" data-rel="popup" data-position-to="window" data-transition="pop"  >
-                    <img src="img/control_play.png" />
-                    Start Playlist
-                </a>
-                
-                 <!-- START: Player -->
+                </a>-->
+
+                <!-- START: Player -->
                 <div data-role="popup" id="playerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
                     <div data-role="header" data-theme="a">
-                        <h1>Prayerline PlayDeck</h1>
+                        <h1>PlayDeck</h1>
                     </div>
                     <div role="main" class="ui-content">
                         <p>
                             Playback is only supported on Google Chrome, Firefox
                             and Opera
                         </p>
+                        <div style="background-color: #202020; height: 45px;">
+                            <div style="float: left;width:40px;">
+                                <div class="play_button btn-success" onclick="playerPlay(this);//playPlaylist(this);//playerPlay();">
+                                    <div style="width:40px;height:40px;background-image: url(img/player/play.svg);background-position: 40% 53%;background-repeat: no-repeat;background-size: 67.5% auto;">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="progressBarHolder" style="float: left;">
+                                <div style="font-size: 12px; text-shadow:0; color: #FFFFFF;">
+                                    <marquee scrollamount="2">
+                                        Your Customized Playlist
+                                        <!--
+                                        <span id="message_title_dialog"></span>
+                                        -
+                                        <span id="message_author_dialog"></span>
+                                        -->
+                                    </marquee>
+                                </div>
+                                <div style="padding-top: 11px;">
+                                    <div id="playerTimeStart" style="float: left;width:30px;font-size: 10px;">0:00</div>
+                                    <div class="progress_bar" style="float: left;position:relative; padding-top: 5px;">
+                                        <div class="handle" style="position:absolute;left:0px;background:white;border-radius: 5px; width:10px;height:10px;">&nbsp;</div>
+                                        <div class="bar" style="height:5px;background:black;"></div>
+                                    </div>
+                                    <div id="playerTimeEnd" style="float: left;width:30px;font-size: 10px;">10:00</div>
+                                </div>   
+                            </div>
+
+                            <div style="float:left;width:70px;">
+                                <div class="backward_button" style="float: left;width:30px;" onclick="playerBackward();">
+                                    <div style="width:40px;height:40px;background-image: url(img/player/first.svg);background-repeat: no-repeat;background-position: 40% 53%;background-size: 67.5% auto;">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="forward_button" style="float: left;width:40px;" onclick="playerForward();">
+                                    <div style="width:40px;height:40px;background-image: url(img/player/last.svg);background-repeat: no-repeat;background-position: 40% 53%;background-size: 67.5% auto;">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!--
                         <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
                             <a href="#" data-role="button" onclick="playerBackward();">Back</a>
                             <a href="#" data-role="button" onclick="playerPause();">Pause</a>
                             <a href="#" data-role="button" onclick="playerForward();">Forward</a>
                         </div>
+                        -->
                     </div>
-                    <a href="page-dialogs.html" id="player_popup_close" data-role="button" data-rel="back" onclick="playerStop()" data-theme="b" data-transition="flow">
-                        Stop Playlist
+                    <a href="player-line-play-list.html" id="player_popup_close" data-role="button" data-rel="back" data-theme="e" data-transition="flow" style="background:orange;">
+                        Back
                     </a> 
                 </div>
                 <!-- END: Player -->
+
                 <p style="font-size:11px;">
-                    Played messages will not be queued for autoplay except
+                    Please drag and drop messages within your playlist to change the playback priority.Played messages will not be queued for autoplay except
                     you check the autoplay box. All unplayed messages will
                     be automatically queued for autoplay. 
                     <span style="color:red;">
                         Only three messages will be played in one go by the Playback button
                     </span>
                 </p>
+                <ul id="ulPlayerList" data-role="listview" data-inset="true" data-theme="d">
+                    <!--li data-role="list-divider" style="background:orange;">Prayer List</li-->
+                </ul>
 
+                <!--
                 <table data-role="table" id="tablePlayerList" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
                     <thead>
                         <tr>
@@ -121,7 +253,6 @@
                             <th data-priority="4">Played Date</th>
                             <th data-priority="5">Autoplay</th>
                             <th data-priority="6"></th>
-                            <!--<th data-priority="6">Play Priority</th>-->
                         </tr>
                     </thead>
                     <tbody>
@@ -133,6 +264,7 @@
                         </tr>
                     </tbody>
                 </table>
+                -->
                 <div id="usages_pagination"></div>
                 <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
                     <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">
@@ -161,6 +293,7 @@
             var user = global.getUser();
             var user_id = user.getId();
             var entity_id = 0; // To be dynamicly recalculated
+            var playlistTotalSeconds = 0; // To be dynamicly recalculated
 
             getkeyword();
 
@@ -174,11 +307,11 @@
                 for (var i = 0; i < keywords.length; i++) {
                     row = row + '<option value="' + keywords[i] + '">' + keywords[i] + '</option>';
                 }
-                $('#keyword').html(row);
+                $('#keyword').append(row);
                 $("#keyword").selectmenu('refresh', true);
             }
 
-            function search() {
+            function searchProcess() {
                 var keyword = $('#keyword').val();
                 var title = $('#title').val();
                 var type = $('#msg_type').find(":selected").val();
@@ -204,6 +337,8 @@
                     entity_id = play_list[0]['entity_id'];
                 }
 
+                $('#ulPlayerList').html(''); // Empty current content
+
                 var rows = '';
                 //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'green');
                 //$('#start_playlist').button().button('refresh');
@@ -211,39 +346,91 @@
                     $("#start_playlist").parent().hide();
                 }
                 for (var i = 0; i < play_list.length; i++) {
-                    var value = play_list[i];
-                    var prevMsg = (typeof play_list[i - 1] === 'undefined') ? null : play_list[i - 1];
-                    var nextMsg = (typeof play_list[i + 1] === 'undefined') ? null : play_list[i + 1];
-                    var row = '<tr data-id="' + value["msg_id"] + '" data-priority="' + value["msg_play_priority"] + '">';
-                    row += '<td>' + value["msg_title"] + '</td>';
-                    row += '<td>' + value["msg_date"] + '</td>';
-                    row += '<td>' + value["msg_by"] + '</td>';
-                    row += '<td style="text-align: left;">' + value["msg_type"] + '</td>';
-                    row += '<td>' + value["Message_Played_Date"] + '</td>';
-                    row += '<td>';
-                    if (value['autoplay'] === '1') {
-                        row += '<input type="checkbox" checked="checked" onclick="autoplay(' + value['msg_id'] + ')" >';
+                    /*
+                     var value = play_list[i];
+                     var prevMsg = (typeof play_list[i - 1] === 'undefined') ? null : play_list[i - 1];
+                     var nextMsg = (typeof play_list[i + 1] === 'undefined') ? null : play_list[i + 1];
+                     var row = '<tr data-id="' + value["msg_id"] + '" data-priority="' + value["msg_play_priority"] + '">';
+                     row += '<td>' + value["msg_title"] + '</td>';
+                     row += '<td>' + value["msg_date"] + '</td>';
+                     row += '<td>' + value["msg_by"] + '</td>';
+                     row += '<td style="text-align: left;">' + value["msg_type"] + '</td>';
+                     row += '<td>' + value["Message_Played_Date"] + '</td>';
+                     row += '<td>';
+                     if (value['autoplay'] === '1') {
+                     row += '<input type="checkbox" checked="checked" onclick="autoplay(' + value['msg_id'] + ')" >';
+                     } else {
+                     row += '<input type="checkbox" onclick="autoplay(' + value['msg_id'] + ')" >';
+                     }
+                     
+                     row += '<td>';
+                     if (prevMsg !== null) {
+                     row += '<button data-theme="e" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + prevMsg['msg_play_priority'] + '\');" >Move Up</button>';
+                     }
+                     if (nextMsg !== null) {
+                     row += '<button data-theme="b" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + nextMsg['msg_play_priority'] + '\');" >Move Down</button>';
+                     }
+                     row += '<button data-theme="a" data-role="button" onclick="deleteMessage(\'' + value['msg_id'] + '\');" >Delete Message</button>';
+                     row += '</td >';
+                     
+                     row += '</tr>';
+                     rows += row;
+                     */
+                    var message = play_list[i];
+                    var messageSeconds = message['msg_secs'];
+                    playlistTotalSeconds += parseInt(messageSeconds);
+
+                    var li = '<li data-id="' + message["msg_id"] + '" data-priority="' + message["msg_play_priority"] + '">';
+                    li += '<div>' + message["msg_title"] + '</div>';
+                    li += '<div>' + message["msg_date"] + '</div>';
+                    li += '<div>' + message["msg_by"] + '</div>';
+                    if (message['autoplay'] === '1') {
+                        li += 'Autoplay: <input type="checkbox" checked="checked" onclick="autoplay(' + message['msg_id'] + ')" >';
                     } else {
-                        row += '<input type="checkbox" onclick="autoplay(' + value['msg_id'] + ')" >';
+                        li += 'Autoplay: <input type="checkbox" onclick="autoplay(' + message['msg_id'] + ')" >';
                     }
-
-                    row += '<td>';
-                    if (prevMsg !== null) {
-                        row += '<button data-theme="e" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + prevMsg['msg_play_priority'] + '\');" >Move Up</button>';
-                    }
-                    if (nextMsg !== null) {
-                        row += '<button data-theme="b" data-role="button" onclick="messagePriorityChange(\'' + value['msg_id'] + '\', \'' + nextMsg['msg_play_priority'] + '\');" >Move Down</button>';
-                    }
-                    row += '<button data-theme="a" data-role="button" onclick="deleteMessage(\'' + value['msg_id'] + '\');" >Delete Message</button>';
-                    row += '</td >';
-
-                    row += '</tr>';
-                    rows += row;
+                    li += '</li>';
+                    $('#ulPlayerList').append(li);
                 }
 
-                if (rows !== '') {
-                    $('#pagination').show();
+                $('#ulPlayerList').listview('refresh');
+                $("#ulPlayerList").sortable({
+                    items: "li:not(.ui-li-divider)"
+                });
+                $("#ulPlayerList").sortable();
+                $("#ulPlayerList").disableSelection();
+                $("#ulPlayerList").bind("sortstop", function(event, ui) {
+                    console.log(ui)
+                    console.log(ui.originalPosition.top)
+                    var messageId = ui.item.closest('li').data('id');
+
+                    if (ui.originalPosition.top - ui.position.top > 0) {
+                        console.log('up');
+                        var nextId = ui.item.closest('li').next().data('id');
+                        console.log(messageId + '-' + nextId);
+                        messagePriorityChange(messageId, nextId);
+                    } else {
+                        console.log('down');
+                        var previousId = ui.item.closest('li').prev().data('id');
+                        console.log(messageId + '-' + previousId);
+                        messagePriorityChange(messageId, previousId);
+                    }
+                    $('#ulPlayerList').listview('refresh');
+                });
+
+                function str_pad_left(string, pad, length) {
+                    return (new Array(length + 1).join(pad) + string).slice(-length);
                 }
+                var hours = Math.floor(playlistTotalSeconds / 3600);
+                var minutes = Math.floor(playlistTotalSeconds / 60);
+                var seconds = playlistTotalSeconds - minutes * 60;
+                var finalTime = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+                $('#playerTimeEnd').html(finalTime);
+
+
+                //if (rows !== '') {
+                //    $('#pagination').show();
+                //}
 
                 /**
                  * No results
@@ -324,7 +511,7 @@
                 var user_id = user.getId();
                 global.api('play_list_update', {user_id: user_id, msg_id: messageID, newPriority: newPlayPriority}, function(data) {
                     alert(data.details);
-                    search(); // Execute search
+                    searchProcess(); // Execute search
                 });
             }
         </script>
@@ -388,77 +575,135 @@
                     }
                 }
             };
-            
-            function playPlaylist(button) {
-                var message = 'playbackPlayList-' + entity_id + '-' + user_id;
-                if (typeof session !== 'undefined') {
-                    session.bye();
-                }
-                window.callSip(message, function(message) {
-                    //empty
-                });
-                if ($(button).hasClass('btn-success')) {
-                    $(button).removeClass('btn-success').addClass('btn-warning');
-                    //$(button).removeClass('btn-success').addClass('btn-warning').html('Stop PlayList');
-                    //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_stop.png">');
-                    //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'red');
-                    //$("#start_playlist").button().button('refresh');
-                    //$(button).button().button('refresh');
-                    session = userAgent.invite(message, options);
-                } else {
-                    
-                    $(button).removeClass('btn-warning').addClass('btn-success');
-                    //$("#start_playlist").css('background', 'green');
-                    //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'green');
-                    //$("#start_playlist").button().button('refresh');
-                    //$(button).removeClass('btn-warning').addClass('btn-success').html('Start PlayList');
-                    //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_play.png">');
-                    //$(button).button().button('refresh');
-                }
-            }
+            /**
+             function playPlaylist(button) {
+             var message = 'playbackPlayList-' + entity_id + '-' + user_id;
+             if (typeof session !== 'undefined') {
+             session.bye();
+             }
+             if ($(button).hasClass('btn-success')) {
+             $(button).removeClass('btn-success').addClass('btn-warning');
+             //$(button).removeClass('btn-success').addClass('btn-warning').html('Stop PlayList');
+             //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_stop.png">');
+             //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'red');
+             //$("#start_playlist").button().button('refresh');
+             //$(button).button().button('refresh');
+             session = userAgent.invite(message, options);
+             playerCountdoundStart();
+             } else {
+             $(button).removeClass('btn-warning').addClass('btn-success');
+             //$("#start_playlist").css('background', 'green');
+             //$('#start_playlist').parent().find('.ui-btn-inner').css('background', 'green');
+             //$("#start_playlist").button().button('refresh');
+             //$(button).removeClass('btn-warning').addClass('btn-success').html('Start PlayList');
+             //$(button).removeClass('btn-warning').addClass('btn-success').html('<img src="img/control_play.png">');
+             //$(button).button().button('refresh');
+             }
+             }
+             */
 
             $(window).unload(function() {
                 if (typeof session !== 'undefined') {
                     session.bye();
                 }
             });
-            
+
         </script>
-        
+
         <script>
             function playerPause() {
                 window.pauseSip('empty', function(message) {
-                    //empty
+                    
                 });
             }
 
             function playerBackward() {
+            	countdownTimeSecs -= 5;
                 window.backWind('empty', function(message) {
-                    //empty
+                	//empty
                 });
             }
 
             function playerPlay() {
-                var message = 'playMessage-' + currentMessage;
-                window.callSip(message, function(message) {
-                    //empty
-                });
-                session = userAgent.invite(message, options);
+                if (playerStatus === 'stopped') {
+                    var message = 'playbackPlayList-' + entity_id + '-' + user_id;
+                    window.callSip(message, function(message) {
+	                    //empty
+	                });
+                    //var message = 'playMessage-' + currentMessage;
+                    //session = userAgent.invite(message, options);
+                    playerCountdoundStart();
+                    $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
+                    playerStatus = 'playing';
+                } else {
+                    // Pause and Resume  
+                    var img = $('.play_button div').css('background-image');
+                    var state = '';
+                    if (img.indexOf('play.svg') !== -1) {
+                        //playerCountdounStop();
+                        //console.log('Pause');
+                        $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
+                        playerStatus = 'playing';
+                    }
+                    if (img.indexOf('pause.svg') !== -1) {
+                        //playerCountdounResume();
+                        //console.log('Resume');
+                        $('.play_button div').css('background-image', 'url(img/player/play.svg)');
+                        playerStatus = 'paused';
+                    }
+                    playerPause(); // Pause / resume
+                }
             }
 
             function playerStop() {
-                if (typeof session !== 'undefined') {
-                    session.dialDtmf("#");
-                }
-                window.cancelSip('empty', function(message) {
+            	window.cancelSip('empty', function(message) {
                     //empty
                 });
             }
 
             function playerForward() {
-                window.forwardWind('empty', function(message) {
+            	countdownTimeSecs += 5;
+            	window.forwardWind('empty', function(message) {
                     //empty
                 });
+            }
+
+            var playerStatus = 'stopped';
+            var countdownInterval = null;
+            var countdownTimeSecs = 0;
+            function playerCountdoundStart() {
+                countdownTimeSecs = 0;
+                countdownInterval = setInterval(playerCountdown, 1000);
+            }
+
+            function playerCountdown() {
+                if (playerStatus !== 'playing') {
+                    return;
+                }
+
+                function str_pad_left(string, pad, length) {
+                    return (new Array(length + 1).join(pad) + string).slice(-length);
+                }
+
+                countdownTimeSecs += 1;
+                console.log(countdownTimeSecs);
+                //var message_secs = parseFloat(playlistTotalSeconds);
+                //message_secs = message_secs.toFixed(2);
+                var hours = Math.floor(countdownTimeSecs / 3600);
+                var minutes = Math.floor(countdownTimeSecs / 60);
+                var seconds = countdownTimeSecs - minutes * 60;
+                var finalTime = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+                $('#playerTimeStart').html(finalTime);
+                playerCalculateHandle(playlistTotalSeconds, countdownTimeSecs);
+            }
+
+            function playerCalculateHandle(secsTotal, secsCurrent) {
+                var progressBarWidth = 190;
+                var position = progressBarWidth * (secsCurrent / secsTotal);
+                console.log(parseInt(position));
+                $('.progress_bar .handle').css('left', parseInt(position) + 'px');
+                var bg = 'linear-gradient(to right, #194b7e 0%, #194b7e '+parseInt(position) + 'px, white '+(parseInt(position)+1) + 'px, white 100%)';
+                $('.progress_bar .bar').css('background',  bg);
             }
         </script>
 

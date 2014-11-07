@@ -133,11 +133,11 @@
                             <input type="hidden" name="on0" value="Payment Options"> <input type="hidden" name="os0" value="Auto Topup">
                             <center> Auto Topup Options </center>
                             <select name="a3"id="paypal_autopay_amount">
-                                <option value="10">Auto Topup : £10.00 - monthly</option>
-                                <option value="20">Auto Topup : £20.00 - monthly</option>
-                                <option value="50">Auto Topup : £50.00 - monthly</option>
-                                <option value="100">Auto Topup : £100.00 - monthly</option>
-                                <option value="200">Auto Topup : £200.00 - monthly</option>
+                                <option value="10.00">Auto Topup : £10.00 - monthly</option>
+                                <option value="20.00">Auto Topup : £20.00 - monthly</option>
+                                <option value="50.00">Auto Topup : £50.00 - monthly</option>
+                                <option value="100.00">Auto Topup : £100.00 - monthly</option>
+                                <option value="200.00">Auto Topup : £200.00 - monthly</option>
                             </select>
 
                             <input type="hidden" name="currency_code" value="GBP"> 
@@ -209,12 +209,14 @@
             }
             function religious_entity_charge_response(response) {
                 if (response.result === 'success') {
-                    var charge = response.details;
+                    var gbp_charge = response.details['gbp_charge'];
+                    var converted_charge = response.details['converted_charge'];
                     //if (global.getUser().getCurrency() === 'NGN') {
-                        $('#quickteller_amount').val(charge);
+                        $('#quickteller_amount').val(converted_charge);
                         $('#quickteller_amount').attr('disabled','disabled');
                     //}else{
-                        $('#paypal_autopay_amount').val(charge);
+                        $('#paypal_autopay_amount option[value!="'+gbp_charge+'"]').remove();
+                        //$('#paypal_autopay_amount').val(gbp_charge);
                         $('#paypalTopup').hide().css('display','none');
                     //}
                 } else {

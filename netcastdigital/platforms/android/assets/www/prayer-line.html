@@ -11,6 +11,8 @@
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
     </head>
     <body>
         <div data-role="page">
@@ -26,10 +28,10 @@
 
             <!-- START: Content -->
             <div data-role="content">
+                <ul data-role="listview" data-inset="true">
                 <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
                     Make Payment
                 </button>
-                <ul data-role="listview" data-inset="true">
                     <li>
                         <a href="prayer-line-messages.html" rel="external">Messages</a>
                     </li>
