@@ -1,7 +1,7 @@
-window.callSip = function(str, callback) {
+window.callSip = function(callTo, sipUsername, password, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "callSip", [str]);
+    }, "LinPhonePlugin", "callSip", [callTo, sipUsername, password]);
 };
 
 window.cancelSip = function(str, callback) {

@@ -44,16 +44,8 @@ var app = {
     },
     
     sipRegister: function(response) {
-    	//var user = global.getUser();
-    	//var sipUsername = response;
-    	//var password = user.data.uipass;
-    	var user = global.getUser();
     	var sipUsername = response;
-    	var password = user.data.uipass;
     	global.set('telno', sipUsername);
-        window.registerSip(sipUsername, password, function(message) {
-            //empty
-        });
     },
     
     // Update DOM on a Received Event
@@ -61,7 +53,8 @@ var app = {
         if (global.get('auth') !== null) {
         	var user = global.getUser();
         	global.getSipUsernameApi(user.data.email, user.data.uipass, app.sipRegister);
-        	window.cancelSip(function(message) {
+        	var sipUsername = global.get('telno');
+        	window.cancelSip(sipUsername, function(message) {
                 //empty
             });
         }

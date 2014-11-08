@@ -43,7 +43,7 @@
 	<string name="notification_title">Linphone</string>
 	<string name="wait_dialog_text">Starting up</string>
 	<string name="notification_registered">Registered %s </string> 
-	<string name="notification_register_failure">Fails to register to %s</string>
+	<string name="notification_register_failure">Offline</string>
 	<string name="about_text">Linphone %s SIP (rfc 3261) compatible phone under GNU Public License V2</string>
 	<string name="about_link">http://www.linphone.org\n\nInstructions\nhttp://www.linphone.org/m/help\n\n© 2011 Belledonne Communications</string>
 	
@@ -290,7 +290,7 @@
 	<string name="error_cannot_create_default_parameters">Cannot create default call parameters</string>
 	<string name="error_cannot_invite_address">Cannot invite destination address [%s]</string>
 
-	<string name="notification_started">started</string>
+	<string name="notification_started">Logged in</string>
 	<string name="pref_echo_cancellation_summary">Removes the echo heard by other end</string>
 	<string name="pref_stun_server">Stun server</string>
 	<string name="pref_ice_enable">Enable ICE</string>

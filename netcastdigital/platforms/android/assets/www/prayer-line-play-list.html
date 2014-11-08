@@ -627,7 +627,10 @@
             function playerPlay() {
                 if (playerStatus === 'stopped') {
                     var message = 'playbackPlayList-' + entity_id + '-' + user_id;
-                    window.callSip(message, function(message) {
+                    var user = global.getUser();
+                    var sipUsername = global.get('telno');
+                    var password = user.data.uipass;
+                    window.callSip(message, sipUsername, password, function(message) {
 	                    //empty
 	                });
                     //var message = 'playMessage-' + currentMessage;
@@ -656,7 +659,8 @@
             }
 
             function playerStop() {
-            	window.cancelSip('empty', function(message) {
+            	var sipUsername = global.get('telno');
+            	window.cancelSip(sipUsername, function(message) {
                     //empty
                 });
             }

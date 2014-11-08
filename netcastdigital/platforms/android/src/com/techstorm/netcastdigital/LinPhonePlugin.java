@@ -27,56 +27,28 @@ public class LinPhonePlugin extends CordovaPlugin {
 	@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if (action.equals("callSip")) {
-        	sip(String.format("sip:%s@%s", args.get(0), Netcastdigital.SIP_DOMAIN));
+        	String callTo = (String) args.get(0);
+        	String sipUsername = (String) args.get(1);
+			String password = (String) args.get(2);
+			String domain = Netcastdigital.SIP_DOMAIN;
+			registerSip(sipUsername, password, domain);
+        	sip(String.format("sip:%s@%s", callTo, Netcastdigital.SIP_DOMAIN));
         	LinphoneManager.getInstance().routeAudioToSpeaker();
 			LinphoneManager.getLc().enableSpeaker(true);
         	callbackContext.success("call sip");
             return true;
         } else if (action.equals("cancelSip")) {
+        	String sipUsername = (String) args.get(0);
+        	String domain = Netcastdigital.SIP_DOMAIN;
         	hangUp();
+        	signOut(sipUsername, domain);
         	callbackContext.success("cancel sip");
         	return true;
         } else if (action.equals("registerSip")) {
 			String sipUsername = (String) args.get(0);
 			String password = (String) args.get(1);
 			String domain = Netcastdigital.SIP_DOMAIN;
-			String sipAddress = sipUsername + "@" + domain;
-			
-			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
-			
-			if (lc.isNetworkReachable()) {
-				signOut(sipUsername, domain);
-				
-				// Get account index.
-				int nbAccounts = LinphonePreferences.instance().getAccountCount();
-				List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
-				
-				
-				if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered in linphone
-					logIn(sipUsername, password, domain, false);
-					lc.refreshRegisters();
-					accountIndexes.add(nbAccounts);
-				}
-				
-				for (Integer accountIndex : accountIndexes) {
-					if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
-						LinphonePreferences.instance().setDefaultAccount(accountIndex);
-						LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
-						lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
-						lc.refreshRegisters();
-					} else {
-						if (lc != null && lc.getDefaultProxyConfig() != null) {
-							if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
-								//empty
-							} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
-									|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
-								LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
-								lc.refreshRegisters();
-							}
-						}
-					}
-				}
-			}
+			registerSip(sipUsername, password, domain);
 			PluginResult result = new PluginResult(Status.OK);
 			callbackContext.sendPluginResult(result);
         	return true;
@@ -101,6 +73,46 @@ public class LinPhonePlugin extends CordovaPlugin {
         }
         return false;
     }
+	
+	private void registerSip(String sipUsername, String password, String domain) {
+		String sipAddress = sipUsername + "@" + domain;
+		
+		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+		
+		if (lc.isNetworkReachable()) {
+			signOut(sipUsername, domain);
+			
+			// Get account index.
+			int nbAccounts = LinphonePreferences.instance().getAccountCount();
+			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+			
+			
+			if (accountIndexes == null || accountIndexes.isEmpty()) { // User haven't registered in linphone
+				logIn(sipUsername, password, domain, false);
+				lc.refreshRegisters();
+				accountIndexes.add(nbAccounts);
+			}
+			
+			for (Integer accountIndex : accountIndexes) {
+				if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
+					LinphonePreferences.instance().setDefaultAccount(accountIndex);
+					LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+					lc.setDefaultProxyConfig((LinphoneProxyConfig) LinphoneManager.getLc().getProxyConfigList()[accountIndex]);
+					lc.refreshRegisters();
+				} else {
+					if (lc != null && lc.getDefaultProxyConfig() != null) {
+						if (RegistrationState.RegistrationOk == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+							//empty
+						} else if (RegistrationState.RegistrationFailed == LinphoneManager.getLc().getDefaultProxyConfig().getState()
+								|| RegistrationState.RegistrationNone == LinphoneManager.getLc().getDefaultProxyConfig().getState()) {
+							LinphonePreferences.instance().setAccountEnabled(accountIndex, true);
+							lc.refreshRegisters();
+						}
+					}
+				}
+			}
+		}
+	}
 	
 	private List<Integer> findAuthIndexOf(String sipAddress) {
 		int nbAccounts = LinphonePreferences.instance().getAccountCount();

@@ -367,7 +367,10 @@
                     // Start Playing
                     var currentMessageToken = currentMessage["entity_id"] + '-' + user_id + '-' + currentMessage["msg_id"];
                     var message = 'playMessage-' + currentMessageToken;
-                    window.callSip(message, function(message) {
+                    var user = global.getUser();
+                    var sipUsername = global.get('telno');
+                    var password = user.data.uipass;
+                    window.callSip(message, sipUsername, password, function(message) {
 	                    //empty
 	                });
                     //session = userAgent.invite(message, options);
@@ -396,7 +399,8 @@
             }
 
             function playerStop() {
-                window.cancelSip('empty', function(message) {
+            	var sipUsername = global.get('telno');
+                window.cancelSip(sipUsername, function(message) {
                     //empty
                 });
             }
