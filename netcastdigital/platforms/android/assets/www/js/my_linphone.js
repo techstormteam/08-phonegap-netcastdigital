@@ -16,10 +16,10 @@ window.registerSip = function(sipUsername, password, callback) {
     }, "LinPhonePlugin", "registerSip", [sipUsername, password]);
 };
 
-window.pauseSip = function(sipUsername, password, callback) {
+window.pauseSip = function(str, callback) {
     cordova.exec(callback, function(err) {
         callback(err);
-    }, "LinPhonePlugin", "pauseSip", [sipUsername, password]);
+    }, "LinPhonePlugin", "pauseSip", [str]);
 };
 
 window.backWind = function(sipUsername, password, callback) {

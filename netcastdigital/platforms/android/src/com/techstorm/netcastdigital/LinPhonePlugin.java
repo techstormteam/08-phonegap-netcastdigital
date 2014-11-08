@@ -58,7 +58,6 @@ public class LinPhonePlugin extends CordovaPlugin {
         	return true;
         } else if (action.equals("forwardWind")) {
         	dialDtmf('6');
-        	callbackContext.success("forward wind");
         	return true;
         } else if (action.equals("pauseSip")) {
         	dialDtmf('#');

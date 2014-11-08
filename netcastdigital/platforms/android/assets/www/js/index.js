@@ -53,10 +53,7 @@ var app = {
         if (global.get('auth') !== null) {
         	var user = global.getUser();
         	global.getSipUsernameApi(user.data.email, user.data.uipass, app.sipRegister);
-        	var sipUsername = global.get('telno');
-        	window.cancelSip(sipUsername, function(message) {
-                //empty
-            });
+   
         }
     }
 };

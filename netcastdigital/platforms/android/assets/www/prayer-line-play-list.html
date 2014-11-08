@@ -332,6 +332,7 @@
                 var play_list_count = result.details['play_list_count'];
                 var pages_count = result.details['pages_count'];
                 var page = result.details['page'];
+                
 
                 if (play_list.length > 0) {
                     entity_id = play_list[0]['entity_id'];
@@ -392,6 +393,8 @@
                     li += '</li>';
                     $('#ulPlayerList').append(li);
                 }
+
+				global.set("playlistTotalSeconds", playlistTotalSeconds);
 
                 $('#ulPlayerList').listview('refresh');
                 $("#ulPlayerList").sortable({
@@ -613,36 +616,10 @@
         <script>
             function playerPause() {
                 window.pauseSip('empty', function(message) {
-                    
-                });
-            }
-
-            function playerBackward() {
-            	countdownTimeSecs -= 5;
-                window.backWind('empty', function(message) {
-                	//empty
-                });
-            }
-
-            function playerPlay() {
-                if (playerStatus === 'stopped') {
-                    var message = 'playbackPlayList-' + entity_id + '-' + user_id;
-                    var user = global.getUser();
-                    var sipUsername = global.get('telno');
-                    var password = user.data.uipass;
-                    window.callSip(message, sipUsername, password, function(message) {
-	                    //empty
-	                });
-                    //var message = 'playMessage-' + currentMessage;
-                    //session = userAgent.invite(message, options);
-                    playerCountdoundStart();
-                    $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
-                    playerStatus = 'playing';
-                } else {
-                    // Pause and Resume  
                     var img = $('.play_button div').css('background-image');
                     var state = '';
                     if (img.indexOf('play.svg') !== -1) {
+                    
                         //playerCountdounStop();
                         //console.log('Pause');
                         $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
@@ -654,6 +631,39 @@
                         $('.play_button div').css('background-image', 'url(img/player/play.svg)');
                         playerStatus = 'paused';
                     }
+                });
+            }
+
+            function playerBackward() {
+            	if (countdownTimeSecs - 5 >= 0) {
+            		countdownTimeSecs -= 5;
+	            	if (playerStatus === 'paused') {
+	            		doPlayerCountdown();
+	            	}
+	                window.backWind('empty', function(message) {
+	                	//empty
+	                	alert('sss');
+	                });
+                } else {
+                	countdownTimeSecs = 0;
+                }
+            }
+
+            function playerPlay() {
+                if (playerStatus === 'stopped') {
+                    var message = 'playbackPlayList-' + entity_id + '-' + user_id;
+                    var user = global.getUser();
+                    var sipUsername = global.get('telno');
+                    var password = user.data.uipass;
+                    window.callSip(message, sipUsername, password, function(message) {
+	                    //var message = 'playMessage-' + currentMessage;
+	                    //session = userAgent.invite(message, options);
+	                    playerCountdoundStart();
+	                    $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
+	                    playerStatus = 'playing';
+	                });
+                } else {
+                    // Pause and Resume  
                     playerPause(); // Pause / resume
                 }
             }
@@ -666,10 +676,17 @@
             }
 
             function playerForward() {
-            	countdownTimeSecs += 5;
-            	window.forwardWind('empty', function(message) {
-                    //empty
-                });
+            	if (countdownTimeSecs + 5 <= global.get("playlistTotalSeconds")) {
+            		countdownTimeSecs += 5;
+	            	if (playerStatus === 'paused') {
+	            		doPlayerCountdown();
+	            	}
+            		window.forwardWind('empty', function(message) {
+                    	//empty
+                	});
+                } else {
+                	countdownTimeSecs = 0;
+                }
             }
 
             var playerStatus = 'stopped';
@@ -685,12 +702,15 @@
                     return;
                 }
 
-                function str_pad_left(string, pad, length) {
+                countdownTimeSecs += 1;
+                doPlayerCountdown();
+            }
+            
+            function doPlayerCountdown() {
+            	function str_pad_left(string, pad, length) {
                     return (new Array(length + 1).join(pad) + string).slice(-length);
                 }
-
-                countdownTimeSecs += 1;
-                console.log(countdownTimeSecs);
+            	console.log(countdownTimeSecs);
                 //var message_secs = parseFloat(playlistTotalSeconds);
                 //message_secs = message_secs.toFixed(2);
                 var hours = Math.floor(countdownTimeSecs / 3600);
