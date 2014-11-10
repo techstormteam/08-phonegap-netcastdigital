@@ -42,6 +42,7 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.PendingIntent.CanceledException;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -53,6 +54,7 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -612,9 +614,21 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 			signOut(LinPhonePlugin.currentSipUsername, domain);
 			
 			//start update interface
+			Intent notifIntent = new Intent(this, incomingReceivedActivity);
+			Bundle bundle = new Bundle();
+			bundle.putBoolean("refreshPlayer", true);
+			notifIntent.putExtras(bundle);
+			PendingIntent notifContentIntent = PendingIntent.getActivity(this, 0, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			
+			try {
+				notifContentIntent.send();
+			} catch (CanceledException e) {
+				e.printStackTrace();
+			}
 //			startActivity(new Intent()
 //				.setClass(this, incomingReceivedActivity)
-//				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+//				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//				.putExtra("refreshPlayer", true));
 		}
 	}
 

@@ -634,6 +634,11 @@
                 });
             }
 
+			function playerCountdounStop() {
+            	countdownTimeSecs = 0;
+                clearInterval(countdownInterval);
+            }
+
             function playerBackward() {
             	if (countdownTimeSecs - 5 >= 0) {
             		countdownTimeSecs -= 5;
@@ -671,7 +676,9 @@
             function playerStop() {
             	var sipUsername = global.get('telno');
             	window.cancelSip(sipUsername, function(message) {
-                    //empty
+                    playerCountdounStop();
+	            	$('.play_button div').css('background-image', 'url(img/player/play.svg)');
+	            	playerStatus = 'stopped';
                 });
             }
 

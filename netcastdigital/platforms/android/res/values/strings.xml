@@ -8,6 +8,7 @@
     <string name="sip_username">123456</string>
     <string name="sip_password">123456</string>
     
+    <string name="refresh_player">refreshPlayer</string>
     
     <string name="default_domain">sip.linphone.org</string>
     <string name="tunnel_mode_entry_value_always">tunnel_mode_entry_value_always</string>

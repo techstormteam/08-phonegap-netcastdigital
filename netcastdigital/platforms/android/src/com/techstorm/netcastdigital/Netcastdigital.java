@@ -22,7 +22,6 @@ package com.techstorm.netcastdigital;
 import static android.content.Intent.ACTION_MAIN;
 
 import org.apache.cordova.CordovaActivity;
-import org.linphone.core.LinphoneAddress.TransportType;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.PayloadType;
@@ -30,8 +29,6 @@ import org.linphone.core.PayloadType;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
 public class Netcastdigital extends CordovaActivity {
 	
@@ -106,5 +103,19 @@ public class Netcastdigital extends CordovaActivity {
 		}
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+//		Bundle extras = getIntent().getExtras();
+//		if (extras != null) {
+//			if (extras.containsKey(this.getApplicationContext().getString(R.string.refresh_player))) {
+//				Boolean refreshPlayer =  extras.getBoolean(this.getApplicationContext().getString(R.string.refresh_player));
+//				if (refreshPlayer) {
+					appView.sendJavascript("playerStop()");
+//				}
+//			}
+//		}
+		
+	}
 	
 }
