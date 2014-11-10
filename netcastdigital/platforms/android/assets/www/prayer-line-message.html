@@ -177,6 +177,10 @@
 
                         </div>
                     </div>
+                    
+                    <a href="#" data-role="button" data-theme="b" data-transition="flow" onclick="return addMessageToPlaylist();">
+                        Add to Playlist
+                    </a>
                     <p style="font-size: 12px;">
                         Rate the message by clicking on the stars below, then click on SUBMIT(5 out of 5 stars in a perfect score)
                     </p>
@@ -213,7 +217,7 @@
         <script type="text/javascript">
             app.initialize();
             if (global.get('auth') === null) {
-                //window.location = 'login.html';
+                window.location = 'login.html';
             }
         </script>
         <script>
@@ -231,6 +235,7 @@
                 var message_id = getUrlParameter('message_id');
                 global.api('raiting_get', {user_id: user_id, message_id: message_id}, raiting_get_display);
             }
+            
             function raiting_get_display(response) {
                 //response.msg_rating;
                 var rating = response.msg_rating;
@@ -296,6 +301,20 @@
 
             message_show(message_id);
             /* END: Init */
+            
+            function addMessageToPlaylist(){
+                var user = global.getUser();
+                var user_id = user.getId();
+                var data = {message_id: message_id, user_id: user_id};
+                global.api('play_list_add', data, addMessageToPlaylistResponse);
+            }
+
+            function addMessageToPlaylistResponse(response) {
+                alert(response.details);
+                //if (response.result === 'success') {
+                //    window.location.href = 'prayer-line-messages.html';
+                //}
+            }
 
             var asterisk_pbx = {
                 // ws_server_max_reconnection: 1000,
