@@ -20,6 +20,8 @@ package com.techstorm.netcastdigital;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.linphone.core.LinphoneAddress;
 import org.linphone.core.LinphoneCall;
@@ -27,6 +29,7 @@ import org.linphone.core.LinphoneCall.State;
 import org.linphone.core.LinphoneCore;
 import org.linphone.core.LinphoneCore.GlobalState;
 import org.linphone.core.LinphoneCore.RegistrationState;
+import org.linphone.core.LinphoneAuthInfo;
 import org.linphone.core.LinphoneCoreException;
 import org.linphone.core.LinphoneCoreFactoryImpl;
 import org.linphone.core.LinphoneProxyConfig;
@@ -604,9 +607,52 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 			if (Version.sdkAboveOrEqual(Version.API12_HONEYCOMB_MR1_31X)) {
 				mWifiLock.release();
 			}
+			
+			String domain = Netcastdigital.SIP_DOMAIN;
+			signOut(LinPhonePlugin.currentSipUsername, domain);
+			
+			//start update interface
+//			startActivity(new Intent()
+//				.setClass(this, incomingReceivedActivity)
+//				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 		}
 	}
 
+	private void signOut(String sipUsername, String domain) {
+		if (LinphoneManager.isInstanciated()) {
+			LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
+			
+			String sipAddress = sipUsername + "@" + domain;
+			List<Integer> accountIndexes = findAuthIndexOf(sipAddress);
+			for (Integer accountIndex : accountIndexes) {
+				LinphonePreferences.instance().setAccountEnabled(accountIndex, false);
+				LinphoneProxyConfig proxyCfg = lc.getProxyConfigList()[accountIndex];
+				lc.removeProxyConfig(proxyCfg);
+			}
+			
+			LinphoneAuthInfo authInfo = lc.findAuthInfo(sipUsername, null, domain);
+			if (authInfo != null) {
+				lc.removeAuthInfo(authInfo);
+			}
+			lc.refreshRegisters();
+			
+		}
+	}
+	private List<Integer> findAuthIndexOf(String sipAddress) {
+		int nbAccounts = LinphonePreferences.instance().getAccountCount();
+		List<Integer> indexes = new ArrayList<Integer>();
+		for (int index = 0; index < nbAccounts; index++)
+		{
+			String accountUsername = LinphonePreferences.instance().getAccountUsername(index);
+			String accountDomain = LinphonePreferences.instance().getAccountDomain(index);
+			String identity = accountUsername + "@" + accountDomain;
+			if (identity.equals(sipAddress)) {
+				indexes.add(index);
+			}
+		}
+		return indexes;
+	}
+	
 	public void tryingNewOutgoingCallButAlreadyInCall() {
 	}
 

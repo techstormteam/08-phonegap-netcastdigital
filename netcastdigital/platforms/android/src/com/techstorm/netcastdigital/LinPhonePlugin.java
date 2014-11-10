@@ -23,6 +23,7 @@ public class LinPhonePlugin extends CordovaPlugin {
 
 	public static String NOT_REGISTERED = "NOT-REGISTERED";
 	public static String REGISTERED = "REGISTERED";
+	public static String currentSipUsername = "";
 	
 	@Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -35,6 +36,7 @@ public class LinPhonePlugin extends CordovaPlugin {
         	sip(String.format("sip:%s@%s", callTo, Netcastdigital.SIP_DOMAIN));
         	LinphoneManager.getInstance().routeAudioToSpeaker();
 			LinphoneManager.getLc().enableSpeaker(true);
+			//signOut(sipUsername, domain);
         	callbackContext.success("call sip");
             return true;
         } else if (action.equals("cancelSip")) {
@@ -74,6 +76,7 @@ public class LinPhonePlugin extends CordovaPlugin {
     }
 	
 	private void registerSip(String sipUsername, String password, String domain) {
+		currentSipUsername = sipUsername;
 		String sipAddress = sipUsername + "@" + domain;
 		
 		LinphoneCore lc = LinphoneManager.getLcIfManagerNotDestroyedOrNull();
@@ -91,6 +94,8 @@ public class LinPhonePlugin extends CordovaPlugin {
 				lc.refreshRegisters();
 				accountIndexes.add(nbAccounts);
 			}
+			
+			
 			
 			for (Integer accountIndex : accountIndexes) {
 				if (LinphonePreferences.instance().getDefaultAccountIndex() != accountIndex) {
