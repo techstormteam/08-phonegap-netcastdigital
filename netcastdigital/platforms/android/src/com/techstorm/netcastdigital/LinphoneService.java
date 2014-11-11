@@ -535,7 +535,7 @@ public final class LinphoneService extends Service implements LinphoneServiceLis
 	
 	public void setActivityToLaunchOnIncomingReceived(Class<? extends Activity> activity) {
 		incomingReceivedActivity = activity;
-		//resetIntentLaunchedOnNotificationClick();
+		resetIntentLaunchedOnNotificationClick();
 	}
 	
 	private void resetIntentLaunchedOnNotificationClick() {
