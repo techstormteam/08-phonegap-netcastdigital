@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Message</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/my_linphone.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>
+        <script src="js/sip-0.6.2.min.js" type="text/javascript" language="javascript"></script>
+        <style>
+            h3{
+                background: #e9e9e9;    
+            }
+            /* Make it a marquee */
+            .marquee {
+                width: 260px;
+                margin: 0 auto;
+                overflow: hidden;
+                white-space: nowrap;
+                box-sizing: border-box;
+                animation: marquee 50s linear infinite;
+            }
+
+            .marquee:hover {
+                animation-play-state: paused
+            }
+
+            /* Make it move */
+            @keyframes marquee {
+                0%   { text-indent: 27.5em }
+                100% { text-indent: -105em }
+            }
+
+            /* Make it pretty */
+            .microsoft {
+                padding-left: 1.5em;
+                position: relative;
+                font: 16px 'Segoe UI', Tahoma, Helvetica, Sans-Serif;
+            }
+
+            /* ::before was :before before ::before was ::before - kthx */
+            .microsoft:before, .microsoft::before {
+                z-index: 2;
+                content: '';
+                position: absolute;
+                top: -1em; left: -1em;
+                width: .5em; height: .5em;
+                box-shadow: 1.0em 1.25em 0 #F65314,
+                    1.6em 1.25em 0 #7CBB00,
+                    1.0em 1.85em 0 #00A1F1,
+                    1.6em 1.85em 0 #FFBB00;
+            }
+
+            #playerDialog div.progressBarHolder{
+                max-width: 100%;
+            }
+            #playerDialog div.progressBarHolder div.progress_bar{
+                width:190px;
+
+            }
+            #playerDialog div.progressBarHolder div.progress_bar div.handle{
+                top:0px;
+                background: blue;
+            }
+            @media (max-width: 400px) {
+                #playerDialog div.progressBarHolder{
+                    max-width: 130px;
+                }
+                #playerDialog div.progressBarHolder div.progress_bar{
+                    width:70px;
+                }    
+            }
+        </style>
+    </head>
+    <body>
+        <audio id="remoteAudio"></audio>
+        <audio id="localAudio" muted="muted"></audio>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="prayer-line-messages.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="prayer-line-play-list.html" data-icon="home" rel="external" data-theme="b">Playlist</a>
+                <h1>Message</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+
+            <!-- START: Message Board -->
+            <div id="message"></div>
+            <!-- END: Message Board -->
+            <div data-role="content">
+                <div  class="ui-body ui-body-b ui-corner-all" style="background: white;text-align: center;">
+                    <!--<h3 class="ui-bar ui-bar-b ui-corner-all">Title</h3>-->
+                    <div id="message_title"></div>
+                    <div style="margin: 0px; padding: 0px;">
+                        <div id="container_rating" style="margin: 0px; padding: 0px;">
+                            <img src="img/star-off.png" id="rating_img_1">&nbsp;
+                            <img src="img/star-off.png" id="rating_img_2">&nbsp;
+                            <img src="img/star-off.png" id="rating_img_3">&nbsp;
+                            <img src="img/star-off.png" id="rating_img_4">&nbsp;
+                            <img src="img/star-off.png" id="rating_img_5">
+                        </div>
+                    </div>
+                    <!--<h3 class="ui-bar ui-bar-b ui-corner-all">Author</h3>-->
+                    <div id="message_author"></div>
+                    <br />
+                    <!--<h3 class="ui-bar ui-bar-b ui-corner-all">Type</h3>-->
+                    <div id="message_type"></div>
+                    <br />
+                    <!--<h3 class="ui-bar ui-bar-b ui-corner-all">Date</h3>-->
+                    <div id="message_date"></div>
+                    <div role="main" class="ui-content">
+                        <div>
+                            <div style="background-color: #202020; height: 45px;">
+                                <div style="float: left;width:15%;">
+                                    <div class="play_button" onclick="playerPlay();">
+                                        <div style="width:40px;height:40px;background-image: url(img/player/play.svg);background-position: 40% 53%;background-repeat: no-repeat;background-size: 67.5% auto;">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="progressBarHolder" style="float: left;width:62%;">
+                                    <div style="font-size: 11px;overflow:hidden;">
+                                        <marquee scrollamount="2" style="width:100%;">
+                                            <span id="message_title_dialog" style="font-size: 12px; text-shadow:0; color: #FFFFFF;"></span>
+                                            -
+                                            <span id="message_author_dialog" style="font-size: 12px; text-shadow:0; color: #FFFFFF;"></span>
+                                        </marquee>
+                                    </div>
+                                    <div style="padding-top: 5px;">
+
+                                        <div id="playerTimeStart" style="float: left;width:10%;font-size: 10px;padding-right: 10px;">0:00</div>
+
+                                        <div class="progress_bar" style="float: left;position:relative; width:65%;padding-top: 5px;">
+                                            <div class="handle" style="position:absolute;left:0px;background:#194b7e;border-radius: 5px; width:10px;height:10px;top: 3px;">&nbsp;</div>
+                                            <div class="bar" style="height:5px;background:white;"></div>
+                                        </div>
+
+                                        <div id="playerTimeEnd" style="float: left;width:10%;font-size: 10px;padding-left: 5px;">10:00</div>
+
+                                    </div>   
+                                </div>
+
+                                <div style="float:left;width:23%;">
+                                    <div class="backward_button" style="float: left;width:50%;" onclick="playerBackward();">
+                                        <div style="width:40px;height:40px;background-image: url(img/player/first.svg);background-repeat: no-repeat;background-position: 40% 53%;background-size: 67.5% auto;">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                    <div class="forward_button" style="float: left;width:50%;" onclick="playerForward();">
+                                        <div style="width:40px;height:40px;background-image: url(img/player/last.svg);background-repeat: no-repeat;background-position: 40% 53%;background-size: 67.5% auto;">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <a href="#" data-role="button" data-theme="b" data-transition="flow" onclick="return addMessageToPlaylist();">
+                        Add to Playlist
+                    </a>
+                    <p style="font-size: 12px;">
+                        Rate the message by clicking on the stars below, then click on SUBMIT(5 out of 5 stars in a perfect score)
+                    </p>
+                    <div role="main" class="ui-content" style="width: 100%;margin: 0px; padding: 0px; text-align: center;">
+                        <div style="width:100%;">
+                            <!-- START: Tabs -->
+                            <div class="container" style="margin: 0px; padding: 0px; float: left; width: 100%;">
+                                <div id="container_rating" style="margin: 0px; padding: 0px;">
+                                    <img src="img/star-off.png" id="rating_img_6" onmouseover="rating_mouseover(6);">&nbsp;
+                                    <img src="img/star-off.png" id="rating_img_7" onmouseover="rating_mouseover(7);">&nbsp;
+                                    <img src="img/star-off.png" id="rating_img_8" onmouseover="rating_mouseover(8);">&nbsp;
+                                    <img src="img/star-off.png" id="rating_img_9" onmouseover="rating_mouseover(9);">&nbsp;
+                                    <img src="img/star-off.png" id="rating_img_10" onmouseover="rating_mouseover(10);">
+                                </div>
+                                <div style="text-align: center;">
+                                    <span id="rating_message">Current Rating: 0</span><br/>
+                                    <span id="people_vot"></span>
+                                </div>
+                            </div>
+                            <!-- END: Tabs -->
+                        </div>
+                    </div>
+                    <a href="#" data-role="button" data-theme="e" data-transition="flow" onclick="return setRating();">
+                        Submit Rating
+                    </a>
+                    <div style="visibility: hidden;">
+                        <input style="margin-left: 160px;" type="text" name="rating" id="rating"  value="" />
+                    </div>
+                </div><br/>
+
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            var message_id = getUrlParameter('message_id');
+            var currentMessage = null;
+            getRaiting();
+			
+			$('.play_button').bind('taphold', function() {
+				playerStop();
+			});
+			
+            function getRaiting() {
+                var message_id = getUrlParameter('message_id');
+                global.api('raiting_get', {user_id: user_id, message_id: message_id}, raiting_get_display);
+            }
+            
+            function raiting_get_display(response) {
+                //response.msg_rating;
+                var rating = response.msg_rating;
+                if (rating == '-1') {
+                  //  $('#rating').html('Current Rating: 0');
+                    rating_defout(0);
+                } else {
+                //    $('#rating').html('Current Rating: ' + rating);
+                    rating_defout(rating);
+                }
+                $('#people_vot').html('Total Voted: ' + response.msg_ratedby_count);
+
+                console.log(response);
+            }
+
+            function message_show(message_id) {
+                global.api('prayer_line_messages_get', {user_id: user_id, message_id: message_id}, message_display);
+            }
+
+            function message_display(response) {
+                if (response.result !== 'success') {
+                    //  swal(response.details);
+                    window.location.href = 'prayer-line-messages.html';
+                }
+
+                currentMessage = response.details.messages[0];
+
+                //if (message === null) {
+                //    swal('Unrecognized message');
+                //    window.location.href = 'prayer-line-messages.html';
+                //}
+                // swal(message['msg_by']);
+                console.log(currentMessage);
+                $('#message_title').html(currentMessage['msg_title']);
+                //swal(message['msg_title']);
+                $('#message_title_dialog').html(currentMessage['msg_title']);
+
+                $('#message_author_dialog').html(currentMessage['msg_by']);
+                $('#message_author').html(currentMessage['msg_by']);
+                $('#message_type').html(currentMessage['msg_type']);
+                $('#message_date').html(currentMessage['msg_date']);
+
+
+                function str_pad_left(string, pad, length) {
+                    return (new Array(length + 1).join(pad) + string).slice(-length);
+                }
+
+                var message_secs = parseFloat(currentMessage['msg_secs']);
+                //message_secs = message_secs.toFixed(2);
+                var hours = Math.floor(message_secs / 3600);
+                var minutes = Math.floor(message_secs / 60);
+                var seconds = message_secs - minutes * 60;
+                var finalTime = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+
+                $('#playerTimeEnd').html(finalTime);
+
+            }
+
+            /* START: Init */
+            if (message_id === null) {
+                window.location.href = 'prayer-line-messages.html';
+            }
+
+            message_show(message_id);
+            /* END: Init */
+            
+            function addMessageToPlaylist(){
+                var user = global.getUser();
+                var user_id = user.getId();
+                var data = {message_id: message_id, user_id: user_id};
+                global.api('play_list_add', data, addMessageToPlaylistResponse);
+            }
+
+            function addMessageToPlaylistResponse(response) {
+                alert(response.details);
+                //if (response.result === 'success') {
+                //    window.location.href = 'prayer-line-messages.html';
+                //}
+            }
+
+            var asterisk_pbx = {
+                // ws_server_max_reconnection: 1000,
+                connectionRecoveryMinInterval: 4,
+                connectionRecoveryMaxInterval: 30,
+                hackIpInContact: true,
+                register: true,
+                registerExpires: 90,
+                registrarServer: 'sip:178.62.57.196',
+                viaHost: '178.62.57.196',
+                autostart: true,
+                traceSip: false,
+                turnServers: [
+                    {
+                        urls: 'turn:178.62.57.196:3478',
+                        username: 'pbxuser',
+                        password: 'qweasd123'
+                    }
+                ],
+                // stunServers: ['stun:stun.l.google.com:19302'],
+                // stunServers: ['stun:null'],
+                wsServers: [
+                    {
+                        ws_uri: 'wss://178.62.57.196:8089/ws',
+                        weight: 10
+                    },
+                    {
+                        ws_uri: 'ws://178.62.57.196:8088/ws',
+                        weight: 1
+                    }
+                ],
+                uri: 'sip:testwebrtc@178.62.57.196',
+                authorizationUser: 'testwebrtc',
+                password: 'qweasd123',
+                displayName: 'testwebrtc',
+            };
+
+            var userAgent = new SIP.UA(asterisk_pbx);
+
+            var options = {
+                media: {
+                    constraints: {
+                        audio: true,
+                        video: false
+                    },
+                    render: {
+                        remote: {
+                            audio: document.getElementById('remoteAudio')
+                        },
+                        local: {
+                            audio: document.getElementById('localAudio')
+                        }
+                    }
+                }
+            };
+
+
+            function playerPause() {
+                window.pauseSip('empty', function(message) {
+                    //empty
+                });
+            }
+
+            function playerBackward() {
+                countdownTimeSecs -= 5;
+                window.backWind('empty', function(message) {
+                	//empty
+                });
+            }
+
+            function playerPlay() {
+            
+                if (playerStatus === 'stopped') {
+                    // Start Playing
+                    var currentMessageToken = currentMessage["entity_id"] + '-' + user_id + '-' + currentMessage["msg_id"];
+                    var message = 'playMessage-' + currentMessageToken;
+                    var user = global.getUser();
+                    var sipUsername = global.get('telno');
+                    var password = user.data.uipass;
+                    window.callSip(message, sipUsername, password, function(message) {
+	                    //empty
+	                });
+                    //session = userAgent.invite(message, options);
+                    playerCountdounStart();
+                    $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
+                    playerStatus = 'playing';
+                } else {
+                    // Pause and Resume  
+                    var img = $('.play_button div').css('background-image');
+                    var state = '';
+                    if (img.indexOf('play.svg') !== -1) {
+                        //playerCountdounStop();
+                        //console.log('Pause');
+                        $('.play_button div').css('background-image', 'url(img/player/pause.svg)');
+                        playerStatus = 'playing';
+                    }
+                    if (img.indexOf('pause.svg') !== -1) {
+                        //playerCountdounResume();
+                        //console.log('Resume');
+                        $('.play_button div').css('background-image', 'url(img/player/play.svg)');
+                        playerStatus = 'paused';
+                    }
+                    playerPause(); // Pause / resume
+                }
+
+            }
+
+            function playerStop() {
+            	var sipUsername = global.get('telno');
+                window.cancelSip(sipUsername, function(message) {
+	            	playerCountdounStop();
+	            	$('.play_button div').css('background-image', 'url(img/player/play.svg)');
+	            	playerStatus = 'stopped';
+                });
+            }
+
+            function playerForward() {
+                countdownTimeSecs += 5;
+            	window.forwardWind('empty', function(message) {
+                    //empty
+                });
+            }
+            var playerStatus = 'stopped';
+            var countdownInterval = null;
+            var countdownTimeSecs = 0;
+            function playerCountdounStart() {
+                countdownTimeSecs = 0;
+                countdownInterval = setInterval(playerCountdown, 1000);
+            }
+            function playerCountdounStop() {
+            	countdownTimeSecs = 0;
+                clearInterval(countdownInterval);
+            }
+            //function playerCountdounResume() {
+            //    countdownInterval = setInterval(playerCountdown, 1000);
+            //}
+
+            function playerCountdown() {
+                if (playerStatus !== 'playing') {
+                    return;
+                }
+                function str_pad_left(string, pad, length) {
+                    return (new Array(length + 1).join(pad) + string).slice(-length);
+                }
+
+                countdownTimeSecs += 1;
+                console.log(countdownTimeSecs);
+                var messageSeconds = currentMessage['msg_secs'];
+                var message_secs = parseFloat(messageSeconds);
+                //message_secs = message_secs.toFixed(2);
+                var hours = Math.floor(countdownTimeSecs / 3600);
+                var minutes = Math.floor(countdownTimeSecs / 60);
+                var seconds = countdownTimeSecs - minutes * 60;
+                var finalTime = str_pad_left(minutes, '0', 2) + ':' + str_pad_left(seconds, '0', 2);
+                $('#playerTimeStart').html(finalTime);
+                playerCalculateHandle(messageSeconds, countdownTimeSecs);
+            }
+
+            function playerCalculateHandle(secsTotal, secsCurrent) {
+                var progressBarWidth = 190;
+                var position = progressBarWidth * (secsCurrent / secsTotal);
+                console.log(parseInt(position));
+                $('.progress_bar .handle').css('left', parseInt(position) + 'px');
+                var bg = 'linear-gradient(to right, #194b7e 0%, #194b7e '+parseInt(position) + 'px, white '+(parseInt(position)+1) + 'px, white 100%)';
+                $('.progress_bar .bar').css('background',  bg);
+            }
+        </script>
+
+
+        <script>
+//            $(function() {
+//                rating_mouseover(5);
+//            });
+
+            function rating_mouseover(rating) {
+                //swal(rating);
+                
+
+                for (i = 6; i <= 10; i++) {
+                    if (i <= rating) {
+                        $('#rating_img_' + i).attr('src', 'img/star-on.png');
+                       // swal(i);
+                        $('#rating_message').html('Current Rating: ' + (i-5));
+                        $('#rating').val(i-5);
+                    } else {
+                        $('#rating_img_' + i).attr('src', 'img/star-off.png');
+                        //$('#rating_message').html('Current Rating: ' + (i-5));
+                    }
+                }
+            }
+            
+            function rating_defout(rating) {
+              //swal(rating);
+              //$('#rating').val(rating);
+
+                for (i = 1; i <= 5; i++) {
+                    if (i <= rating) {
+                        $('#rating_img_' + i).attr('src', 'img/star-on.png');
+                    } else {
+                        $('#rating_img_' + i).attr('src', 'img/star-off.png');
+                    }
+                }
+            }
+
+            function setRating() {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var message_id = getUrlParameter('message_id');
+                var rating = $('#rating').val();
+                global.api('set_rating', {user_id: user_id, message_id: message_id, rating: rating}, set_rating_response);
+            }
+
+            function set_rating_response(response) {
+                if (response.result === 'success') {
+                    swal(response.details);
+                    location.reload();
+                } else {
+                    $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>   
+    </body>
+</html>

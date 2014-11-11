@@ -1,25 +1,29 @@
-function User(){
+function User() {
     this.data = {};
 
-    this.getId = function(){
-      return this.data['id'];
-    };
-    
-     this.getCallerid_autoswitch = function(){
-      return this.data['callerid_autoswitch'];
+    this.getId = function () {
+        return this.data['id'];
     };
 
-    this.getFirstName = function(){
+    this.getCallerid_autoswitch = function () {
+        return this.data['callerid_autoswitch'];
+    };
+
+    this.getFirstName = function () {
         return this.data['firstname'];
     };
 
-    this.getLastName = function(){
+    this.getLastName = function () {
         return this.data['lastname'];
     };
-    this.getCurrency = function(){
+    this.getCurrency = function () {
         return this.data['currency'];
     };
-    //this.getCredit = function(){
-    //    return this.data['credit'];
-    //};
+    this.getStatus = function () {
+        return this.data['status'];
+    };
+    this.setStatus = function (status) {
+        this.data['status'] = status;
+        global.set('auth', json_encode(this.data));
+    };
 }

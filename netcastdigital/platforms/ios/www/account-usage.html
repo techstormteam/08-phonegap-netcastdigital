@@ -4,9 +4,12 @@
         <title>Invoices</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -55,13 +58,13 @@
                 <table data-role="table" id="usage_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
                     <thead>
                         <tr>
-                            <th data-priority="1">Call</th>
+                            <th data-priority="1">Call Ref</th>
                             <th data-priority="persist">Start Time</th>
                             <th data-priority="2">Stop Time</th>
                             <th data-priority="3">Session Time</th>
                             <th data-priority="4">Destination</th>
                             <th data-priority="5">Amount</th>
-                            <th data-priority="6">Caller/Data Usage</th>
+                            <th data-priority="6">Caller</th>
                             <th data-priority="7">Account Balance</th>
                             <th data-priority="8">Call Type</th>
 <!--                            <th data-priority="9">Voicemail</th>-->

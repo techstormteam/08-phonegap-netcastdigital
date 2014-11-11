@@ -4,8 +4,11 @@
         <title>Make Payment</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -39,15 +42,20 @@
                                                     transform: scale(1.5);
                                                 }*/
                     </style>
-
+                    <div id="paypalPayment">
                     <input type="radio" name="payment" id="paypal" value="paypal">
                     <label for="paypal">Pay Via Paypal</label>
-
+                    </div>
+                    
+                    <div id="inetrswitchTopupPayment">
                     <input type="radio" name="payment" id="inter_switch" value="QuickTeller">
                     <label for="inter_switch">Pay via InterSwitch - QuickTeller / Verve</label>
+                    </div>
 
+                    <div id="creditTransferPayment">
                     <input type="radio" name="payment" id="credit_transfer" value="credit_transfer"  onclick="window.location.href = 'credit-transfer.html';">
                     <label for="credit_transfer">Credit Transfer</label>
+                    </div>
 
                     <!--
                    <input id="paypal" type="radio" name="payment" value="paypal" style="margin: 5px; margin-left: 0px;">
@@ -70,7 +78,7 @@
                 </div>
                 <div id="paypal_view" style="display: none;">
                     <!-- START: PayPal Topup -->
-                    <div>
+                    <div id="paypalTopup">
                         <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                             <input type="hidden" name="cmd" value="_xclick">
                             <input type="hidden" name="business" value="ZRX6JLVU7XXM6">
@@ -90,7 +98,7 @@
                             <input type="hidden" name="notify_url" value="http://dextersim.com/dex_ipn_main_handler.php">
                             <input type="hidden" name="on0" value="Topup value">
                             <center>Click here for Topups</center>
-                            <select name="amount">
+                            <select id="paypal_topup_amount" name="amount">
                                 <option value="10"> Pay As You Go £10 </option>
                                 <option value="20"> Pay As You Go £20 </option>
                                 <option value="50"> Pay As You Go £50 </option>
@@ -108,7 +116,7 @@
                     <hr>
 
                     <!-- START: PayPal AutoPay -->
-                    <div>
+                    <div id="paypalAutopay">
                         <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
                             <input type="hidden" name="cmd" value="_xclick-subscriptions">
                             <input id="paypal_custom_autoplay" type="hidden" name="custom" value="">
@@ -127,17 +135,17 @@
                             <input type="hidden" name="notify_url" value="http://dextersim.com/dex_ipn_main_handler.php">
                             <input type="hidden" name="on0" value="Payment Options"> <input type="hidden" name="os0" value="Auto Topup">
                             <center> Auto Topup Options </center>
-                            <select name="a3">
-                                <option value="10">Auto Topup : £10.00 - monthly</option>
-                                <option value="20">Auto Topup : £20.00 - monthly</option>
-                                <option value="50">Auto Topup : £50.00 - monthly</option>
-                                <option value="100">Auto Topup : £100.00 - monthly</option>
-                                <option value="200">Auto Topup : £200.00 - monthly</option>
+                            <select name="a3"id="paypal_autopay_amount">
+                                <option value="10.00">Auto Topup : £10.00 - monthly</option>
+                                <option value="20.00">Auto Topup : £20.00 - monthly</option>
+                                <option value="50.00">Auto Topup : £50.00 - monthly</option>
+                                <option value="100.00">Auto Topup : £100.00 - monthly</option>
+                                <option value="200.00">Auto Topup : £200.00 - monthly</option>
                             </select>
 
                             <input type="hidden" name="currency_code" value="GBP"> 
                             <center>
-                                <input src="http://dexterconnect.com/includes/templates/connect/images/Button.png" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+                                <input type="image" src="http://dexterconnect.com/includes/templates/connect/images/Button.png" style="border:none;" name="submit" alt="PayPal — The safer, easier way to pay online.">
                             </center>
                             <img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1"> 
                         </form>
@@ -191,27 +199,48 @@
             if (global.get('auth') === null) {
                 window.location = 'login.html';
             }
-            $(function(){
+            $(function () {
                 var user_id = global.getUser().data['id'];
                 $('#paypal_custom_topup').val(user_id);
                 $('#paypal_custom_autoplay').val(user_id);
             });
-
         </script>
         <script>
-            $('#denominated_cards').keyup(function() {
+            if (window.location.href.indexOf('/prayerline/') !== -1) {
+                $('#creditTransferPayment').hide();
+                global.api('religious_entity_charge', {user_id: global.getUser().getId()}, religious_entity_charge_response);
+            }
+            function religious_entity_charge_response(response) {
+                if (response.result === 'success') {
+                    var gbp_charge = response.details['gbp_charge'];
+                    var converted_charge = response.details['converted_charge'];
+                    //if (global.getUser().getCurrency() === 'NGN') {
+                        $('#quickteller_amount').val(converted_charge);
+                        $('#quickteller_amount').attr('disabled','disabled');
+                    //}else{
+                        $('#paypal_autopay_amount option[value!="'+gbp_charge+'"]').remove();
+                        //$('#paypal_autopay_amount').val(gbp_charge);
+                        $('#paypalTopup').hide().css('display','none');
+                    //}
+                } else {
+                    //$('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                }
+            }
+        </script>
+        <script>
+            $('#denominated_cards').keyup(function () {
                 var ref = $.trim($('#denominated_cards').val());
 
                 ref = ref.replace(/\D/g, '');
                 $('#denominated_cards').val(ref);
             });
-            $('#credit_card_number').keyup(function() {
+            $('#credit_card_number').keyup(function () {
                 var ref = $.trim($('#credit_card_number').val());
 
                 ref = ref.replace(/\D/g, '');
                 $('#credit_card_number').val(ref);
             });
-            $('#pin_number').keyup(function() {
+            $('#pin_number').keyup(function () {
                 var ref = $.trim($('#pin_number').val());
 
                 ref = ref.replace(/\D/g, '');
@@ -245,7 +274,7 @@
             }
             function payment_by_user_id_response(response) {
                 if (response.result === 'success') {
-                    alert(response.details);
+                    swal(response.details);
                     window.location.href = 'index.html';
                 } else {
                     $('#message').html('<span style="color:red;">' + response.details + '</span>').show();

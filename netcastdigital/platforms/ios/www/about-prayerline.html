@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About Prayerline</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">About Prayerline</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href='payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+               
+                <table data-role="table" id="usage_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">About Us</th>                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="10"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="usages_pagination"></div>
+                <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                    <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                    <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                    <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+                </div>
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            
+            balance_display_in_button(); 
+            
+            about_prayerline();
+            function about_prayerline() {            
+                global.api('get_about_us_note', {user_id: user_id}, get_about_us_note_display);
+            }
+
+            function get_about_us_note_display(result) {
+                var about_us = result.details;
+                console.log(about_us);
+                var rows = '<tr><td>'+about_us+'</td></tr>';
+                
+                $('#usage_table tbody').html(rows);
+                $('#usage_table').table('refresh');
+                try {
+                    $('#usage_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+//                if (rows !== '') {
+//                    $('#pagination').show();
+//                }
+//                if (rows === '') {
+//                    var row = '<tr>';
+//                    row += '<td colspan="1">No about us information found</td>';
+//                    row += '</tr>';
+//                    rows += row;
+//                }
+//                $('#usage_table tbody').html(rows);
+//                $('#usage_table').table('refresh');
+//                try {
+//                    $('#usage_table a').button().button('refresh');
+//                } catch (e) {
+//
+//                }
+//
+//                $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+//                $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+//                $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+//                if (page > 0) {
+//                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
+//                        usages_show_page(page - 1);
+//                    });
+//                }
+//                $('#pagination_current .ui-btn-text').html(page + 1);
+//                $('#pagination_current').removeClass('ui-disabled').click(function() {
+//                    usages_show_page(page);
+//                });
+//                if ((page + 1) < pages_count) {
+//                    $('#pagination_next').removeClass('ui-disabled').click(function() {
+//                        usages_show_page(page + 1);
+//                    });
+//                }
+            }
+        </script>
+    </body>
+</html>
