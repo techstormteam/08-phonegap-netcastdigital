@@ -39,3 +39,9 @@ window.signOut = function(sipUsername, callback) {
         callback(err);
     }, "LinPhonePlugin", "signOut", [sipUsername]);
 };
+
+window.deregisterSip = function(sipUsername, registerStatus, callback) {
+    cordova.exec(callback, function(err) {
+        callback(err);
+    }, "LinPhonePlugin", "deregisterSip", [sipUsername, registerStatus]);
+};

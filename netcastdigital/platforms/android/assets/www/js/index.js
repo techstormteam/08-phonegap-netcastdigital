@@ -53,7 +53,7 @@ var app = {
         if (global.get('auth') !== null) {
         	var user = global.getUser();
         	global.getSipUsernameApi(user.data.email, user.data.uipass, app.sipRegister);
-   
+        	global.general();
         }
     }
 };
@@ -198,6 +198,44 @@ function Global() {
      * @param {function} callback_complete
      * @returns {void}
      */
+    this.getAppState = function(email, password, callback_success, callback_error, callback_complete) {
+        var url = this.getSipUsernameUrl()+'?cmd=_app_state&email='+email+'&password='+password+'&app=prayline';
+        if (this.debug === true) {
+            LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Calling URL:' + url);
+        }
+        $.ajax({
+               type: 'GET',
+               url: url,
+               crossDomain: false,
+               cache: false
+               }).success(function(data) {
+                          if (this.debug === true) {
+                          LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Response: ');
+                          }
+                          callback_success(data);
+                          }).error(function(xhr, status, error) {
+                                   if (this.debug === true) {
+                                   LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'Error: ');
+                                   }
+                                   var msg = "<span style='color:red;'>There was an error</span>";
+                                   $('#message').html(msg).show();
+                                   }).complete(function() {
+                                               if (this.debug === true) {
+                                               LogBucket.debug('7b61e6c1-90e8-477c-9a02-5e7be8ef32fa', 'End');
+                                               }
+                                               });
+    };
+    
+    /**
+     * Calls the API to get sip username
+     * parameters
+     * @param {String} email
+     * @param {String} password
+     * @param {function} callback_success
+     * @param {function} callback_error
+     * @param {function} callback_complete
+     * @returns {void}
+     */
     this.getSipUsernameApi = function(email, password, callback_success, callback_error, callback_complete) {
         var url = this.getSipUsernameUrl()+'?cmd=_telno&email='+email+'&password='+password;
         if (this.debug === true) {
@@ -239,6 +277,39 @@ function Global() {
         } else {
             sweetAlert(title, message, type);
         }
+    };
+    
+    this.deregisterUserCall = function(registerStatus) {
+    	var sipUsername = global.get('telno');
+    	alert('uuii');
+    	if (sipUsername !== null) {
+    		var obj1 = this;
+        	window.deregisterSip(sipUsername, registerStatus, function(message) {
+        		obj1.showPopupInternetNotAvailable(message);
+            });
+    	}
+    };
+    
+    this.registerSipUser = function() {
+    	var user = global.getUser();
+    	var email = user.data.email;
+    	var password = user.data.uipass;
+		
+    	if (email !== null && password !== null) {
+    		this.getAppState(email, password, this.deregisterUserCall);
+        }
+    };
+    
+    this.registerScheduled = function () {
+    	this.registerSipUser();
+    	var obj = this;
+    	setInterval(function() {
+    		obj.registerSipUser();
+    	}, 60000);
+    };
+    
+    this.general = function () {
+    	this.registerScheduled();
     };
 }
 

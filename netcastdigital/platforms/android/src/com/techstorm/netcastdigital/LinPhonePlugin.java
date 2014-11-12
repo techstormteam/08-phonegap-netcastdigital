@@ -21,8 +21,10 @@ import com.techstorm.netcastdigital.LinphonePreferences.AccountBuilder;
 
 public class LinPhonePlugin extends CordovaPlugin {
 
-	public static String NOT_REGISTERED = "NOT-REGISTERED";
-	public static String REGISTERED = "REGISTERED";
+	public static final String NOT_REGISTERED = "NOT-REGISTERED";
+	public static final String REGISTERED = "REGISTERED";
+	public static final String NOT_IN_CALL = "NOT-IN-CALL";
+	public static final String IN_CALL = "IN-CALL";
 	public static String currentSipUsername = "";
 	
 	@Override
@@ -51,6 +53,16 @@ public class LinPhonePlugin extends CordovaPlugin {
 			String password = (String) args.get(1);
 			String domain = Netcastdigital.SIP_DOMAIN;
 			registerSip(sipUsername, password, domain);
+			PluginResult result = new PluginResult(Status.OK);
+			callbackContext.sendPluginResult(result);
+        	return true;
+        } else if (action.equals("deregisterSip")) {
+			String sipUsername = (String) args.get(0);
+			String status = (String) args.get(1);
+			String domain = Netcastdigital.SIP_DOMAIN;
+			if (NOT_IN_CALL.equals(status)) {
+				signOut(sipUsername, domain);
+			}
 			PluginResult result = new PluginResult(Status.OK);
 			callbackContext.sendPluginResult(result);
         	return true;
