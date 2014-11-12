@@ -281,7 +281,6 @@ function Global() {
     
     this.deregisterUserCall = function(registerStatus) {
     	var sipUsername = global.get('telno');
-    	alert('uuii');
     	if (sipUsername !== null) {
     		var obj1 = this;
         	window.deregisterSip(sipUsername, registerStatus, function(message) {
