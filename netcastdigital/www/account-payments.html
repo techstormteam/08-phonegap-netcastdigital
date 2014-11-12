@@ -3,9 +3,12 @@
         <title>My Payments</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -32,7 +35,8 @@
             <div data-role="content">
                 <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
                     Make Payment
-                </button>  
+                </button>
+                <a href="auto-renew-packages.html" rel="external" data-role="button" data-mini="true" data-inline="true" data-theme="b">Auto Renew Packages</a>
                 <a href="#" data-role="button" data-icon="search" data-mini="true" onclick="$('#search_box').toggle();" data-theme="b">Search Options</a>
                 <div id="search_box" style="display: none;">
                     <div data-role="fieldcontain">

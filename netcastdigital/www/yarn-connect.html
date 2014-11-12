@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Yarn Connect</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>        
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="index.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Yarn Connect</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+
+                <div data-role="fieldcontain">
+                    <label for="yarn_access_numbers">Select Access Number:</label>
+                    <select id="yarn_access_numbers">
+                        <option value=""></option>
+                    </select>
+                </div>
+                
+                <button onclick="updateAccessNumber();" data-theme="b">
+                    Update Access Number
+                </button>  
+
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+
+            balance_display_in_button();
+
+            var data = {user_id: user_id};            
+           global.api('yarn_access_numbers_get', data, yarn_access_numbers_display);
+           global.api('yarn_access_number_get', data, yarn_access_number_display);
+            
+            function yarn_access_numbers_display(response){
+                console.log(response);
+                var yarn_access_numbers = response.details.yarn_access_numbers;
+                for(var i=0;i<yarn_access_numbers.length;i++){
+                    var accessNumber = yarn_access_numbers[i];
+                    $('select#yarn_access_numbers').append('<option value="'+accessNumber['location']+'">'+accessNumber['location']+'</option>');
+                }
+            }
+            function yarn_access_number_display(response){
+                console.log(response);
+                var yarn_access_number = response.details.yarn_access_number;
+                $('select#yarn_access_numbers').val(yarn_access_number);
+            }
+            
+            function updateAccessNumber(){
+                var accessNumber = $('select#yarn_access_numbers').val();
+                
+                if(accessNumber === ''){
+                    alert('Access Number is required');
+                    return false;
+                }
+                
+                var user_id = global.getUser().getId();
+                var data = {user_id: user_id, value: accessNumber};
+                global.api('yarn_access_number_set', data, function(response) {
+                    alert(response.details);
+                });
+            }
+
+        </script>
+    </body>
+</html>

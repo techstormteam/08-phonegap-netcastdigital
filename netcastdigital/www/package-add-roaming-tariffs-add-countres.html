@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>Roaming Countries</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="package-add.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Roaming Countries</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                 <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>
+               <div data-role="fieldcontain">
+                    <a href="#" onclick="return addAnotherCountry();" data-role="button" data-inline="true" data-icon="plus" data-theme="b">
+                        Add Roaming Countries
+                    </a>
+               </div>
+
+                <div data-role="fieldcontain" style="display:none;">
+                    <select id="countries_select" class="select_package_countries" style="width: 78%; float: left"></select>
+                    
+                </div>
+                
+                <div id="countries_additional"></div>
+                
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="check_form();" data-theme="b">Submit</button>
+                </div>
+
+            </div>
+            <!-- END: Content -->
+            <script type="text/javascript">
+                    app.initialize();
+                    if (global.get('auth') === null) {
+                        window.location = 'login.html';
+                    }
+            </script>
+            <script>
+                var user = global.getUser();
+                var user_id = user.getId();
+                balance_display_in_button(); 
+                global.api('get_countries', {}, get_countries_response);
+
+                function get_countries_response(result) {
+                    var countries = result.details;
+                    
+                    for (var i = 0; i < countries.length; i++) {
+                        var country = countries[i];
+                        //console.log(country);
+                        var countries_countrycode = country["countrycode"];
+                        var circle_countryname = country["countryname"];
+                        $('#countries_select').append($("<option></option>")
+                                .attr("value", countries_countrycode)
+                                .text(circle_countryname));
+                    }
+                }
+                
+                function addAnotherCountry() {
+                    var countrySelect = $('#countries_select').clone();
+                    var uniqueid = new Date().getTime();
+                    var html = '<div id="id_' + uniqueid + '" class="field_contain" style="widh:100%;">';
+                   // html += '<label>Select country</label>';
+                    html += countrySelect.wrap("<div style='width:80%;' />").parent().html();
+                    html += '<div style="margin: 20px 0px 0px 5px;float:left;"><a href="#" onclick="$(\'#id_' + uniqueid + '\').remove();return false;">Delete</a></div>';
+                    html += '</div>';
+                    $('#countries_additional').append(html);
+                    $('#id_' + uniqueid + '').find('select').each(function(){
+                       $(this).selectmenu().selectmenu('refresh', true).parent().css('width','78%').css('float','left'); 
+                    });
+                    return false;
+                }
+
+                function check_form() {
+                    var countries = new Array();       
+                    $('.select_package_countries').each(function() {
+                        var country = $(this).val();
+                        if(country !== ''){                
+                            countries[countries.length] = country;
+                        }
+                    });
+                    //console.log(package);
+                    //console.log(countries);
+
+                    global.api('roaming_package_add', {user_id:user_id, countries: countries}, roaming_package_add_response);
+                }
+
+                function roaming_package_add_response(response) {
+                    if (response.result === 'success') {
+                        alert(response.details);
+                        window.location.href = 'package-add-roaming-tariffs.html?package='+response.details;
+                    } else {
+                        $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
+                    }
+                }
+
+            </script>
+        </div>
+    </body>
+</html>

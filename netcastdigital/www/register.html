@@ -1,0 +1,173 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+        
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script src="js/class.logbucket.js"></script>
+        <script src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        
+        <title>Sign Up</title>
+        <style>
+            .ui-field-contain, fieldset.ui-field-contain {
+                padding:0px 0px;
+                border:0px;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- START: Page -->
+        <div data-role="page" data-theme="b">
+            <!-- START: Title -->
+            <div data-role="header">
+                <h1>Sign Up</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+
+                <!-- START: Message Board -->
+                <div id="message"></div>
+                <!-- END: Message Board -->
+
+                <div data-role="fieldcontain">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" placeholder="" id="firstName" value="" />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" placeholder="" id="lastName" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="email">Email:</label>
+                    <input type="text" placeholder="" id="email" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="phone">Phone:</label>
+                    <input type="text" placeholder="" id="phone" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="password">Password:</label>
+                    <input type="password" placeholder="" id="password" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="password_re"> Re-enter Password:</label>
+                    <input type="password" placeholder="" id="password_re" value=""  />
+                </div>
+                <div data-role="fieldcontain">
+                    <label for="prayerline">Prayerline: </label>
+                    <input id="prayerline">
+                </div>
+
+                <div data-role="fieldcontain">
+                    <button id="submit" data-theme="e" onclick="check_form();">Submit</button>
+                </div>
+
+                <div data-role="fieldcontain">
+                    <button id="submit" onclick="window.location.href = 'login.html';" >Login</button>
+                </div>
+
+
+            </div>
+            <!-- END: Content -->
+        </div>
+        <!-- END: Page -->
+
+        <script type="text/javascript">
+            app.initialize();
+            getReligiousEntityName();
+            function getReligiousEntityName() {
+                global.api('religious_entity_names_get', {}, getReligiousEntityNameResponse);
+            }
+
+
+            function religiousEntityChanged(id, name) {
+                $('#prayerline').val(id);
+                $('#prayerline_typeahead input.ui-input-text').val(name);
+                $('#playlist li').addClass('ui-screen-hidden');
+                $('#playlist').listview("refresh");
+            }
+
+            function getReligiousEntityNameResponse(response) {
+                var religiousEntities = response.details;
+                var source = new Array();
+                for (var i = 0; i < religiousEntities.length; i++) {
+                    var entity = religiousEntities[i];
+                    source[source.length] = entity.name;//+" ("+entity.id+")";
+                }
+                //$('#playlist').listview("refresh");
+                $("#prayerline").autocomplete({
+                    source: source
+                });
+            }
+
+            function register(response) {
+                if (response.result === 'success') {
+                    $('#message').html("<span style='color:green;'>" + response.details + "</span>").show();
+                    setTimeout(function () {
+                        window.location.href = 'login.html';
+                    }, 15000);
+
+                } else {
+                    $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
+                }
+            }
+
+            function check_form() {
+                var firstName = $('#firstName').val();
+                var lastName = $('#lastName').val();
+                var phone = $('#phone').val();
+                var email = $('#email').val();
+                var password = $('#password').val();
+                var password_re = $('#password_re').val();
+                var prayerline = $('#prayerline').val();
+
+                $('#message').hide();
+
+                if (firstName === '') {
+                    var msg = "<span style='color:red;'>Please enter first name...</span>";
+                    $('#message').html(msg).show();
+                } else if (lastName === '') {
+                    var msg = "<span style='color:red;'>Please enter last name...</span>";
+                    $('#message').html(msg).show();
+                } else if (phone === '') {
+                    var msg = "<span style='color:red;'>Please enter phone...</span>";
+                    $('#message').html(msg).show();
+                } else if (email === '') {
+                    var msg = "<span style='color:red;'>Please enter email...</span>";
+                    $('#message').html(msg).show();
+                } else if (password === '') {
+                    var msg = "<span style='color:red;'>Please enter password...</span>";
+                    $('#message').html(msg).show();
+                } else if (password_re === '') {
+                    var msg = "<span style='color:red;'>Please re-enter password...</span>";
+                    $('#message').html(msg).show();
+                } else if (password_re !== password) {
+                    var msg = "<span style='color:red;'>Password and Re-enter Password must be the same...</span>";
+                    $('#message').html(msg).show();
+                } else if (prayerline === '') {
+                    var msg = "<span style='color:red;'>Please enter prayerline...</span>";
+                    $('#message').html(msg).show();
+                } else {
+                    global.set('auto_login', false);
+                    global.api('register_user', {fname: firstName, lname: lastName, email: email, telno: phone, password: password, prayerline: prayerline}, register);
+                }
+            }
+
+            var username = getUrlParameter('u');
+            var password = getUrlParameter('p');
+            if (username !== null && password !== null) {
+                global.set('auto_login', true);
+                global.api('login', {username: username, password: password}, login);
+            }
+        </script>
+    </body>
+</html>

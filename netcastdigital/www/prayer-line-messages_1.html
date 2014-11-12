@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Messages</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>
+        <script src="js/microfiche.js"></script>
+        <script>
+            function playerPause() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("#");
+                }
+            }
+
+            function playerBackward() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("4");
+                }
+            }
+
+            function playerPlay() {
+                var message = 'playMessage-' + currentMessage;
+                session = userAgent.invite(message, options);
+            }
+
+            function playerStop() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("#");
+                }
+            }
+
+            function playerForward() {
+                if (typeof session !== 'undefined') {
+                    session.dialDtmf("6");
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="prayer-line.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="prayer-line-play-list.html" data-icon="home" rel="external" data-theme="b">Playlist</a>
+                <h1>Messages</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <!-- START: Player -->
+                <div data-role="popup" id="playerDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                    <div data-role="header" data-theme="a">
+                        <h1>Prayerline PlayDeck</h1>
+                    </div>
+                    <div role="main" class="ui-content">
+                        <p>
+                            Playback is only supported on Google Chrome, Firefox
+                            and Opera
+                        </p>
+
+                        <div data-role="controlgroup" data-type="horizontal" style="text-align: center;">
+                            <a href="#" data-role="button" onclick="playerBackward();">Back</a>
+<!--                            <a href="#" data-role="button" onclick="playerStop();">Stop</a>
+                            <a href="#" data-role="button" onclick="playerPlay();">Play</a>-->
+                            <a href="#" data-role="button" onclick="playerPause();">Pause</a>
+                            <a href="#" data-role="button" onclick="playerForward();">Forward</a>
+                        </div>
+                    </div>
+                    <a href="page-dialogs.html" data-role="button" data-rel="back" data-theme="b" data-transition="flow" onclick="playerStop();">
+                        Stop Message
+                    </a> 
+                </div>
+                <!-- END: Player -->
+
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <a href="#" data-role="button" data-icon="search" data-mini="true" onclick="$('#search_box').toggle();" data-theme="b">Search Options</a>
+                <div id="search_box" style="display: none;">
+                    <div data-role="fieldcontain">
+                        <label for="keyword">-Select Keyword-</label>
+                        <select id="keyword">
+                            <option>-Select Keyword-</option>
+                        </select>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="title">Title</label>
+                        <input id="title" />
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="by">By</label>
+                        <input id="by" />
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="msg_type">Type</label>
+                        <select name="msg_type" id="msg_type">
+
+                        </select>
+                    </div>
+                    <div data-role="fieldcontain">
+                        <label for="date">Date</label>
+                        <input id="date" type="date" data-role="datebox"
+                               data-options='{"mode": "calbox", "overrideDateFormat":"%d %b %Y"}' >
+                    </div>
+                    <button type="submit" onclick="search();" data-theme="e">Search</button>
+                </div>
+                <table data-role="table" id="message_table" data-mode="reflow" class="ui-responsive table-stroke table-stripe">
+                    <thead>
+                        <tr>
+                            <th data-priority="1">Title</th>
+                            <th data-priority="persist">Date</th>
+                            <th data-priority="2">By</th>
+                            <th data-priority="3">Type</th>
+                            <th data-priority="4"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5"><img src="img/ajax-load-black.gif"> Loading data</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div id="usages_pagination"></div>
+                <div id="pagination" data-role="controlgroup" data-type="horizontal" style="display: none;">
+                    <a id="pagination_previous" href="#" onclick="" data-role="button" data-theme="b">Previous</a>
+                    <a id="pagination_current" href="#" onclick="" data-role="button" data-theme="b">1</a>
+                    <a id="pagination_next" href="#" onclick="" data-role="button" data-theme="b">Next</a>
+                </div>
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+            var currentMessage = null;
+
+            getkeyword();
+
+            function getkeyword() {
+                global.api('get_keyword', {}, get_keyword_display);
+            }
+
+            function get_keyword_display(result) {
+                var keywords = result.details['keywords'];
+                var row = '';
+                for (var i = 0; i < keywords.length; i++) {
+                    row = row + '<option value="' + keywords[i] + '">' + keywords[i] + '</option>';
+                }
+                $('#keyword').append(row);
+                $("#keyword").selectmenu('refresh', true);
+            }
+
+            function search() {
+                var keyword = $('#keyword').val();
+                var title = $('#title').val();
+                var type = $('#msg_type').find(":selected").val();
+                var by = $('#by').val();
+                var date = $('#date').val();
+                global.api('prayer_messages', {user_id: user_id, title: title, keyword: keyword, type: type, by: by, date: date}, messages_display);
+            }
+
+            balance_display_in_button();
+
+            messages_show_page(0);
+
+            function messages_show_page(page) {
+                global.api('prayer_messages', {user_id: user_id, page: page}, messages_display);
+            }
+
+            function messages_display(result) {
+                var message_type = result.details['message_type'];
+                var messages = result.details['messages'];
+                var messages_count = result.details['messages_count'];
+                var pages_count = result.details['pages_count'];
+                var page = result.details['page'];
+                var rows = '';
+                for (var i = 0; i < messages.length; i++) {
+                    var message = messages[i];
+                    var row = '<tr>';
+                    row += '<td><a href="prayer-line-message.html?message_id='+message["msg_id"]+'"><img src="img/daily_devotional.png" alt="" /></a></td>';
+//                    row += '<td>' + message["msg_title"] + '</td>';
+//                    row += '<td>' + message["msg_date"] + '</td>';
+//                    row += '<td>' + message["msg_by"] + '</td>';
+//                    row += '<td>' + message["msg_type"] + '</td>';
+//                    row += '<td>';
+//                    row += '<a class="btn-success" data-role="button" data-mini="true" data-inline="true" data-theme="b"  href="#playerDialog" onclick="currentMessage=\'' + message["entity_id"] + '-' + user_id + '-' + message["msg_id"] + '\';playerPlay();" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-delete ui-btn-icon-left ui-btn-b">Play Message</a>';
+//                    row += '<a href="#" data-role="button" data-mini="true" data-inline="true" data-theme="b" onclick="playListAdd(\'' + message["msg_id"] + '\');">Add to PlayList</a>';
+//                    row += '</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                if (rows !== '') {
+                    $('#pagination').show();
+                }
+                if (rows === '') {
+                    var row = '<tr>';
+                    row += '<td colspan="5">No messages found</td>';
+                    row += '</tr>';
+                    rows += row;
+                }
+                $('#message_table tbody').html(rows);
+                $('#message_table').table('refresh');
+                $('.btn-success').css('background', 'green');
+                try {
+                    $('#message_table a').button().button('refresh');
+                } catch (e) {
+
+                }
+
+                $('#pagination_previous').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_current').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                $('#pagination_next').attr('onclick', '').unbind("click").addClass('ui-disabled').removeClass('ui-focus');
+                if (page > 0) {
+                    $('#pagination_previous').removeClass('ui-disabled').click(function() {
+                        messages_show_page(page - 1);
+                    });
+                }
+                $('#pagination_current .ui-btn-text').html(page + 1);
+                $('#pagination_current').removeClass('ui-disabled').click(function() {
+                    messages_show_page(page);
+                });
+                if ((page + 1) < pages_count) {
+                    $('#pagination_next').removeClass('ui-disabled').click(function() {
+                        messages_show_page(page + 1);
+                    });
+                }
+                var type_rows = '<option value="" selected="selected">- Select Type -</option>';
+                for (var i = 0; i < message_type.length; i++) {
+                    var mesg_type = message_type[i]['msg_type'];
+                    type_rows += '<option value="' + mesg_type + '">' + mesg_type + '</option>';
+                }
+                $('#msg_type').html(type_rows);
+                $("#msg_type").selectmenu('refresh', true);
+                $('#search_box').hide();
+            }
+
+            function player() {
+                $('#dialog').modal('show');
+            }
+
+            function playListAdd(message_id) {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var data = {message_id: message_id, user_id: user_id};
+                global.api('play_list_add', data, playListAddSuccess);
+            }
+
+            function playListAddSuccess(response) {
+                alert(response.details);
+                if (response.result === 'success') {
+                    window.location.href = 'prayer-line-messages.html';
+                }
+            }
+
+            function deleteMessage(message_id) {
+                var user = global.getUser();
+                var user_id = user.getId();
+                var data = {msg_id: message_id, user_id: user_id};
+                global.api('delete_message', data, deleteMessageSuccess);
+            }
+
+            function deleteMessageSuccess(response) {
+                alert(response.details);
+                if (response.result === 'success') {
+                    window.location.href = 'prayer-line-messages.html';
+                }
+            }
+        </script>
+
+        <script src="js/sip-0.6.2.min.js" type="text/javascript" language="javascript"></script>
+        <audio id="remoteAudio"></audio>
+        <audio id="localAudio" muted="muted"></audio>
+        <script type="text/javascript">
+            var asterisk_pbx = {
+                // ws_server_max_reconnection: 1000,
+                connectionRecoveryMinInterval: 4,
+                connectionRecoveryMaxInterval: 30,
+                hackIpInContact: true,
+                register: true,
+                registerExpires: 90,
+                registrarServer: 'sip:178.62.57.196',
+                viaHost: '178.62.57.196',
+                autostart: true,
+                traceSip: false,
+                turnServers: [
+                    {
+                        urls: 'turn:178.62.57.196:3478',
+                        username: 'pbxuser',
+                        password: 'qweasd123'
+                    }
+                ],
+                // stunServers: ['stun:stun.l.google.com:19302'],
+                // stunServers: ['stun:null'],
+                wsServers: [
+                    {
+                        ws_uri: 'wss://178.62.57.196:8089/ws',
+                        weight: 10
+                    },
+                    {
+                        ws_uri: 'ws://178.62.57.196:8088/ws',
+                        weight: 1
+                    }
+                ],
+                uri: 'sip:testwebrtc@178.62.57.196',
+                authorizationUser: 'testwebrtc',
+                password: 'qweasd123',
+                displayName: 'testwebrtc',
+            };
+
+            var userAgent = new SIP.UA(asterisk_pbx);
+
+            var options = {
+                media: {
+                    constraints: {
+                        audio: true,
+                        video: false
+                    },
+                    render: {
+                        remote: {
+                            audio: document.getElementById('remoteAudio')
+                        },
+                        local: {
+                            audio: document.getElementById('localAudio')
+                        }
+                    }
+                }
+            };
+
+            function playMessage(button, messageInvite) {
+                var message = 'playMessage-' + messageInvite;
+
+                if (typeof session !== 'undefined') {
+                    session.bye();
+                }
+
+                if ($(button).hasClass('btn-success')) {
+                    session = userAgent.invite(message, options);
+                    $(button).removeClass('btn-success').addClass('btn-warning');
+                    $(button).find(".ui-btn-text").text("Stop Message");
+                    //$(button).find(".ui-btn-text").html('<img src="img/control_stop.png">');
+                    $(button).css('background', 'red');
+                    $(button).button().button('refresh');
+                } else {
+                    $(button).removeClass('btn-warning').addClass('btn-success');
+                    $(button).find(".ui-btn-text").text("Play Message");
+                    //$(button).find(".ui-btn-text").html('<img src="img/control_play.png">');
+                    $(button).css('background', 'green');
+                    $(button).button().button('refresh');
+                }
+            }
+
+            $(window).unload(function() {
+                if (typeof session !== 'undefined') {
+                    session.bye();
+                }
+            });
+        </script>
+    </body>
+</html>

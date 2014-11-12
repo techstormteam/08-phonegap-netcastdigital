@@ -39,6 +39,8 @@
 		D0165D7519E554CE00B6BCC1 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = D0165D6E19E554CE00B6BCC1 /* Default-Portrait~ipad.png */; };
 		D0165D7619E554CE00B6BCC1 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D0165D6F19E554CE00B6BCC1 /* Default@2x~iphone.png */; };
 		D0165D7719E554CE00B6BCC1 /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D0165D7019E554CE00B6BCC1 /* Default~iphone.png */; };
+		D01F46791A1248C100B2E56C /* FileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D01F46781A1248C000B2E56C /* FileWriter.m */; };
+		D01F467D1A124DB800B2E56C /* LinPhonePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D01F467C1A124DB800B2E56C /* LinPhonePlugin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,10 @@
 		D0165D6E19E554CE00B6BCC1 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		D0165D6F19E554CE00B6BCC1 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		D0165D7019E554CE00B6BCC1 /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = "<group>"; };
+		D01F46781A1248C000B2E56C /* FileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileWriter.m; sourceTree = "<group>"; };
+		D01F467A1A12490E00B2E56C /* FileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileWriter.h; sourceTree = "<group>"; };
+		D01F467B1A124DA500B2E56C /* LinPhonePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinPhonePlugin.h; sourceTree = "<group>"; };
+		D01F467C1A124DB800B2E56C /* LinPhonePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinPhonePlugin.m; sourceTree = "<group>"; };
 		EB87FDF21871DA7A0020F90C /* merges */ = {isa = PBXFileReference; lastKnownFileType = folder; name = merges; path = ../../merges; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
@@ -128,6 +134,10 @@
 				302D95F014D2391D003F00A1 /* MainViewController.xib */,
 				1D3623240D0F684500981E51 /* AppDelegate.h */,
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
+				D01F46781A1248C000B2E56C /* FileWriter.m */,
+				D01F467A1A12490E00B2E56C /* FileWriter.h */,
+				D01F467B1A124DA500B2E56C /* LinPhonePlugin.h */,
+				D01F467C1A124DB800B2E56C /* LinPhonePlugin.m */,
 			);
 			name = Classes;
 			path = Netcastdigital/Classes;
@@ -414,7 +424,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D01F46791A1248C100B2E56C /* FileWriter.m in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				D01F467D1A124DB800B2E56C /* LinPhonePlugin.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 			);

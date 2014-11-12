@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Credit Notes</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="format-detection" content="telephone=no" />
+        <!--<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />-->
+        <meta name="viewport" content="width=320, initial-scale=1" />
+        <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
+        <link rel="stylesheet" href="css/common.css" />
+        <script src="js/jquery/jquery.js"></script>
+        <script src="js/jquery-mobile/jquery.mobile.js"></script>
+        <script type="text/javascript" src="js/class.user.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <link rel="stylesheet" href="js/jquery-mobile-datebox/jqm-datebox.min.css" />
+        <script src="js/jquery-mobile-datebox/jqm-datebox.core.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.calbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.durationbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.flipbox.min.js"></script>
+        <script src="js/jquery-mobile-datebox/jqm-datebox.mode.slidebox.min.js"></script>         
+    </head>
+    <body>
+        <div data-role="page" data-add-back-btn="true">
+            <!-- START: Title -->
+            <div data-role="header">
+                <a href="account-credit-notes.html" rel="external" data-icon="back" class="button_back">Back</a>
+                <a href="index.html" data-icon="home" rel="external" data-theme="b">Home</a>
+                <h1 id="title">Auto Renew Packages</h1>
+            </div>
+            <!-- END: Title -->
+
+            <!-- START: Content -->
+            <div data-role="content">
+                <button id="make_payment" type="submit" onclick="window.location.href = 'payment-create.html';" data-theme="e">
+                    Make Payment
+                </button>  
+                <select id="selectRenewPackage">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+                <button id="make_payment" type="submit" onclick="renew_package();" data-theme="b">
+                    Submit
+                </button>
+            </div>
+            <!-- END: Content -->            
+        </div>
+        <script type="text/javascript">
+            app.initialize();
+            if (global.get('auth') === null) {
+                window.location = 'login.html';
+            }
+        </script>
+        <script>
+            var user = global.getUser();
+            var user_id = user.getId();
+
+            balance_display_in_button();
+            getData();
+            function getData() {
+                global.api('get_renew_package', {user_id: user_id}, renew_package_display);
+            }
+            
+            function renew_package_display(response){
+               var data = response.details['data'];
+               $('#selectRenewPackage').val(data); 
+               $('#selectRenewPackage').selectmenu('refresh',true);
+            }
+            
+            function renew_package(){
+                global.api('change_renew_package', {user_id: user_id, value: $("#selectRenewPackage").val()}, change_renew_package_display);
+              //  alert('opala');
+            }
+            
+            function change_renew_package_display(response){
+                if (response.result === 'success') {
+                    alert(response.details);                   
+                }
+            }
+        </script>
+    </body>
+</html>

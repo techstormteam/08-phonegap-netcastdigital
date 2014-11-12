@@ -9,4 +9,7 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
+    <feature name="LinPhonePlugin">
+        <param name="ios-package" value="LinPhonePlugin" />
+    </feature>
 </widget>
