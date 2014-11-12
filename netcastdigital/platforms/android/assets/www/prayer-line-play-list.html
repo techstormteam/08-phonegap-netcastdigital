@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -491,7 +493,7 @@
 
             function delete_message_display(response) {
                 if (response.result === 'success') {
-                    alert(response.details);
+                    swal(response.details);
                     window.location.href = 'prayer-line-play-list.html';
                 }
             }
@@ -504,7 +506,7 @@
             }
 
             function autoplay_display(response) {
-                alert(response.details);
+                swal(response.details);
                 if (response.result === 'success') {
                     window.location.href = 'prayer-line-play-list.html';
                 }
@@ -514,7 +516,7 @@
                 var user = global.getUser();
                 var user_id = user.getId();
                 global.api('play_list_update', {user_id: user_id, msg_id: messageID, newPriority: newPlayPriority}, function(data) {
-                    alert(data.details);
+                    swal(data.details);
                     searchProcess(); // Execute search
                 });
             }
@@ -648,7 +650,6 @@
 	            	}
 	                window.backWind('empty', function(message) {
 	                	//empty
-	                	alert('sss');
 	                });
                 } else {
                 	countdownTimeSecs = 0;
