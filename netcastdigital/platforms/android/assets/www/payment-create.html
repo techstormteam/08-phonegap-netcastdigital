@@ -208,10 +208,10 @@
             });
         </script>
         <script>
-            if (window.location.href.indexOf('/prayerline/') !== -1) {
+            //if (window.location.href.indexOf('/prayerline/') !== -1) {
                 $('#creditTransferPayment').hide();
                 global.api('religious_entity_charge', {user_id: global.getUser().getId()}, religious_entity_charge_response);
-            }
+            //}
             function religious_entity_charge_response(response) {
                 if (response.result === 'success') {
                     var gbp_charge = response.details['gbp_charge'];
