@@ -87,7 +87,7 @@
 
         function  user_transfer_credits_response(response) {
             if (response.result === 'success') {
-                swal(response.details);
+                global.showPopup('', response.details, 'success');
                 window.location.href = 'index.html';
             } else {
                 $('#message').html('<span style="color:red;">' + response.details + '</span>').show();

@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=320, initial-scale=1" />
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -55,7 +57,7 @@
                 //var query = page.data("url").split("?")[1];
                 //get plan id from localStorage 
                 var msgId = localStorage["prayer-line-player-msg"];
-                alert(msgId);
+                global.showPopup('', msgId, 'success');
                 console.log(msgId);
                 //$("input[name=Title]", this).val(planid);
             });

@@ -12,6 +12,8 @@
         -->
         <link rel="stylesheet" href="js/jquery-mobile/jquery.mobile.css" />
         <link rel="stylesheet" href="css/common.css" />
+        <link rel="stylesheet" type="text/css" href="css/sweet-alert.css">
+        <script type="text/javascript" src="js/sweet-alert.js"></script>
         <script src="js/jquery/jquery.js"></script>
         <script src="js/jquery-mobile/jquery.mobile.js"></script>
         <script type="text/javascript" src="js/class.user.js"></script>
@@ -405,7 +407,7 @@
             }
 
             function playListAddSuccess(response) {
-                alert(response.details);
+                global.showPopup('', response.details, 'success');
                 if (response.result === 'success') {
                     window.location.href = 'prayer-line-messages.html';
                 }
@@ -419,7 +421,7 @@
             }
 
             function deleteMessageSuccess(response) {
-                alert(response.details);
+                global.showPopup('', response.details, 'success');
                 if (response.result === 'success') {
                     window.location.href = 'prayer-line-messages.html';
                 }

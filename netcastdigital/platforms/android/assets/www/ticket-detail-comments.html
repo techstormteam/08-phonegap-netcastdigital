@@ -124,7 +124,7 @@
             
             function ticket_note_add_response(response) {
                 if (response.result === 'success') {
-                    swal(response.details);
+                    global.showPopup('', response.details, 'success');
                     location.reload();                
                 } else {
                     $('#message').html('<span style="color:red;">' + response.details + '</span>').show();

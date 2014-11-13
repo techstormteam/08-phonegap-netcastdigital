@@ -257,20 +257,20 @@
 
             function message_display(response) {
                 if (response.result !== 'success') {
-                    //  swal(response.details);
+                    //  global.showPopup('', response.details, 'success');
                     window.location.href = 'prayer-line-messages.html';
                 }
 
                 currentMessage = response.details.messages[0];
 
                 //if (message === null) {
-                //    swal('Unrecognized message');
+                //    global.showPopup('', response.details, 'success');
                 //    window.location.href = 'prayer-line-messages.html';
                 //}
-                // swal(message['msg_by']);
+                // global.showPopup('', message['msg_by'], 'success');
                 console.log(currentMessage);
                 $('#message_title').html(currentMessage['msg_title']);
-                //swal(message['msg_title']);
+                //global.showPopup('', message['msg_title'], 'success');
                 $('#message_title_dialog').html(currentMessage['msg_title']);
 
                 $('#message_author_dialog').html(currentMessage['msg_by']);
@@ -310,7 +310,7 @@
             }
 
             function addMessageToPlaylistResponse(response) {
-                swal(response.details);
+                global.showPopup('', response.details, 'success');
                 //if (response.result === 'success') {
                 //    window.location.href = 'prayer-line-messages.html';
                 //}
@@ -490,13 +490,13 @@
 //            });
 
             function rating_mouseover(rating) {
-                //swal(rating);
+                //global.showPopup('', rating, 'success');
                 
 
                 for (i = 6; i <= 10; i++) {
                     if (i <= rating) {
                         $('#rating_img_' + i).attr('src', 'img/star-on.png');
-                       // swal(i);
+                       // global.showPopup('', i, 'success');
                         $('#rating_message').html('Current Rating: ' + (i-5));
                         $('#rating').val(i-5);
                     } else {
@@ -507,7 +507,7 @@
             }
             
             function rating_defout(rating) {
-              //swal(rating);
+              //global.showPopup('', rating, 'success');
               //$('#rating').val(rating);
 
                 for (i = 1; i <= 5; i++) {
@@ -529,7 +529,7 @@
 
             function set_rating_response(response) {
                 if (response.result === 'success') {
-                    swal(response.details);
+                    global.showPopup('', response.details, 'success');
                     location.reload();
                 } else {
                     $('#message').html('<span style="color:red;">' + response.details + '</span>').show();

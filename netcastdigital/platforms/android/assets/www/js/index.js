@@ -50,6 +50,8 @@ var app = {
     
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+    	//global.showPopup('', 'ffff', 'success');
+    	// global.showPopup('dd', 'sss', 'error');
         if (global.get('auth') !== null) {
         	var user = global.getUser();
         	global.getSipUsernameApi(user.data.email, user.data.uipass, app.sipRegister);
@@ -272,7 +274,7 @@ function Global() {
      * @returns {undefined}
      */
     this.showPopup = function(title, message, type) {
-        if (type !== 'success' || type !== '') {
+        if (type === '' || type === undefined) {
             sweetAlert(title,message,'error');
         } else {
             sweetAlert(title, message, type);

@@ -168,7 +168,7 @@
                 }
                 function get_code_response(response) {
                     if (response.result === 'success') {
-                        swal(response.details);
+                        global.showPopup('', response.details, 'success');
                         window.location.href = 'index.html';
                     } else {
                         $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
@@ -208,7 +208,7 @@
 
                 function change_profile_response(response) {
                     if (response.result === 'success') {
-                        swal(response.details);
+                        global.showPopup('', response.details, 'success');
                         window.location.href = 'calling-circles.html';
                     } else {
                         $('#message').html('<span style="color:red;">' + response.details + '</span>').show();
