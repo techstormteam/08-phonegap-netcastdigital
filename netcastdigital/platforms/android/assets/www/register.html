@@ -115,15 +115,18 @@
 
             function register(response) {
                 if (response.result === 'success') {
-                    $('#message').html("<span style='color:green;'>" + response.details + "</span>").show();
-                    setTimeout(function () {
-                        window.location.href = 'login.html';
-                    }, 15000);
+                	global.showPopup('', response.details,'success', onSuccessRegister);
+                    //$('#message').html("<span style='color:green;'>" + response.details + "</span>").show();
 
                 } else {
-                    $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
+                    //$('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
+                    global.showPopup('', response.details,'error');
                 }
             }
+
+			function onSuccessRegister() {
+				window.location.href = 'login.html';
+			}
 
             function check_form() {
                 var firstName = $('#firstName').val();
@@ -137,29 +140,37 @@
                 $('#message').hide();
 
                 if (firstName === '') {
-                    var msg = "<span style='color:red;'>Please enter first name...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please enter first name...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please enter first name...','error');
                 } else if (lastName === '') {
-                    var msg = "<span style='color:red;'>Please enter last name...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please enter last name...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please enter last name...','error');
                 } else if (phone === '') {
-                    var msg = "<span style='color:red;'>Please enter phone...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please enter phone...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please enter phone...','error');
                 } else if (email === '') {
-                    var msg = "<span style='color:red;'>Please enter email...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please enter email...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please enter email...','error');
                 } else if (password === '') {
-                    var msg = "<span style='color:red;'>Please enter password...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please enter password...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please enter password...','error');
                 } else if (password_re === '') {
-                    var msg = "<span style='color:red;'>Please re-enter password...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please re-enter password...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please re-enter password...','error');
                 } else if (password_re !== password) {
-                    var msg = "<span style='color:red;'>Password and Re-enter Password must be the same...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Password and Re-enter Password must be the same...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Password and Re-enter Password must be the same...','error');
                 } else if (prayerline === '') {
-                    var msg = "<span style='color:red;'>Please enter prayerline...</span>";
-                    $('#message').html(msg).show();
+                    //var msg = "<span style='color:red;'>Please enter prayerline...</span>";
+                    //$('#message').html(msg).show();
+                    global.showPopup('', 'Please enter prayerline...','error');
                 } else {
                     global.set('auto_login', false);
                     global.api('register_user', {fname: firstName, lname: lastName, email: email, telno: phone, password: password, prayerline: prayerline}, register);
