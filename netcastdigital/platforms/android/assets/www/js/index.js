@@ -273,11 +273,35 @@ function Global() {
      * @param {type} type - error / success
      * @returns {undefined}
      */
-    this.showPopup = function(title, message, type) {
+    this.showPopup = function(title, message, type, callback) {
         if (type === '' || type === undefined) {
-            sweetAlert(title,message,'error');
+            if (callback === ''|| callback === undefined) {
+            	sweetAlert(title,message,'error');
+            } else {
+            	swal({   
+            		title: title,   
+            		text: message,   
+            		type: 'error',   
+//            		showCancelButton: true,   
+//            		confirmButtonColor: "#DD6B55",   
+//            		confirmButtonText: "OK",   
+            		closeOnConfirm: false }, 
+            		callback);
+            }
         } else {
-            sweetAlert(title, message, type);
+        	if (callback === ''|| callback === undefined) {
+        		sweetAlert(title, message, type);
+        	} else {
+        		swal({   
+            		title: title,   
+            		text: message,   
+            		type: type,   
+//            		showCancelButton: true,   
+//            		confirmButtonColor: "#DD6B55",   
+//            		confirmButtonText: "OK",   
+            		closeOnConfirm: false }, 
+            		callback);
+        	}
         }
     };
     
@@ -295,7 +319,6 @@ function Global() {
     	var user = global.getUser();
     	var email = user.data.email;
     	var password = user.data.uipass;
-		
     	if (email !== null && password !== null) {
     		this.getAppState(email, password, this.deregisterUserCall);
         }
