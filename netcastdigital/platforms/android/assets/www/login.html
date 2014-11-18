@@ -131,28 +131,35 @@
                 if (response.result === 'success') {
                     global.set('auth', json_encode(response.details));
                     if(response.details['status']==='9'){
-                        $('#message').html("<span style='color:red;'>Account awaiting activayion</span>").show();
-                        window.location.href = 'account-activate.html';
+                    	global.showPopup("", "Account awaiting activayion", "error", function() {
+                    		window.location.href = 'account-activate.html';
+                    	});
+                        //$('#message').html("<span style='color:red;'>Account awaiting activayion</span>").show();
+                        
                         return;
                     }
                     
                     window.location.href = 'index.html';
                     return;
                 } else {
-                    $('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
+                	global.showPopup("", response.details, "error");
+                    //$('#message').html("<span style='color:red;'>" + response.details + "</span>").show();
                 }
             }
+            
             function check_form() {
                 var username = $('#username').val();
                 var password = $('#password').val();
                 $('#message').hide();
                 if (username === '') {
-                    var msg = "<span style='color:red;'>Please enter username...</span>";
-                    $('#message').html(msg).show();
+                	global.showPopup("", "Please enter username...", "error");
+                    //var msg = "<span style='color:red;'>Please enter username...</span>";
+                    //$('#message').html(msg).show();
                 }
                 else if (password === '') {
-                    var msg = "<span style='color:red;'>Please enter password...</span>";
-                    $('#message').html(msg).show();
+                	global.showPopup("", "Please enter password...", "error");
+                    //var msg = "<span style='color:red;'>Please enter password...</span>";
+                    //$('#message').html(msg).show();
                 }
                 else {
                     global.set('auto_login', false);
